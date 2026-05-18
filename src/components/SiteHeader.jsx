@@ -9,12 +9,12 @@ const year = new Date().getFullYear();
 
 export default function SiteHeader() {
   return (
-    <header className="grid grid-cols-12 gap-x-6 p-4 font-mono uppercase font-light tracking-[0.08em] text-[11px] text-[var(--dim)] border-b border-[var(--line)]">
-      <span className="col-start-1 col-span-2 ">
+    <header className="grid grid-cols-3 items-center gap-x-6 p-4 font-mono uppercase font-light tracking-[0.08em] text-[11px] text-[var(--dim)] border-b border-[var(--line)]">
+      <span>
         Logo
       </span>
 
-      <nav className="col-start-4 col-span-6 flex justify-center gap-4" >
+      <nav className="flex justify-center gap-6">
         {navLinks.map((link) => {
           return (
             <a key={link.name} href={link.href} className="hover:text-fg">
@@ -23,7 +23,7 @@ export default function SiteHeader() {
           );
         })}
       </nav>
-      <span className="col-start-11 col-span-2 text-right">Portfolio / {year}</span>
+      <span className="text-right">Portfolio / {year}</span>
     </header>
   );
 }
