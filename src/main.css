@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  /* Colori */
+  --bg: #f6f2e8;
+  --fg: #0a0a0a;
+  --accent: #0a0a0a;
+
+  --dim: color-mix(in oklab, var(--fg) 60%, var(--bg));
+  --fade: color-mix(in oklab, var(--fg) 45%, var(--bg));
+  --line: color-mix(in oklab, var(--fg) 20%, var(--bg));
+  --soft: color-mix(in oklab, var(--fg) 6%, var(--bg));
+
+  --display-scale: 0.92;
+  --body-weight: 400;
+}
+
+@theme {
+  /* Colori */
+  --color-bg: #f6f2e8;
+  --color-fg: #0a0a0a;
+  --color-accent: #0a0a0a;
+
+  /* Tipografia */
+  --font-display: "Archivo Black", sans-serif;
+  --font-body: "Hanken Grotesk", -apple-system, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-italic: "Newsreader", Georgia, serif;
+}
