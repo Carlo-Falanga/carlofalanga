@@ -27,3 +27,7 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --font-italic: "Newsreader", Georgia, serif;
 }
+
+html, body{
+    background-color: var(--bg);
+}
