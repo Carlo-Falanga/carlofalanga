@@ -1,13 +1,12 @@
-import AppHeader from "./components/AppHeader";
-import HomePage from "./pages/HomePage";
-import AppFooter from "./components/AppFooter";
+import SiteHeader from "./components/Header/SiteHeader";
+import SiteFooter from "./components/Footer/SiteFooter";
 
 function App() {
   return (
     <>
-      <AppHeader />
-      <HomePage />
-      <AppFooter />
+      <SiteHeader />
+      <div>Main Page</div>
+      <SiteFooter />
     </>
   );
 }
