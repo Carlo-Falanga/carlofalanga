@@ -31,3 +31,25 @@
 html, body{
     background-color: var(--bg);
 }
+
+.btn_underline {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+.btn_underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--fg);
+  transform-origin: left;
+  transition: transform 0.25s;
+}
+
+.btn_underline:hover::after {
+  transform: scaleX(1.04);
+}
