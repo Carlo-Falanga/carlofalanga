@@ -1,11 +1,15 @@
+import AppHeader from "./components/AppHeader";
+import HomePage from "./pages/HomePage";
+import AppFooter from "./components/AppFooter";
+
 function App() {
-
-
   return (
     <>
-    <h1>Hello World</h1>
+      <AppHeader />
+      <HomePage />
+      <AppFooter />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
