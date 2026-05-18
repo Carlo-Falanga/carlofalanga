@@ -17,10 +17,15 @@ export default function Hero() {
       </div>
       <p className="col-start-6 col-span-6">
         Costruisco applicazioni web full-stack con React, Node ed Express.
-        Interfacce <em className="font-italic">responsive</em>, codice strutturato, dettagli curati — un
-        background da graphic designer che si vede solo dove serve.
+        Interfacce <em className="font-italic">responsive</em>, codice
+        strutturato, dettagli curati - un background da graphic designer che si
+        vede solo dove serve.
       </p>
-      <div className="col-start-6 col-span-6">bottoni</div>
+      <div className="col-start-6 col-span-6 flex gap-6">
+        <a href="#selectedwork" className="btn_underline pb-1">View selected work →</a>
+        <a href="" className="btn_underline pb-1">Download CV ↓</a>
+        <a href="#getintouch" className="btn_underline pb-1">Get in touch →</a>
+      </div>
     </section>
   );
 }
