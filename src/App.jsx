@@ -5,7 +5,7 @@ import SiteFooter from "./components/SiteFooter";
 function App() {
   return (
     <>
-      <div>
+      <div className="max-w-[1280px] mx-auto">
         <SiteHeader />
         <div>Main Page</div>
         <SiteFooter />
