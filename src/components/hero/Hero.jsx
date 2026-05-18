@@ -15,7 +15,7 @@ export default function Hero() {
       <div className="col-start-1 col-span-4">
         <HeroTable />
       </div>
-      <p className="col-start-6 col-span-6">
+      <p className="col-start-6 col-span-6 text-[18px]">
         Costruisco applicazioni web full-stack con React, Node ed Express.
         Interfacce <em className="font-italic">responsive</em>, codice
         strutturato, dettagli curati - un background da graphic designer che si
