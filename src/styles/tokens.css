@@ -1,12 +1,24 @@
 :root {
   /* --- Primari --- */
-  --bg: #f6f2e8;      /* Paper — sfondo */
-  --fg: #0a0a0a;      /* Mono Black — testo */
-  --accent: #0a0a0a;  /* L3 non ha accento, coincide con fg */
+  --bg: #f6f2e8; /* Paper — sfondo */
+  --fg: #0a0a0a; /* Mono Black — testo */
+  --accent: #0a0a0a; /* L3 non ha accento, coincide con fg */
 
   /* --- Derivati (sfumature di fg su bg) --- */
-  --dim:  color-mix(in oklab, var(--fg) 60%, var(--bg));  /* label/meta */
-  --fade: color-mix(in oklab, var(--fg) 45%, var(--bg));  /* testo disabilitato */
-  --line: color-mix(in oklab, var(--fg) 20%, var(--bg));  /* bordi/righe */
-  --soft: color-mix(in oklab, var(--fg) 6%,  var(--bg));  /* bg molto tenue */
+  --dim: color-mix(in oklab, var(--fg) 60%, var(--bg)); /* label/meta */
+  --fade: color-mix(in oklab, var(--fg) 45%, var(--bg));
+
+  /* testo disabilitato */
+  --line: color-mix(in oklab, var(--fg) 20%, var(--bg)); /* bordi/righe */
+  --soft: color-mix(in oklab, var(--fg) 6%, var(--bg)); /* bg molto tenue */
+
+  /* --- Tipografia --- */
+  --font-display: "Archivo Black", sans-serif;
+  --font-body: "Hanken Grotesk", -apple-system, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-italic: "Newsreader", Georgia, serif;
+
+  /* --- Modificatori tipografici --- */
+  --display-scale: 0.92; /* moltiplicatore sui font-size dei titoli */
+  --body-weight: 400; /* peso del body text */
 }

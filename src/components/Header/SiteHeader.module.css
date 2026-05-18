@@ -1,0 +1,38 @@
+.header {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 24px;
+  padding: 18px 56px;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+  border-bottom: 1px solid var(--line);
+}
+
+.mark {
+  grid-column: 1 / span 3;
+}
+
+.nav {
+  display: flex;
+  gap: 24px;
+  grid-column: 5 / span 5;
+}
+
+.nav a {
+  color: var(--dim);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.nav a:hover {
+  color: var(--fg);
+}
+
+.right {
+  grid-column: 11 / span 2;
+  text-align: right;
+}
