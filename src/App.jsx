@@ -7,7 +7,7 @@ import SpecStrip from "./components/specStrip/SpecStrip";
 function App() {
   return (
     <>
-      <div className="max-w-[1280px] mx-auto">
+      <div className="max-w-7xl mx-auto">
         <SiteHeader />
         <Hero/>
         <SpecStrip/>

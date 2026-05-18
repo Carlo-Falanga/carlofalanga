@@ -9,7 +9,7 @@ const year = new Date().getFullYear();
 
 export default function SiteHeader() {
   return (
-    <header className="grid grid-cols-3 items-center gap-x-6 p-4 font-mono uppercase font-light tracking-[0.08em] text-[11px] text-[var(--dim)] border-b border-[var(--line)]">
+    <header className="grid grid-cols-3 items-center gap-x-6 p-4 font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim) border-b border-(--line)">
       <span>
         Logo
       </span>
