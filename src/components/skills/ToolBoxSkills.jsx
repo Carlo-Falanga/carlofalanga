@@ -18,13 +18,13 @@ const skills = [
   { name: "MySQL",       category: "Database", Icon: SiMysql,      hoverBg: "rgba(68, 121, 161, 0.15)"  },
 ];
 
-const toolbox = ["Git", "GitHub", "Figma", "VS Code", "Postman", "Vite", "REST API"];
+const toolbox = ["Git", "GitHub", "VS Code", "Postman", "Vite", "REST API"];
 
 export default function ToolBoxSkills() {
   return (
     <div className="flex flex-col gap-10">
 
-      {/* Griglia delle skill */}
+      {/* Skills Grid*/}
       <div className="grid grid-cols-2 md:grid-cols-4 border-t border-l border-(--line)">
 
         {skills.map((skill) => (
@@ -33,12 +33,12 @@ export default function ToolBoxSkills() {
             style={{ "--hover-bg": skill.hoverBg }}
             className="border-b border-r border-(--line) p-6 flex flex-col justify-between gap-10 hover:bg-(--hover-bg) transition-colors duration-200 cursor-default"
           >
-            {/* Icona dentro un box con bordo */}
+            {/* Icons */}
             <div className="border border-(--line) w-12 h-12 flex items-center justify-center">
               <skill.Icon size={22} />
             </div>
 
-            {/* Nome e categoria */}
+            {/* Name */}
             <div>
               <p className="font-display text-[20px] md:text-[22px]">
                 {skill.name}
@@ -52,7 +52,7 @@ export default function ToolBoxSkills() {
 
       </div>
 
-      {/* Toolbox strip */}
+      {/* Toolbox */}
       <div className="flex flex-col gap-3">
         <span className="font-mono uppercase tracking-[0.08em] text-[11px] text-(--dim)">
           — Toolbox

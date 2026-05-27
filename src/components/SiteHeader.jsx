@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useTheme } from "../hooks/useTheme";
 
 const navLinks = [
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Work", href: "#work" },
-  { name: "Contact", href: "#contact" },
+  { name: "Chi sono", href: "#about" },
+  { name: "Competenze", href: "#skills" },
+  { name: "Lavori", href: "#projects" },
+  { name: "Contatti", href: "#contact" },
 ];
 
 const year = new Date().getFullYear();

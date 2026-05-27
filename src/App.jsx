@@ -4,6 +4,7 @@ import Hero from "./components/hero/Hero";
 import SpecStrip from "./components/specStrip/SpecStrip";
 import About from "./components/about/About";
 import Skills from "./components/skills/Skills"
+import Projects from "./components/projects/Projects"
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <SpecStrip/>
         <About/>
         <Skills/>
+        <Projects/>
         <SiteFooter />
       </div>
     </>
