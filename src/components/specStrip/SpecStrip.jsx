@@ -1,15 +1,9 @@
-const stack = ["react", "node", "express", "mysql"];
-
-const year = new Date().getFullYear();
+const stack = ["JavaScript", "React", "Express", "PHP", "Laravel", "MySQL"];
 
 export default function SpecStrip() {
   return (
-    <div className="grid grid-cols-4 items-baseline gap-x-6 p-4 px-12 border-y border-(--line) font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim)">
-      <div>
-        <span className="font-body text-[13px] text-(--accent)">•</span>{" "}
-        Open to opportunities
-      </div>
-      <div className="text-center">
+    <div className="grid grid-cols-1 md:grid-cols-2 items-baseline gap-x-6 p-4 md:px-12 border-y border-(--line) font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim)">
+      <div className="py-1 md:py-0 md:text-center">
         <span>Stack - </span>
         <span className="font-body normal-case font-medium tracking-normal text-[13px] text-(--fg)">
           {stack
@@ -17,13 +11,13 @@ export default function SpecStrip() {
             .join(" · ")}
         </span>
       </div>
-      <div className="text-center">
+
+      <div className="py-1 md:py-0 md:text-center">
         <span>Focus - </span>
         <span className="font-body normal-case font-medium tracking-normal text-[13px] text-(--fg)">
-          Frontend / Fullstack
+          Fullstack
         </span>
       </div>
-      <div className="text-right">Edition / {year}</div>
     </div>
   );
 }
