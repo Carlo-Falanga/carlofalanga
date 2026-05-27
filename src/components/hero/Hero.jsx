@@ -7,7 +7,7 @@ export default function Hero() {
         00 Index
       </div>
       <h1 className="col-start-3 col-span-10 font-display text-[124px] leading-[0.94]">
-        Junior
+        Full-Stack
         <br />
         <em className="block font-italic">web developer</em>
       </h1>

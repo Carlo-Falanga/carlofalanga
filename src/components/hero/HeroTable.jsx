@@ -1,6 +1,6 @@
 const jumboTable = [
   { head: "name", data: "Carlo Alberto Falanga" },
-  { head: "role", data: "Junior Web Developer" },
+  { head: "role", data: "Full-Stack Web Developer" },
   { head: "based in", data: "Italy" },
   { head: "currently", data: "Boolean Student" },
 ];
