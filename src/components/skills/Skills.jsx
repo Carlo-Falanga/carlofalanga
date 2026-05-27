@@ -12,7 +12,7 @@ export default function Skills() {
       </div>
 
       {/* Title */}
-      <h2 className="col-span-full md:col-start-3 md:col-span-10 min-w-0 font-display text-[32px] md:text-[80px] leading-[0.94]">
+      <h2 className="col-span-full md:col-start-3 md:col-span-10 min-w-0 font-display text-[32px] md:text-[60px] leading-[0.94]">
         Stack - <em className="font-display ">tools used daily</em>
       </h2>
 

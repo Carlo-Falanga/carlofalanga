@@ -10,8 +10,8 @@ export default function About() {
       </div>
 
       {/* Title */}
-      <h2 className="col-span-full md:col-start-3 md:col-span-10 min-w-0 font-display text-[32px] md:text-[80px] leading-[0.94]">
-        Da <em className="font-italic">graphic design</em>
+      <h2 className="col-span-full md:col-start-3 md:col-span-10 min-w-0 font-display text-[32px] md:text-[60px] leading-[0.94]">
+        Da <em>graphic design</em>
         <br />a web development.
       </h2>
 
@@ -28,12 +28,12 @@ export default function About() {
           MySQL.
         </p>
         <a href="#work" className="btn_underline self-start pb-1">
-          View my work →
+          Vedi i miei lavori →
         </a>
       </div>
 
       {/* Image */}
-      <div className="hidden md:block md:col-start-8 md:col-span-5 bg-(--soft) aspect-3/3 rounded overflow-hidden">
+      <div className="hidden md:block md:col-start-8 md:col-span-5 bg-(--soft) aspect-3/3">
         <img
           src="/images/portfolio-profile-pic.jpg"
           alt="Profile picture"

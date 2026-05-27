@@ -12,7 +12,7 @@ export default function Hero() {
       <h1 className="col-span-full md:col-start-3 md:col-span-10 min-w-0 font-display text-[52px] md:text-[124px] leading-[0.94]">
         Full-Stack
         <br />
-        <em className="block font-italic">web developer</em>
+        <em className="block">web developer</em>
       </h1>
 
       {/* Table */}
@@ -30,14 +30,14 @@ export default function Hero() {
 
       {/* Links */}
       <div className="col-span-full md:col-start-6 md:col-span-6 flex flex-col md:flex-row gap-3 md:gap-6">
-        <a href="#selectedwork" className="btn_underline pb-1">
-          View selected work →
+        <a href="#projects" className="btn_underline pb-1">
+          Scopri i progetti →
         </a>
         <a href="" className="btn_underline pb-1">
-          Download CV ↓
+          Scarica il CV ↓
         </a>
         <a href="#getintouch" className="btn_underline pb-1">
-          Get in touch →
+          Contattami →
         </a>
       </div>
     </section>
