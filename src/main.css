@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  /* Colori */
-  --bg: #f6f2e8;
-  --fg: #0a0a0a;
-  --accent: #0a0a0a;
+  /* Colori — dark (default) */
+  --bg: #0a0a0a;
+  --fg: #ffffff;
+  --accent: #ffffff;
 
   --dim: color-mix(in oklab, var(--fg) 60%, var(--bg));
   --fade: color-mix(in oklab, var(--fg) 45%, var(--bg));
@@ -15,11 +15,17 @@
   --body-weight: 400;
 }
 
+[data-theme="light"] {
+  --bg: #f6f2e8;
+  --fg: #0a0a0a;
+  --accent: #0a0a0a;
+}
+
 @theme {
   /* Colori */
-  --color-bg: #f6f2e8;
-  --color-fg: #0a0a0a;
-  --color-accent: #0a0a0a;
+  --color-bg: #0a0a0a;
+  --color-fg: #ffffff;
+  --color-accent: #ffffff;
 
   /* Tipografia */
   --font-display: "Archivo Black", sans-serif;
@@ -30,6 +36,7 @@
 
 html, body{
     background-color: var(--bg);
+    color: var(--fg);
 }
 
 .btn_underline {
