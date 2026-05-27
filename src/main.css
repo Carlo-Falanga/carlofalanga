@@ -16,7 +16,7 @@
 }
 
 [data-theme="light"] {
-  --bg: #f6f2e8;
+  --bg: #ffffff;
   --fg: #0a0a0a;
   --accent: #0a0a0a;
 }
@@ -34,9 +34,10 @@
   --font-italic: "Newsreader", Georgia, serif;
 }
 
-html, body{
-    background-color: var(--bg);
-    color: var(--fg);
+html, body {
+  background-color: var(--bg);
+  color: var(--fg);
+  overflow-x: hidden;
 }
 
 .btn_underline {
