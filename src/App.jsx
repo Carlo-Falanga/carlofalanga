@@ -2,6 +2,7 @@ import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 import Hero from "./components/hero/Hero";
 import SpecStrip from "./components/specStrip/SpecStrip";
+import About from "./components/about/About";
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <SiteHeader />
         <Hero/>
         <SpecStrip/>
+        <About/>
         <SiteFooter />
       </div>
     </>
