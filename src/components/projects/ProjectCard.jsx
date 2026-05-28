@@ -73,7 +73,7 @@ export default function ProjectCard({ project }) {
                   rel="noreferrer"
                   className="btn_underline flex items-center gap-1 text-[14px]"
                 >
-                  Live demo <LuArrowUpRight size={14} />
+                  Live <LuArrowUpRight size={14} />
                 </a>
               ) : (
                 <span className="flex items-center gap-1 text-[14px] text-(--dim)">
