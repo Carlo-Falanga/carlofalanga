@@ -27,7 +27,7 @@ export default function About() {
           frontend, Node.js e Express per il backend e gestione di database con
           MySQL.
         </p>
-        <a href="#work" className="btn_underline self-start pb-1">
+        <a href="#projects" className="btn_underline self-start pb-1">
           Vedi i miei lavori →
         </a>
       </div>

@@ -13,16 +13,17 @@ export default function FooterCTA() {
         </p>
         <div className="flex flex-col gap-3">
           <a
-            href="/cv.pdf"
+            href="public/cv-carlo-alberto-falanga.pdf"
             className="btn_underline flex items-center gap-2 self-start pb-1"
+            download="cv-carlo-alberto-falanga.pdf"
           >
-            Download CV (.pdf) <LuArrowDown size={14} />
+            Scarica CV (.pdf) <LuArrowDown size={14} />
           </a>
           <a
             href="mailto:carlofalanga7@gmail.com"
             className="btn_underline flex items-center gap-2 self-start pb-1"
           >
-            Or write me an email <LuArrowRight size={14} />
+            Scrivimi una email <LuArrowRight size={14} />
           </a>
         </div>
       </div>
