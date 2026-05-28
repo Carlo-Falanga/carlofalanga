@@ -41,7 +41,7 @@ export default function Projects() {
     >
       {/* Label */}
       <div className="hidden md:block md:col-start-1 md:col-span-2 font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim) pt-4">
-        03 Progetti
+        03 Projects
       </div>
 
       {/* Title */}
