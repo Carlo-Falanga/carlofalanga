@@ -29,7 +29,7 @@ export default function SiteHeader() {
         <nav className="hidden md:flex justify-center gap-6">
           {navLinks.map((link) => {
             return (
-              <a key={link.name} href={link.href} className="whitespace-nowrap hover:text-(--fg)">
+              <a key={link.name} href={link.href} className="whitespace-nowrap hover:text-[#3A86FF]">
                 {link.name}
               </a>
             );
@@ -41,7 +41,7 @@ export default function SiteHeader() {
           <button
             onClick={toggle}
             aria-label="Toggle light/dark mode"
-            className="cursor-pointer hover:text-(--fg) transition-colors"
+            className="cursor-pointer hover:text-[#3A86FF] transition-colors"
           >
             <LuSunMoon size={14} />
           </button>
@@ -50,7 +50,7 @@ export default function SiteHeader() {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
-            className="md:hidden cursor-pointer hover:text-(--fg) transition-colors"
+            className="md:hidden cursor-pointer hover:text-[#3A86FF] transition-colors"
           >
             {menuOpen ? <LuX size={16} /> : <LuMenu size={16} />}
           </button>
@@ -66,7 +66,7 @@ export default function SiteHeader() {
                 key={link.name}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="p-4 border-t border-(--line) hover:text-(--fg)"
+                className="p-4 border-t border-(--line) hover:text-[#3A86FF]"
               >
                 {link.name}
               </a>

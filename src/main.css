@@ -54,7 +54,7 @@ body {
   right: 0;
   bottom: 0;
   height: 1px;
-  background: var(--fg);
+  background: #3A86FF;
   transform-origin: left;
   transition: transform 0.25s;
 }
