@@ -19,7 +19,7 @@ const projects = [
     description: "Portfolio personale progettato e sviluppato da zero. Layout editoriale, dark/light mode, griglia 12 colonne e componenti React riutilizzabili.",
     stack: ["React", "Tailwind CSS", "Vite"],
     github: "https://github.com/Carlo-Falanga/carlofalanga.git",
-    demo: null,
+    demo: "https://carlofalanga.dev",
     image: "/images/screenshot-portfolio.png",
     comingSoon: false,
   },
