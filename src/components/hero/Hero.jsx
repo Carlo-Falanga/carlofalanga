@@ -23,7 +23,8 @@ export default function Hero() {
 
       {/* Text */}
       <p className="col-span-full md:col-start-6 md:col-span-6 text-[16px] text-(--dim) leading-relaxed">
-        Sono uno sviluppatore web full-stack con un percorso che parte dal design. Lavoro su frontend in React e backend con Node, Express e Laravel, curando tanto la logica quanto l'esperienza di chi usa il prodotto.
+        Frontend in React, backend con Node, Express e Laravel. <br />
+        Unisco la parte tecnica a un occhio da designer.
       </p>
 
       {/* Links */}
