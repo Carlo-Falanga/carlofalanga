@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { LuMenu, LuX, LuSunMoon } from "react-icons/lu";
-import { useTheme } from "../hooks/useTheme";
+import { useTheme } from "../context/ThemeContext";
+
 
 const navLinks = [
   { name: "Chi sono", href: "#about" },
@@ -12,13 +13,17 @@ const navLinks = [
 const year = new Date().getFullYear();
 
 export default function SiteHeader() {
-  const { toggle } = useTheme();
+  const { theme, toggle } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header>
       <div className="grid grid-cols-2 md:grid-cols-3 items-center gap-x-6 p-4 font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim) border-b border-(--line)">
-        <span>Carlo Falanga</span>
+        <img
+          src={theme === "dark" ? "/logo/logo-dark.svg" : "/logo/logo-light.svg"}
+          alt="Carlo Falanga"
+          className="h-5"
+        />
 
         {/* NavBar*/}
         <nav className="hidden md:flex justify-center gap-6">
