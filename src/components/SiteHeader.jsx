@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { LuMenu, LuX, LuSunMoon } from "react-icons/lu";
 import { useTheme } from "../hooks/useTheme";
 
 const navLinks = [
@@ -23,7 +24,7 @@ export default function SiteHeader() {
         <nav className="hidden md:flex justify-center gap-6">
           {navLinks.map((link) => {
             return (
-              <a key={link.name} href={link.href} className="hover:text-(--fg)">
+              <a key={link.name} href={link.href} className="whitespace-nowrap hover:text-(--fg)">
                 {link.name}
               </a>
             );
@@ -32,23 +33,21 @@ export default function SiteHeader() {
 
         {/* year, theme toggle button + hamburger menu */}
         <div className="flex justify-end items-center gap-4">
-          <span className="hidden md:block">Portfolio / {year}</span>
-
           <button
             onClick={toggle}
             aria-label="Toggle light/dark mode"
-            className="cursor-pointer hover:text-(--fg) transition-colors text-[16px]"
+            className="cursor-pointer hover:text-(--fg) transition-colors"
           >
-            ◑
+            <LuSunMoon size={14} />
           </button>
 
           {/* Hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
-            className="md:hidden cursor-pointer hover:text-(--fg) transition-colors text-[18px]"
+            className="md:hidden cursor-pointer hover:text-(--fg) transition-colors"
           >
-            {menuOpen ? "✕" : "☰"}
+            {menuOpen ? <LuX size={16} /> : <LuMenu size={16} />}
           </button>
         </div>
       </div>

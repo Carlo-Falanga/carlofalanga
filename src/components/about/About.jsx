@@ -25,7 +25,7 @@ export default function About() {
         <p className="hidden md:block text-[16px] text-(--dim) leading-relaxed">
           Lavoro quotidianamente con HTML, CSS, JavaScript e React per il
           frontend, Node.js e Express per il backend e gestione di database con
-          MySQL.
+          MySQL, attualmente sto seguendo la specializzazione in PHP e Laravel di Boolean.
         </p>
         <a href="#projects" className="btn_underline self-start pb-1">
           Vedi i miei lavori →
