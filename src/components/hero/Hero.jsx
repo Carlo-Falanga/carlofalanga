@@ -10,7 +10,7 @@ export default function Hero() {
       </div>
 
       {/* Title */}
-      <h1 className="col-span-full md:col-start-3 md:col-span-10 min-w-0 font-display text-[52px] md:text-[124px] leading-[0.94]">
+      <h1 className="col-span-full md:col-start-3 md:col-span-10 min-w-0 font-display text-[clamp(52px,10vw,124px)] leading-[0.94]">
         Full-Stack
         <br />
         <em className="block">web developer</em>
