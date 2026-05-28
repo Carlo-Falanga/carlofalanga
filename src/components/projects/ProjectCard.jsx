@@ -28,7 +28,7 @@ export default function ProjectCard({ project }) {
       <div className="lg:w-7/12 flex flex-col gap-4">
         {/* Titolo e numero */}
         <div className="flex items-start justify-between gap-4">
-          <h3 className="font-display text-[28px] md:text-[36px]">
+          <h3 className="font-display text-[24px] md:text-[36px]">
             {project.comingSoon ? "Prossimamente" : project.title}
           </h3>
           <span className="font-mono text-[11px] text-(--dim) mt-2 shrink-0">
