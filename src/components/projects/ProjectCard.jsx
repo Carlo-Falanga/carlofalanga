@@ -56,7 +56,7 @@ export default function ProjectCard({ project }) {
 
             <div className="border-t border-(--line)" />
 
-            <div className="flex gap-10">
+            <div className="flex gap-12">
               <a
                 href={project.github}
                 target="_blank"
