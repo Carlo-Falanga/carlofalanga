@@ -2,9 +2,9 @@
 
 :root {
   /* Colori — dark (default) */
-  --bg: #0a0a0a;
-  --fg: #ffffff;
-  --accent: #ffffff;
+  --bg: #ffffff;
+  --fg: #0a0a0a;
+  --accent: #0a0a0a;
 
   --dim: color-mix(in oklab, var(--fg) 60%, var(--bg));
   --fade: color-mix(in oklab, var(--fg) 45%, var(--bg));
@@ -15,10 +15,10 @@
   --body-weight: 400;
 }
 
-[data-theme="light"] {
-  --bg: #ffffff;
-  --fg: #0a0a0a;
-  --accent: #0a0a0a;
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --fg: #ffffff;
+  --accent: #ffffff;
 }
 
 @theme {
@@ -34,7 +34,8 @@
   --font-italic: "Newsreader", Georgia, serif;
 }
 
-html, body {
+html,
+body {
   background-color: var(--bg);
   color: var(--fg);
   overflow-x: hidden;
@@ -47,7 +48,7 @@ html, body {
 }
 
 .btn_underline::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   right: 0;
