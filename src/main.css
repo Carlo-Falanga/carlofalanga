@@ -39,6 +39,7 @@ body {
   background-color: var(--bg);
   color: var(--fg);
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .btn_underline {
