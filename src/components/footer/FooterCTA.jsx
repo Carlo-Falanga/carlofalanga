@@ -13,7 +13,7 @@ export default function FooterCTA() {
         </p>
         <div className="flex flex-col gap-3">
           <a
-            href="public/cv-carlo-alberto-falanga.pdf"
+            href="/cv-carlo-alberto-falanga.pdf"
             className="btn_underline flex items-center gap-2 self-start pb-1"
             download="cv-carlo-alberto-falanga.pdf"
           >
