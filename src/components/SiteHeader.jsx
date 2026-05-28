@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LuMenu, LuX, LuSunMoon } from "react-icons/lu";
+import { LuMenu, LuX, LuSun, LuMoon } from "react-icons/lu";
 import { useTheme } from "../context/ThemeContext";
 
 
@@ -9,8 +9,6 @@ const navLinks = [
   { name: "Lavori", href: "#projects" },
   { name: "Contatti", href: "#contact" },
 ];
-
-const year = new Date().getFullYear();
 
 export default function SiteHeader() {
   const { theme, toggle } = useTheme();
@@ -27,23 +25,21 @@ export default function SiteHeader() {
 
         {/* NavBar*/}
         <nav className="hidden md:flex justify-center gap-6">
-          {navLinks.map((link) => {
-            return (
-              <a key={link.name} href={link.href} className="whitespace-nowrap hover:text-[#3A86FF]">
-                {link.name}
-              </a>
-            );
-          })}
+          {navLinks.map((link) => (
+            <a key={link.name} href={link.href} className="whitespace-nowrap hover:text-[#3A86FF]">
+              {link.name}
+            </a>
+          ))}
         </nav>
 
-        {/* year, theme toggle button + hamburger menu */}
+        {/* theme toggle button + hamburger menu */}
         <div className="flex justify-end items-center gap-4">
           <button
             onClick={toggle}
             aria-label="Toggle light/dark mode"
             className="cursor-pointer hover:text-[#3A86FF] transition-colors"
           >
-            <LuSunMoon size={14} />
+            {theme === "dark" ? <LuSun size={18} /> : <LuMoon size={16} />}
           </button>
 
           {/* Hamburger */}
@@ -60,18 +56,16 @@ export default function SiteHeader() {
       {/* Menu mobile */}
       {menuOpen && (
         <nav className="md:hidden flex flex-col border-b border-(--line) font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim)">
-          {navLinks.map((link) => {
-            return (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="p-4 border-t border-(--line) hover:text-[#3A86FF]"
-              >
-                {link.name}
-              </a>
-            );
-          })}
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className="p-4 border-t border-(--line) hover:text-[#3A86FF]"
+            >
+              {link.name}
+            </a>
+          ))}
         </nav>
       )}
     </header>
