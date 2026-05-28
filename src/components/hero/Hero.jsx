@@ -23,21 +23,28 @@ export default function Hero() {
 
       {/* Text */}
       <p className="col-span-full md:col-start-6 md:col-span-6 text-[16px] text-(--dim) leading-relaxed">
-        Costruisco applicazioni web full-stack con React, Node ed Express.
-        Interfacce <em>responsive</em>, codice
-        strutturato, dettagli curati - un background da graphic designer che si
-        vede solo dove serve.
+        Sono uno sviluppatore web full-stack con un percorso che parte dal design. Lavoro su frontend in React e backend con Node, Express e Laravel, curando tanto la logica quanto l'esperienza di chi usa il prodotto.
       </p>
 
       {/* Links */}
       <div className="col-span-full md:col-start-6 md:col-span-6 flex flex-col md:flex-row gap-3 md:gap-6">
-        <a href="#projects" className="btn_underline flex items-center gap-1 pb-1">
+        <a
+          href="#projects"
+          className="btn_underline flex items-center gap-1 pb-1"
+        >
           Scopri i progetti <LuArrowRight size={16} />
         </a>
-        <a href="" className="btn_underline flex items-center gap-1 pb-1">
+        <a
+          href="public/cv-carlo-alberto-falanga.pdf"
+          download="cv-carlo-alberto-falanga.pdf"
+          className="btn_underline flex items-center gap-1 pb-1"
+        >
           Scarica il CV <LuArrowDown size={16} />
         </a>
-        <a href="#getintouch" className="btn_underline flex items-center gap-1 pb-1">
+        <a
+          href="#contact"
+          className="btn_underline flex items-center gap-1 pb-1"
+        >
           Contattami <LuArrowRight size={16} />
         </a>
       </div>

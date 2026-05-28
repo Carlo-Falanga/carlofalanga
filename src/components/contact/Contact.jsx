@@ -44,7 +44,7 @@ function ContactRow({ label, value, href }) {
 export default function Contact() {
   return (
     <section
-      id="getintouch"
+      id="contact"
       className="grid grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-8 md:gap-y-12 py-12 md:py-22 px-4 md:px-6 border-b border-(--line)"
     >
       {/* Label */}
