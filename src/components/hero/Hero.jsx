@@ -35,7 +35,7 @@ export default function Hero() {
           Scopri i progetti <LuArrowRight size={16} />
         </a>
         <a
-          href="public/cv-carlo-alberto-falanga.pdf"
+          href="/cv-carlo-alberto-falanga.pdf"
           download="cv-carlo-alberto-falanga.pdf"
           className="btn_underline flex items-center gap-1 pb-1"
         >
