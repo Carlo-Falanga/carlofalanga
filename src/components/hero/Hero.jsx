@@ -1,3 +1,4 @@
+import { LuArrowRight, LuArrowDown } from "react-icons/lu";
 import HeroTable from "./HeroTable";
 
 export default function Hero() {
@@ -21,23 +22,23 @@ export default function Hero() {
       </div>
 
       {/* Text */}
-      <p className="col-span-full md:col-start-6 md:col-span-6 text-[18px]">
+      <p className="col-span-full md:col-start-6 md:col-span-6 text-[16px] text-(--dim) leading-relaxed">
         Costruisco applicazioni web full-stack con React, Node ed Express.
-        Interfacce <em className="font-italic">responsive</em>, codice
+        Interfacce <em>responsive</em>, codice
         strutturato, dettagli curati - un background da graphic designer che si
         vede solo dove serve.
       </p>
 
       {/* Links */}
       <div className="col-span-full md:col-start-6 md:col-span-6 flex flex-col md:flex-row gap-3 md:gap-6">
-        <a href="#projects" className="btn_underline pb-1">
-          Scopri i progetti →
+        <a href="#projects" className="btn_underline flex items-center gap-1 pb-1">
+          Scopri i progetti <LuArrowRight size={16} />
         </a>
-        <a href="" className="btn_underline pb-1">
-          Scarica il CV ↓
+        <a href="" className="btn_underline flex items-center gap-1 pb-1">
+          Scarica il CV <LuArrowDown size={16} />
         </a>
-        <a href="#getintouch" className="btn_underline pb-1">
-          Contattami →
+        <a href="#getintouch" className="btn_underline flex items-center gap-1 pb-1">
+          Contattami <LuArrowRight size={16} />
         </a>
       </div>
     </section>

@@ -42,7 +42,7 @@ html, body {
 
 .btn_underline {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
   padding-bottom: 4px;
 }
 
