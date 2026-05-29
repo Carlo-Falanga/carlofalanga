@@ -15,7 +15,7 @@ export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header>
+    <header className="sticky top-0 z-50 backdrop-blur-md bg-[color-mix(in_oklab,var(--bg)_80%,transparent)]">
       <div className="grid grid-cols-2 md:grid-cols-3 items-center gap-x-6 p-4 font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim) border-b border-(--line)">
         <img
           src={theme === "dark" ? "/logo/logo-dark.svg" : "/logo/logo-light.svg"}
@@ -24,7 +24,7 @@ export default function SiteHeader() {
         />
 
         {/* NavBar*/}
-        <nav className="hidden md:flex justify-center gap-6">
+        <nav className="hidden md:flex justify-center gap-6 ">
           {navLinks.map((link) => (
             <a key={link.name} href={link.href} className="whitespace-nowrap hover:text-[#3A86FF]">
               {link.name}
@@ -39,23 +39,25 @@ export default function SiteHeader() {
             aria-label="Toggle light/dark mode"
             className="cursor-pointer hover:text-[#3A86FF] transition-colors"
           >
-            {theme === "dark" ? <LuSun size={18} /> : <LuMoon size={16} />}
+            {theme === "dark" ? <LuSun size={18} /> : <LuMoon size={18} />}
           </button>
 
           {/* Hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
             className="md:hidden cursor-pointer hover:text-[#3A86FF] transition-colors"
           >
-            {menuOpen ? <LuX size={16} /> : <LuMenu size={16} />}
+            {menuOpen ? <LuX size={18} /> : <LuMenu size={18} />}
           </button>
         </div>
       </div>
 
       {/* Menu mobile */}
       {menuOpen && (
-        <nav className="md:hidden flex flex-col border-b border-(--line) font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim)">
+        <nav id="mobile-nav" className="md:hidden flex flex-col border-b border-(--line) font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim)">
           {navLinks.map((link) => (
             <a
               key={link.name}
