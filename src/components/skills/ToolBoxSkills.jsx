@@ -6,6 +6,8 @@ import {
   SiNodedotjs,
   SiExpress,
   SiMysql,
+  SiPhp,
+  SiLaravel,
 } from "react-icons/si";
 
 const skills = [
@@ -15,7 +17,10 @@ const skills = [
   { name: "React",       category: "Frontend", Icon: SiReact,      hoverBg: "rgba(97, 218, 251, 0.15)"  },
   { name: "Node.js",     category: "Backend",  Icon: SiNodedotjs,  hoverBg: "rgba(51, 153, 51, 0.15)"   },
   { name: "Express",     category: "Backend",  Icon: SiExpress,    hoverBg: "rgba(150, 150, 150, 0.15)" },
+  { name: "PHP",         category: "Backend",  Icon: SiPhp,        hoverBg: "rgba(119, 123, 179, 0.15)" },
+  { name: "Laravel",     category: "Backend",  Icon: SiLaravel,    hoverBg: "rgba(255, 45, 32, 0.15)"   },
   { name: "MySQL",       category: "Database", Icon: SiMysql,      hoverBg: "rgba(68, 121, 161, 0.15)"  },
+
 ];
 
 const toolbox = ["Git", "GitHub", "VS Code", "Postman", "Vite", "REST API"];
