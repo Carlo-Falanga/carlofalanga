@@ -1,4 +1,5 @@
 import { ThemeProvider } from "./context/ThemeContext";
+import SmoothScroll from "./components/motion/SmoothScroll";
 import SiteHeader from "./components/SiteHeader";
 import FooterCTA from "./components/footer/FooterCTA";
 import Hero from "./components/hero/Hero";
@@ -12,16 +13,18 @@ import Contact from "./components/contact/Contact"
 function App() {
   return (
     <ThemeProvider>
-      <div className="max-w-7xl mx-auto">
-        <SiteHeader />
-        <Hero/>
-        <SpecStrip/>
-        <About/>
-        <Skills/>
-        <Projects/>
-        <Contact/>
-        <FooterCTA />
-      </div>
+      <SmoothScroll>
+        <div className="max-w-7xl mx-auto">
+          <SiteHeader />
+          <Hero/>
+          <SpecStrip/>
+          <About/>
+          <Skills/>
+          <Projects/>
+          <Contact/>
+          <FooterCTA />
+        </div>
+      </SmoothScroll>
     </ThemeProvider>
   );
 }

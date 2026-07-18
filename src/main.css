@@ -1,23 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #ffffff;
-  --fg: #0a0a0a;
+  --ink: #141310;
+  --cream: #F4F1E8;
+  --paper: #FBFAF6;
+  --mustard: #E0A82E;
+  --mustard-deep: #C8951F;
+  --dim: #8A8578;
+  --dim-invert: #9A968C;
+  --line: color-mix(in oklab, var(--ink) 14%, transparent);
 
-  --dim: color-mix(in oklab, var(--fg) 60%, var(--bg));
-  --line: color-mix(in oklab, var(--fg) 20%, var(--bg));
+  --bg: var(--cream);
+  --fg: var(--ink);
 }
 
+/* Dark theme toggle neutralizzato: il brand ha un unico look committato
+   (crema/ink), l'alternanza scuro/chiaro sarà gestita a livello di sezione
+   dai componenti. Queste regole restano no-op per non rompere ThemeContext. */
 [data-theme="dark"] {
-  --bg: #0a0a0a;
-  --fg: #ffffff;
+  --bg: var(--cream);
+  --fg: var(--ink);
 }
 
 @theme {
-  --font-display: "Archivo Black", sans-serif;
-  --font-body: "Hanken Grotesk", -apple-system, system-ui, sans-serif;
+  --font-display: "Archivo", sans-serif;
+  --font-body: "Archivo", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --font-italic: "Newsreader", Georgia, serif;
 }
 
 html,
@@ -25,7 +33,18 @@ body {
   background-color: var(--bg);
   color: var(--fg);
   overflow-x: clip;
-  scroll-behavior: smooth;
+}
+
+.display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .btn_underline {
@@ -41,7 +60,7 @@ body {
   right: 0;
   bottom: 0;
   height: 1px;
-  background: #3A86FF;
+  background: var(--mustard);
   transform-origin: left;
   transition: transform 0.25s;
 }
