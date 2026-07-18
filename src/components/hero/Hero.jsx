@@ -1,53 +1,107 @@
-import { LuArrowRight, LuArrowDown } from "react-icons/lu";
-import HeroTable from "./HeroTable";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "../../lib/gsap";
+
+function renderWord(word) {
+  return Array.from(word).map((char, idx) => (
+    <span key={`${word}-${idx}`} className="inline-block overflow-hidden">
+      <span className="hero-letter inline-block">{char}</span>
+    </span>
+  ));
+}
 
 export default function Hero() {
-  return (
-    <section className="grid grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-8 md:gap-y-12 py-12 md:py-22 px-4 md:px-6">
-      {/* Label */}
-      <div className="hidden md:block md:col-start-1 md:col-span-2 font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim) pt-4">
-        00 Index
-      </div>
+  const containerRef = useRef(null);
 
-      {/* Title */}
-      <h1 className="col-span-full md:col-start-3 md:col-span-10 min-w-0 font-display text-[clamp(52px,10vw,124px)] leading-[0.94]">
-        Full-Stack
-        <br />
-        <em className="block">web developer</em>
+  useGSAP(
+    () => {
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      const letters = gsap.utils.toArray(".hero-letter");
+      const corners = gsap.utils.toArray(".hero-corner");
+
+      if (reduceMotion) {
+        gsap.set(letters, { yPercent: 0, opacity: 1 });
+        gsap.set(".hero-bar", { scaleX: 1 });
+        gsap.set(".hero-signature", { scale: 1, opacity: 1 });
+        gsap.set(corners, { opacity: 1, y: 0 });
+        return;
+      }
+
+      gsap.set(letters, { yPercent: 100, opacity: 0 });
+      gsap.set(".hero-bar", { scaleX: 0 });
+      gsap.set(".hero-signature", { scale: 0, opacity: 0 });
+      gsap.set(corners, { opacity: 0, y: 24 });
+
+      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+
+      tl.to(letters, {
+        yPercent: 0,
+        opacity: 1,
+        duration: 0.75,
+        stagger: 0.05,
+      })
+        .to(
+          ".hero-bar",
+          { scaleX: 1, duration: 0.5, ease: "back.out(1.7)" },
+          "-=0.15"
+        )
+        .to(
+          ".hero-signature",
+          { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.4)" },
+          "-=0.1"
+        )
+        .to(
+          corners,
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
+          "-=0.1"
+        );
+    },
+    { scope: containerRef }
+  );
+
+  return (
+    <section
+      ref={containerRef}
+      className="relative h-screen overflow-hidden bg-(--ink) flex flex-col px-4 md:px-6"
+    >
+      <h1 className="sr-only">
+        Carlo Falanga &mdash; Full-Stack Web Developer
       </h1>
 
-      {/* Table */}
-      <div className="col-span-full md:col-start-1 md:col-span-4">
-        <HeroTable />
+      {/* Breathing room / omitted 3D object */}
+      <div className="flex-1" />
+
+      {/* Corner blocks */}
+      <div className="hero-corners flex flex-col md:flex-row md:items-end md:justify-between gap-8 pb-8 md:pb-12">
+        <p className="hero-corner max-w-[42ch] text-[15px] md:text-[16px] text-(--dim-invert) leading-relaxed">
+          I&rsquo;m a full-stack web developer &mdash; I build clean, modern
+          web apps end-to-end, from interface to database. Currently studying
+          at Boolean, looking for a team to build with.
+        </p>
+
+        <p className="hero-corner display uppercase font-medium text-right text-[clamp(20px,2.4vw,34px)] leading-[1.05] text-(--cream)">
+          <span className="block">BUILD</span>
+          <span className="block">THINGS THAT</span>
+          <span className="block">WORK.</span>
+        </p>
       </div>
 
-      {/* Text */}
-      <p className="col-span-full md:col-start-6 md:col-span-6 text-[16px] text-(--dim) leading-relaxed">
-        Frontend in React, backend con Node, Express e Laravel. <br />
-        Unisco la parte tecnica a un occhio da designer.
-      </p>
-
-      {/* Links */}
-      <div className="col-span-full md:col-start-6 md:col-span-6 flex flex-col md:flex-row gap-3 md:gap-6">
-        <a
-          href="#projects"
-          className="btn_underline flex items-center gap-1 pb-1"
-        >
-          Scopri i progetti <LuArrowRight size={16} />
-        </a>
-        <a
-          href="/cv-carlo-alberto-falanga.pdf"
-          download="cv-carlo-alberto-falanga.pdf"
-          className="btn_underline flex items-center gap-1 pb-1"
-        >
-          Scarica il CV <LuArrowDown size={16} />
-        </a>
-        <a
-          href="#contact"
-          className="btn_underline flex items-center gap-1 pb-1"
-        >
-          Contattami <LuArrowRight size={16} />
-        </a>
+      {/* Wordmark band, bleeding off the bottom edge */}
+      <div
+        aria-hidden="true"
+        className="hero-wordmark translate-y-[6%] display uppercase font-black text-(--cream) text-[clamp(72px,15vw,220px)] leading-[0.82] tracking-[-0.03em]"
+      >
+        <div className="relative">
+          <span className="hero-bar absolute left-0 bottom-[6%] h-[58%] w-[46%] origin-left bg-(--mustard) z-0" />
+          <div className="relative z-10 flex">{renderWord("CARLO")}</div>
+        </div>
+        <div className="flex items-start">
+          <div className="flex">{renderWord("FALANGA")}</div>
+          <span className="hero-signature inline-block w-2 h-2 md:w-3 md:h-3 ml-2 md:ml-3 mt-3 md:mt-6 bg-(--mustard)" />
+        </div>
       </div>
     </section>
   );

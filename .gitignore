@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 portfolio-design.png
+# Design reference & brief (local only)
+DESIGN.md
+design-reference/
