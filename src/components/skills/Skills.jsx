@@ -24,16 +24,17 @@ const blocks = [
 export default function Skills() {
   const sectionRef = useRef(null);
   const lineRefs = useRef([]);
+  const titleRef = useRef(null);
   const blocksRef = useRef(null);
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
+    const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    if (prefersReducedMotion) {
+    if (reduced) {
       gsap.set(
-        lineRefs.current.map((line) => line?.querySelector(".skills-line-solid")),
+        lineRefs.current.map((l) => l?.querySelector(".skills-line-solid")),
         { opacity: 1 }
       );
       gsap.set(blocksRef.current, { opacity: 1, y: 0 });
@@ -59,15 +60,26 @@ export default function Skills() {
           .to(solid, { opacity: 1, duration: 0.6, ease: "skillsEase" }, 0.05);
       });
 
-      gsap.set(blocksRef.current, { opacity: 0, y: 24 });
+      gsap.to(titleRef.current, {
+        yPercent: 62,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.6,
+        },
+      });
+
+      gsap.set(blocksRef.current, { opacity: 0, y: 40 });
       gsap.to(blocksRef.current, {
         opacity: 1,
         y: 0,
-        duration: 0.7,
+        duration: 0.8,
         ease: "skillsEase",
         scrollTrigger: {
           trigger: blocksRef.current,
-          start: "top 90%",
+          start: "top 88%",
           toggleActions: "play none none none",
         },
       });
@@ -77,33 +89,41 @@ export default function Skills() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="skills" className="border-b border-(--line)">
+    <section
+      ref={sectionRef}
+      id="skills"
+      className="overflow-hidden border-b border-(--line) bg-(--cream)"
+    >
       <div className="skills-tone full-bleed relative">
         <div
           aria-hidden="true"
-          className="skills-tone-left absolute inset-y-0 left-0 hidden w-1/2 bg-(--sand) md:block"
+          className="absolute inset-y-0 left-0 hidden w-1/2 bg-(--sand) md:block"
         />
         <div
           aria-hidden="true"
-          className="skills-tone-right absolute inset-y-0 right-0 hidden w-1/2 bg-(--shell) md:block"
+          className="absolute inset-y-0 right-0 hidden w-1/2 bg-(--shell) md:block"
         />
         <div
           aria-hidden="true"
-          className="skills-divider absolute top-0 bottom-20 left-1/2 hidden w-px -translate-x-1/2 bg-(--line) md:block md:bottom-28"
+          className="absolute top-0 bottom-16 left-1/2 hidden w-px -translate-x-1/2 bg-(--line) md:block"
         />
 
-        <div className="relative section-px pt-12 pb-12 md:pt-20 md:pb-10">
-          <div className="font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim)">
+        <div className="relative section-px pt-12 pb-10 md:pt-[3vw] md:pb-[2vw]">
+          <div className="font-mono text-[11px] font-light tracking-[0.08em] text-(--dim) uppercase">
             02 Skills
           </div>
 
           <h2
+            ref={titleRef}
             aria-label="Two disciplines, one developer."
-            className="mt-6 text-right font-display font-normal text-[36px] md:text-[76px] leading-[0.92] tracking-[-0.02em] md:mt-10"
+            className="mt-6 text-right font-display text-[13vw] leading-[100%] font-normal tracking-normal uppercase md:mt-[2.5vw] md:text-[7vw]"
           >
             <span aria-hidden="true">
               {TITLE_LINES.map((line, idx) => (
-                <span key={line} className="skills-line-mask block overflow-hidden">
+                <span
+                  key={line}
+                  className="skills-line-mask block overflow-hidden"
+                >
                   <span
                     ref={(el) => (lineRefs.current[idx] = el)}
                     className="skills-line relative block"
@@ -122,23 +142,23 @@ export default function Skills() {
 
           <div
             ref={blocksRef}
-            className="mt-16 grid grid-cols-1 gap-y-12 md:mt-16 md:grid-cols-2 md:gap-x-6"
+            className="mt-14 grid grid-cols-1 gap-y-12 md:mt-[4vw] md:grid-cols-2 md:gap-x-6"
           >
             {blocks.map((block, idx) => (
               <div
                 key={block.lines.join(" ")}
                 className={
                   idx === 0
-                    ? "flex max-w-[420px] flex-col gap-4"
-                    : "flex max-w-[420px] flex-col gap-4 md:ml-8 md:mt-28"
+                    ? "flex max-w-[32ch] flex-col gap-4 md:gap-[1.2vw]"
+                    : "flex max-w-[32ch] flex-col gap-4 md:mt-[9vw] md:ml-[2vw] md:gap-[1.2vw]"
                 }
               >
-                <h3 className="font-display font-normal uppercase leading-[1.05] tracking-[0.01em] text-[22px] text-(--ink) underline decoration-1 underline-offset-[6px] md:text-[1.95vw]">
+                <h3 className="font-display text-[26px] leading-[90%] font-normal tracking-normal text-(--ink) uppercase underline decoration-1 underline-offset-[6px] md:text-[3vw]">
                   {block.lines[0]}
                   <br />
                   {block.lines[1]}
                 </h3>
-                <p className="max-w-[34ch] text-[15px] leading-[1.5] text-(--dim) md:text-[1.12vw]">
+                <p className="text-[15px] leading-[130%] text-(--dim) md:text-[1.25vw]">
                   {block.description}
                 </p>
               </div>
