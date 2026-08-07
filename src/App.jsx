@@ -1,6 +1,7 @@
 import SmoothScroll from "./components/motion/SmoothScroll";
 import SiteHeader from "./components/SiteHeader";
 import FooterCTA from "./components/footer/FooterCTA";
+import MagnetTransition from "./components/magnet/MagnetTransition";
 import Hero from "./components/hero/Hero";
 import SpecStrip from "./components/specStrip/SpecStrip";
 import About from "./components/about/About";
@@ -25,6 +26,7 @@ function App() {
       <Experience/>
       <Education/>
       <Contact/>
+      <MagnetTransition />
       <FooterCTA />
     </SmoothScroll>
   );

@@ -66,7 +66,7 @@ export default function Hero() {
           Carlo Falanga &mdash; Full-Stack Web Developer
         </h1>
 
-        <p className="hero-eyebrow mono-label absolute left-9 top-[118px] text-[11px] text-(--dim-invert)">
+        <p className="hero-eyebrow mono-label absolute left-9 top-[118px] text-[13px] text-(--cream)">
           Full-Stack Web Developer &middot; Italy
         </p>
 

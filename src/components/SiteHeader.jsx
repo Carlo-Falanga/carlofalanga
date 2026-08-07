@@ -13,7 +13,7 @@ function NavLink({ name, href }) {
   return (
     <a
       href={href}
-      className="group relative block h-[41px] shrink-0 overflow-hidden whitespace-nowrap rounded-full bg-(--cream) px-4 font-body text-[14px] font-normal normal-case tracking-normal transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-(--mustard) motion-reduce:transition-none"
+      className="group relative block h-[41px] shrink-0 overflow-hidden whitespace-nowrap rounded-full bg-(--cream) px-8 font-body text-[14px] font-normal normal-case tracking-normal transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-(--mustard) motion-reduce:transition-none"
     >
       <span className="flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1/2 motion-reduce:transition-none motion-reduce:group-hover:translate-y-0">
         <span className="flex h-[41px] shrink-0 items-center text-(--ink)">
