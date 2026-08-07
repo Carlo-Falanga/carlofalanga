@@ -12,7 +12,7 @@ function NavLink({ name, href }) {
   return (
     <a
       href={href}
-      className="group relative block shrink-0 overflow-hidden rounded-full bg-white px-[0.92vw] pt-[0.72vw] pb-[0.62vw] font-body text-[0.82vw] leading-none font-normal whitespace-nowrap normal-case tracking-normal transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-(--mustard) motion-reduce:transition-none"
+      className="group relative block shrink-0 overflow-hidden rounded-full bg-white px-[0.82vw] pt-[0.64vw] pb-[0.55vw] font-body text-[0.74vw] leading-none font-normal whitespace-nowrap normal-case tracking-normal transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-(--mustard) motion-reduce:transition-none"
     >
       <span className="block h-[1em] overflow-hidden">
         <span className="flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1/2 motion-reduce:transition-none motion-reduce:group-hover:translate-y-0">
@@ -70,21 +70,21 @@ export default function SiteHeader() {
         <img
           src="/logo/logo-dark.svg"
           alt="Carlo Falanga"
-          className="h-[1.75vw] w-auto shrink-0 md:justify-self-center"
+          className="h-[1.15vw] w-auto shrink-0 md:justify-self-center"
         />
 
         <div className="flex items-center justify-end gap-4 md:justify-self-end">
           <a
             href="/cv-carlo-alberto-falanga.pdf"
             download
-            className="group/cta hidden w-[10.2vw] shrink-0 items-center gap-[0.5vw] rounded-full border-[0.26vw] border-(--shell) bg-white p-[0.26vw] font-body text-[0.82vw] leading-[90%] font-normal text-(--ink) md:inline-flex"
+            className="group/cta hidden w-[9.2vw] shrink-0 items-center gap-[0.45vw] rounded-full border-[0.23vw] border-(--shell) bg-white p-[0.23vw] font-body text-[0.74vw] leading-[90%] font-normal text-(--ink) md:inline-flex"
           >
             <span
               aria-hidden="true"
-              className="relative flex h-[1.65vw] w-[1.65vw] shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--mustard) transition-colors duration-400 ease-[ease] group-hover/cta:bg-(--ink) motion-reduce:transition-none"
+              className="relative flex h-[1.5vw] w-[1.5vw] shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--mustard) transition-colors duration-400 ease-[ease] group-hover/cta:bg-(--ink) motion-reduce:transition-none"
             >
-              <LuArrowRight className="h-[0.74vw] w-[0.74vw] text-(--ink) transition-all duration-400 ease-[ease] group-hover/cta:translate-x-[1.15vw] group-hover/cta:text-(--cream) motion-reduce:transition-none" />
-              <LuArrowRight className="absolute h-[0.74vw] w-[0.74vw] -translate-x-[1.1vw] text-(--cream) opacity-0 transition-all duration-400 ease-[ease] group-hover/cta:translate-x-0 group-hover/cta:opacity-100 motion-reduce:transition-none" />
+              <LuArrowRight className="h-[0.66vw] w-[0.66vw] text-(--ink) transition-all duration-400 ease-[ease] group-hover/cta:translate-x-[1.05vw] group-hover/cta:text-(--cream) motion-reduce:transition-none" />
+              <LuArrowRight className="absolute h-[0.66vw] w-[0.66vw] -translate-x-[1vw] text-(--cream) opacity-0 transition-all duration-400 ease-[ease] group-hover/cta:translate-x-0 group-hover/cta:opacity-100 motion-reduce:transition-none" />
             </span>
             <span className="transition-transform duration-400 ease-[ease] group-hover/cta:translate-x-[0.3125vw] motion-reduce:transition-none">
               Download CV
