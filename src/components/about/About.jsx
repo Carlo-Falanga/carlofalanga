@@ -2,7 +2,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="grid grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-8 md:gap-y-12 py-12 md:py-22 px-4 md:px-6 border-b border-(--line)"
+      className="grid grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-8 md:gap-y-12 py-12 md:py-22 section-px border-b border-(--line)"
     >
       {/* Label */}
       <div className="hidden md:block md:col-start-1 md:col-span-2 font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim) pt-4">
@@ -10,25 +10,26 @@ export default function About() {
       </div>
 
       {/* Title */}
-      <h2 className="col-span-full md:col-start-3 md:col-span-10 min-w-0 font-display text-[32px] md:text-[60px] leading-[0.94]">
-        Da <em>graphic design</em>
-        <br />a web development.
+      <h2 className="col-span-full md:col-start-3 md:col-span-10 min-w-0 font-display font-normal text-[36px] md:text-[72px] leading-[0.94] tracking-[-0.02em]">
+        From <em>graphic design</em>
+        <br />to web development.
       </h2>
 
       {/* Text */}
       <div className="col-span-full md:col-start-3 md:col-span-5 flex flex-col gap-6">
         <p className="text-[16px] text-(--dim) leading-relaxed">
-          Sono un Full-Stack Web Developer attualmente in formazione full-time
-          presso Boolean, dove sto sviluppando competenze pratiche nella
-          realizzazione di applicazioni web complete.
+          I'm a Full-Stack Web Developer currently in full-time training at
+          Boolean, where I'm building hands-on skills in developing complete
+          web applications.
         </p>
         <p className="hidden md:block text-[16px] text-(--dim) leading-relaxed">
-          Lavoro quotidianamente con HTML, CSS, JavaScript e React per il
-          frontend, Node.js e Express per il backend e gestione di database con
-          MySQL, attualmente sto seguendo la specializzazione in PHP e Laravel di Boolean.
+          I work daily with HTML, CSS, JavaScript and React on the frontend,
+          Node.js and Express on the backend, and MySQL for database
+          management. I'm currently following Boolean's PHP and Laravel
+          specialization track.
         </p>
         <a href="#projects" className="btn_underline self-start pb-1">
-          Vedi i miei lavori →
+          See my work →
         </a>
       </div>
 

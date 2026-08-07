@@ -1,26 +1,27 @@
 @import "tailwindcss";
 
+/* Project palette: seven colours in total. */
 :root {
-  --ink: #141310;
-  --cream: #F4F1E8;
-  --paper: #FBFAF6;
-  --mustard: #E0A82E;
-  --mustard-deep: #C8951F;
-  --dim: #8A8578;
-  --dim-invert: #9A968C;
+  --ink: #202023;        /* dark background + primary text */
+  --cream: #F2F1EC;      /* dominant light background */
+  --paper: #FFFFFF;      /* raised surfaces: pills, cards */
+  --shell: #F8F8F5;      /* off-white for wide sections */
+  --sand: #EDEAE3;       /* beige: inactive Approach pill/circles */
+  --mustard: #FECD00;    /* single accent */
+  --mustard-deep: #E5B800; /* accent hover/pressed (derived) */
+
+  /* No dedicated grey: secondary text is ink muted into the background,
+     derived to stay consistent with the palette. */
+  --dim: color-mix(in oklab, var(--ink) 68%, var(--cream));
+  --dim-invert: color-mix(in oklab, var(--cream) 60%, var(--ink));
   --line: color-mix(in oklab, var(--ink) 14%, transparent);
 
   --bg: var(--cream);
   --fg: var(--ink);
 }
 
-/* Dark theme toggle neutralizzato: il brand ha un unico look committato
-   (crema/ink), l'alternanza scuro/chiaro sarà gestita a livello di sezione
-   dai componenti. Queste regole restano no-op per non rompere ThemeContext. */
-[data-theme="dark"] {
-  --bg: var(--cream);
-  --fg: var(--ink);
-}
+/* Single committed look (cream/ink), no user theme toggle: the dark/light
+   alternation is handled per section by the components. */
 
 @theme {
   --font-display: "Archivo", sans-serif;
@@ -45,6 +46,22 @@ body {
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+/* Unified horizontal padding convention for full-bleed sections.
+   Fixed 36px on every breakpoint (matches SiteHeader's px-9, itself matched
+   to the measured 36px side padding): every section title lines up on the
+   same vertical column as the fixed header's logo, at any viewport width.
+   No centered max-width anywhere — content runs edge-to-edge, sections only
+   get breathing room via this padding. */
+.section-px {
+  padding-left: 36px;
+  padding-right: 36px;
 }
 
 .btn_underline {

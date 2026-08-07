@@ -2,12 +2,52 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../lib/gsap";
 
-function renderWord(word) {
-  return Array.from(word).map((char, idx) => (
-    <span key={`${word}-${idx}`} className="inline-block overflow-hidden">
-      <span className="hero-letter inline-block">{char}</span>
-    </span>
-  ));
+const WORDMARK = "CARLO FALANGA";
+// Index (into Array.from(WORDMARK)) of the first letter of "FALANGA" -- the
+// point where the wordmark grows its mustard fill. Replaces the old floating
+// accent squares (hero-bar / hero-signature): the colour
+// fill IS the signature now.
+const SECOND_WORD_INDEX = WORDMARK.indexOf(" ") + 1;
+
+function renderWordmark(text, secondWordIndex) {
+  return Array.from(text).map((char, idx) => {
+    if (char === " ") {
+      // Non-animated spacer: keeps the two words on one baseline without
+      // entering the .hero-letter stagger (GSAP only ever queries that class).
+      return (
+        <span
+          key={`space-${idx}`}
+          aria-hidden="true"
+          className="hero-space inline-block w-[0.28em]"
+        />
+      );
+    }
+
+    const isSecondWord = idx >= secondWordIndex;
+
+    return (
+      <span key={`letter-${idx}`} className="inline-block">
+        <span className="inline-block overflow-hidden">
+          <span className="hero-letter relative inline-block text-(--cream)">
+            {char}
+            {isSecondWord && (
+              // Mustard duplicate of the same glyph, stacked on top of the
+              // cream base letter. clip-path is animated (see useGSAP below)
+              // from "nothing visible" to "fully visible" with the clip edge
+              // moving from the bottom up, i.e. FALANGA fills with mustard
+              // from the baseline upward rather than just switching colour.
+              <span
+                aria-hidden="true"
+                className="hero-fill absolute inset-0 text-(--mustard)"
+              >
+                {char}
+              </span>
+            )}
+          </span>
+        </span>
+      </span>
+    );
+  });
 }
 
 export default function Hero() {
@@ -20,19 +60,21 @@ export default function Hero() {
       ).matches;
 
       const letters = gsap.utils.toArray(".hero-letter");
+      const fillLetters = gsap.utils.toArray(".hero-fill");
       const corners = gsap.utils.toArray(".hero-corner");
 
       if (reduceMotion) {
         gsap.set(letters, { yPercent: 0, opacity: 1 });
-        gsap.set(".hero-bar", { scaleX: 1 });
-        gsap.set(".hero-signature", { scale: 1, opacity: 1 });
+        // FALANGA lands solid mustard with no fill motion at all.
+        gsap.set(fillLetters, { clipPath: "inset(0% 0% 0% 0%)" });
         gsap.set(corners, { opacity: 1, y: 0 });
         return;
       }
 
       gsap.set(letters, { yPercent: 100, opacity: 0 });
-      gsap.set(".hero-bar", { scaleX: 0 });
-      gsap.set(".hero-signature", { scale: 0, opacity: 0 });
+      // Clip fully hidden from the top down -- 0% of the mustard glyph
+      // showing, ready to fill upward from the baseline.
+      gsap.set(fillLetters, { clipPath: "inset(100% 0% 0% 0%)" });
       gsap.set(corners, { opacity: 0, y: 24 });
 
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
@@ -42,22 +84,26 @@ export default function Hero() {
         opacity: 1,
         duration: 0.75,
         stagger: 0.05,
-      })
-        .to(
-          ".hero-bar",
-          { scaleX: 1, duration: 0.5, ease: "back.out(1.7)" },
-          "-=0.15"
-        )
-        .to(
-          ".hero-signature",
-          { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.4)" },
-          "-=0.1"
-        )
-        .to(
-          corners,
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
-          "-=0.1"
-        );
+      }).addLabel("lettersDone");
+
+      // Second moment: once the wordmark has (almost) finished sliding in,
+      // FALANGA fills with mustard from the bottom up, letter by letter,
+      // left to right.
+      tl.to(
+        fillLetters,
+        {
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 0.6,
+          stagger: 0.07,
+        },
+        "lettersDone-=0.2"
+      );
+
+      tl.to(
+        corners,
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
+        "lettersDone-=0.15"
+      );
     },
     { scope: containerRef }
   );
@@ -65,42 +111,53 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen overflow-hidden bg-(--ink) flex flex-col px-4 md:px-6"
+      className="full-bleed relative h-dvh min-h-[640px] overflow-hidden bg-(--ink)"
     >
-      <h1 className="sr-only">
-        Carlo Falanga &mdash; Full-Stack Web Developer
-      </h1>
+      <div className="relative flex h-full flex-col section-px">
+        <h1 className="sr-only">
+          Carlo Falanga &mdash; Full-Stack Web Developer
+        </h1>
 
-      {/* Breathing room / omitted 3D object */}
-      <div className="flex-1" />
+        {/* Copy row: sits at ~45-47% of the viewport height (measured on the
+            source), not near the top. Small, regular-weight text — the visual
+            impact of the hero comes from the wordmark below, not this row.
+            Both blocks are flush with the section's own 36px inner padding
+            (no extra grid offset), matching the wordmark/header/section-title
+            column: left paragraph starts at the content's left edge, the
+            claim's right edge sits at the content's right edge. */}
+        <div className="hero-corners flex flex-col gap-6 pt-[36dvh] md:flex-row md:items-start md:justify-between md:pt-[45dvh]">
+          <p className="hero-corner text-[14px] font-normal text-(--dim-invert) leading-relaxed md:max-w-[320px]">
+            I&rsquo;m a full-stack web developer &mdash; I build clean, modern
+            web apps end-to-end, from interface to database. Currently studying
+            at Boolean, looking for a team to build with.
+          </p>
 
-      {/* Corner blocks */}
-      <div className="hero-corners flex flex-col md:flex-row md:items-end md:justify-between gap-8 pb-8 md:pb-12">
-        <p className="hero-corner max-w-[42ch] text-[15px] md:text-[16px] text-(--dim-invert) leading-relaxed">
-          I&rsquo;m a full-stack web developer &mdash; I build clean, modern
-          web apps end-to-end, from interface to database. Currently studying
-          at Boolean, looking for a team to build with.
-        </p>
-
-        <p className="hero-corner display uppercase font-medium text-right text-[clamp(20px,2.4vw,34px)] leading-[1.05] text-(--cream)">
-          <span className="block">BUILD</span>
-          <span className="block">THINGS THAT</span>
-          <span className="block">WORK.</span>
-        </p>
-      </div>
-
-      {/* Wordmark band, bleeding off the bottom edge */}
-      <div
-        aria-hidden="true"
-        className="hero-wordmark translate-y-[6%] display uppercase font-black text-(--cream) text-[clamp(72px,15vw,220px)] leading-[0.82] tracking-[-0.03em]"
-      >
-        <div className="relative">
-          <span className="hero-bar absolute left-0 bottom-[6%] h-[58%] w-[46%] origin-left bg-(--mustard) z-0" />
-          <div className="relative z-10 flex">{renderWord("CARLO")}</div>
+          <p className="hero-corner text-right text-[14px] font-normal uppercase text-(--cream) leading-relaxed md:max-w-[160px]">
+            <span className="block">BUILD</span>
+            <span className="block">THINGS THAT</span>
+            <span className="block">WORK.</span>
+          </p>
         </div>
-        <div className="flex items-start">
-          <div className="flex">{renderWord("FALANGA")}</div>
-          <span className="hero-signature inline-block w-2 h-2 md:w-3 md:h-3 ml-2 md:ml-3 mt-3 md:mt-6 bg-(--mustard)" />
+
+        {/* Breathing room before the wordmark bleeds off the bottom edge */}
+        <div className="flex-1" />
+
+        {/* Wordmark band, bleeding off the bottom edge.
+            Single row: "CARLO FALANGA" gets one font-size, calibrated so the
+            whole line fills ~100% of the available width (viewport - 72px of
+            section padding) regardless of viewport, via clamp(min, calc((100vw
+            - 72px) * k), max). k is calibrated against the measured rendered
+            bounding box of the .hero-letter spans (not estimated), and the
+            max is raised well past anything reachable at realistic viewports
+            so it never caps the fill. CARLO stays cream; FALANGA fills solid
+            mustard from the bottom up (see renderWordmark + useGSAP above). */}
+        <div
+          aria-hidden="true"
+          className="hero-wordmark translate-y-[4%] display uppercase font-medium leading-[0.82]"
+        >
+          <div className="flex items-baseline text-[clamp(30px,calc((100vw_-_72px)_*_0.1223),400px)] tracking-[-0.03em]">
+            {renderWordmark(WORDMARK, SECOND_WORD_INDEX)}
+          </div>
         </div>
       </div>
     </section>
