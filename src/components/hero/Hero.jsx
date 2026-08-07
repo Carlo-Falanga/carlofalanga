@@ -97,7 +97,7 @@ export default function Hero() {
           Carlo Falanga &mdash; Full-Stack Web Developer
         </h1>
 
-        <div className="hero-corners mt-auto flex flex-col gap-6 pb-[3vh] md:flex-row md:items-end md:justify-between">
+        <div className="hero-corners mt-auto flex flex-col gap-6 pb-[0.8vh] md:flex-row md:items-end md:justify-between">
           <p className="hero-corner text-[15px] leading-[130%] font-normal tracking-normal text-(--dim-invert) uppercase md:text-[1.25vw]">
             Full-Stack Web Developer &middot; Italy
           </p>
@@ -111,7 +111,7 @@ export default function Hero() {
 
         <div
           aria-hidden="true"
-          className="hero-wordmark display-xl mb-[2vh] flex flex-col font-bold text-[clamp(38px,min(calc((100vw_-_72px)_*_0.172),38vh),400px)] uppercase"
+          className="hero-wordmark display-xl mb-[0.4vh] flex flex-col font-bold text-[clamp(38px,min(calc((100vw_-_72px)_*_0.172),40vh),400px)] uppercase"
         >
           <Word word={LINE_ONE} />
           <Word word={LINE_TWO} keepGlow />
