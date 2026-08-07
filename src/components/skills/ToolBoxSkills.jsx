@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
+import { CustomEase } from "gsap/CustomEase";
 import {
   SiHtml5,
   SiCss,
@@ -16,40 +17,99 @@ import {
 } from "react-icons/si";
 import { gsap } from "../../lib/gsap";
 
-const rowA = [
-  { name: "HTML", Icon: SiHtml5 },
-  { name: "CSS", Icon: SiCss },
-  { name: "JavaScript", Icon: SiJavascript },
+gsap.registerPlugin(CustomEase);
+CustomEase.create("toolboxEase", "M0,0,C0.16,1,0.3,1,1,1");
+
+const rowAFlow = [
+  { name: "JavaScript", Icon: SiJavascript, wide: true },
   { name: "React", Icon: SiReact },
-  { name: "Node.js", Icon: SiNodedotjs },
-  { name: "Express", Icon: SiExpress },
-];
-
-const rowB = [
+  { name: "HTML", Icon: SiHtml5, wide: true },
+  { name: "CSS", Icon: SiCss },
+  { name: "React", Icon: SiReact, wide: true },
+  { name: "JavaScript", Icon: SiJavascript },
+  { name: "CSS", Icon: SiCss, wide: true },
+  { name: "Node.js", Icon: SiNodedotjs, wide: true },
   { name: "PHP", Icon: SiPhp },
-  { name: "Laravel", Icon: SiLaravel },
+  { name: "Laravel", Icon: SiLaravel, wide: true },
   { name: "MySQL", Icon: SiMysql },
+  { name: "Express", Icon: SiExpress, wide: true },
   { name: "SQLite", Icon: SiSqlite },
-  { name: "Git", Icon: SiGit },
-  { name: "GitHub", Icon: SiGithub },
+  { name: "PHP", Icon: SiPhp, wide: true },
 ];
 
-function Pill({ name, Icon }) {
+const rowAOver = [
+  { name: "CSS", Icon: SiCss, left: 7.5 },
+  { name: "React", Icon: SiReact, left: 22.5 },
+  { name: "SQLite", Icon: SiSqlite, wide: true, left: 92, rotate: 20 },
+  { name: "MySQL", Icon: SiMysql, left: 82.5 },
+];
+
+const rowBFlow = [
+  { name: "CSS", Icon: SiCss },
+  { name: "React", Icon: SiReact, wide: true },
+  { name: "JavaScript", Icon: SiJavascript },
+  { name: "HTML", Icon: SiHtml5, wide: true },
+  { name: "React", Icon: SiReact },
+  { name: "JavaScript", Icon: SiJavascript, wide: true },
+  { name: "HTML", Icon: SiHtml5 },
+  { name: "Express", Icon: SiExpress, wide: true },
+  { name: "SQLite", Icon: SiSqlite },
+  { name: "Node.js", Icon: SiNodedotjs, wide: true },
+  { name: "Git", Icon: SiGit },
+  { name: "MySQL", Icon: SiMysql, wide: true },
+  { name: "GitHub", Icon: SiGithub },
+  { name: "Laravel", Icon: SiLaravel, wide: true },
+];
+
+const rowBOver = [
+  { name: "JavaScript", Icon: SiJavascript, left: 15 },
+  { name: "HTML", Icon: SiHtml5, left: 30 },
+  { name: "Git", Icon: SiGit, left: 58 },
+  { name: "PHP", Icon: SiPhp, left: 75 },
+];
+
+function Pill({ name, Icon, wide, rotate, left }) {
+  const style = {};
+  if (rotate) style.transform = `rotateZ(${rotate}deg)`;
+  if (left !== undefined) style.left = `${left}vw`;
+
+  const base =
+    "inline-flex shrink-0 items-center justify-center rounded-full bg-(--ink) text-(--cream)";
+  const placed = left !== undefined ? "absolute top-0" : "";
+
+  if (!wide) {
+    return (
+      <span
+        style={style}
+        className={`${base} ${placed} h-11 w-11 md:h-[3.75vw] md:w-[3.75vw]`}
+      >
+        <Icon className="h-4 w-4 md:h-[1.4vw] md:w-[1.4vw]" />
+      </span>
+    );
+  }
+
   return (
-    <span className="inline-flex shrink-0 items-center gap-2 rounded-full bg-(--ink) px-6 py-3 text-(--cream)">
-      <Icon size={16} />
-      <span className="font-body text-[14px] font-normal">{name}</span>
+    <span
+      style={style}
+      className={`${base} ${placed} h-8 gap-2 whitespace-nowrap px-4 md:h-[2.5vw] md:w-[8.75vw] md:gap-[0.6vw] md:px-0`}
+    >
+      <Icon className="h-3.5 w-3.5 md:h-[1.15vw] md:w-[1.15vw]" />
+      <span className="font-body text-[12px] font-normal md:text-[0.9vw]">
+        {name}
+      </span>
     </span>
   );
 }
 
-function MarqueeRow({ items, trackRef }) {
-  const doubled = [...items, ...items];
+function Row({ flow, over }) {
   return (
-    <div className="overflow-hidden">
-      <div ref={trackRef} className="flex w-max items-center gap-4">
-        {doubled.map((item, idx) => (
-          <Pill key={`${item.name}-${idx}`} name={item.name} Icon={item.Icon} />
+    <div className="relative flex items-start gap-3 md:h-[4.6vw] md:gap-[1.25vw]">
+      {flow.map((item, idx) => (
+        <Pill key={`f-${item.name}-${idx}`} {...item} />
+      ))}
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
+        {over.map((item, idx) => (
+          <Pill key={`o-${item.name}-${idx}`} {...item} />
         ))}
       </div>
     </div>
@@ -58,17 +118,14 @@ function MarqueeRow({ items, trackRef }) {
 
 export default function ToolBoxSkills() {
   const wrapperRef = useRef(null);
-  const trackARef = useRef(null);
-  const trackBRef = useRef(null);
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia(
+      const reduced = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
-      if (prefersReducedMotion) {
-        gsap.set([trackARef.current, trackBRef.current], { xPercent: 0 });
+      if (reduced) {
         gsap.set(wrapperRef.current, { opacity: 1, y: 0 });
         return;
       }
@@ -78,38 +135,23 @@ export default function ToolBoxSkills() {
         opacity: 1,
         y: 0,
         duration: 0.7,
-        ease: "power2.out",
+        ease: "toolboxEase",
         scrollTrigger: {
           trigger: wrapperRef.current,
           start: "top 92%",
           toggleActions: "play none none none",
         },
       });
-
-      gsap.set(trackARef.current, { xPercent: 0 });
-      gsap.set(trackBRef.current, { xPercent: -50 });
-
-      gsap.to(trackARef.current, {
-        xPercent: -50,
-        duration: 32,
-        ease: "none",
-        repeat: -1,
-      });
-
-      gsap.to(trackBRef.current, {
-        xPercent: 0,
-        duration: 26,
-        ease: "none",
-        repeat: -1,
-      });
     },
     { scope: wrapperRef }
   );
 
   return (
-    <div ref={wrapperRef} className="flex flex-col gap-4 py-8 md:py-12">
-      <MarqueeRow items={rowA} trackRef={trackARef} />
-      <MarqueeRow items={rowB} trackRef={trackBRef} />
+    <div ref={wrapperRef} className="full-bleed overflow-hidden">
+      <div className="mx-auto flex w-[105.26%] flex-col gap-2 md:gap-0">
+        <Row flow={rowAFlow} over={rowAOver} />
+        <Row flow={rowBFlow} over={rowBOver} />
+      </div>
     </div>
   );
 }
