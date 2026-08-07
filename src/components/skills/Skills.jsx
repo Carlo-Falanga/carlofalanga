@@ -6,7 +6,7 @@ import ServicePills from "./ToolBoxSkills";
 gsap.registerPlugin(CustomEase);
 CustomEase.create("skillsEase", "M0,0,C0.16,1,0.3,1,1,1");
 
-const TITLE_LINES = ["Two", "disciplines"];
+const TITLE_LINES = ["Web", "development"];
 
 const services = [
   {
@@ -83,7 +83,7 @@ export default function Skills() {
         <div className="flex w-[105.26%] justify-center">
           <div
             ref={titleRef}
-            aria-label="Two disciplines"
+            aria-label="Web development"
             className="absolute top-[2.5vw] z-2 flex w-auto flex-col items-center text-[--cream] mix-blend-difference"
           >
             <span aria-hidden="true">
@@ -94,7 +94,7 @@ export default function Skills() {
                 >
                   <span
                     ref={(el) => (lineRefs.current[idx] = el)}
-                    className="skills-line relative block"
+                    className="skills-line relative block text-center"
                   >
                     <span className="skills-line-dim block font-display text-[13vw] leading-[100%] font-normal tracking-normal text-(--dim) uppercase md:text-[7vw]">
                       {line}
@@ -108,23 +108,28 @@ export default function Skills() {
             </span>
           </div>
 
-          {services.map((service, idx) => (
-            <div key={service.id} className="flex w-1/2 flex-col">
-              <div className="flex h-[62vh] flex-col items-start justify-end pl-6 md:h-[82vh] md:pl-[5.63vw]">
-                <h3 className="font-body text-[16px] leading-[130%] font-medium tracking-normal text-(--ink) uppercase underline decoration-1 underline-offset-4 md:text-[1.5vw]">
-                  {service.title[0]}
-                  <br />
-                  {service.title[1]}
-                </h3>
-                <div className="mt-4 w-[80vw] md:mt-[1.2vw] md:h-[6.5vw] md:w-[30.88vw]">
-                  <p className="text-[14px] leading-[130%] text-(--dim) md:text-[1.25vw]">
-                    {service.body}
-                  </p>
+          {services.map((service) => (
+            <div
+              key={service.id}
+              className="group/side flex w-1/2 flex-col bg-(--cream) transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-(--sand) motion-reduce:transition-none"
+            >
+              <div className="flex h-[40vh] flex-col items-start justify-end pl-6 md:h-[52vh] md:pl-[5.63vw]">
+                <div className="opacity-0 transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/side:opacity-100 motion-reduce:opacity-100 motion-reduce:transition-none">
+                  <h3 className="font-body text-[16px] leading-[130%] font-medium tracking-normal text-(--ink) uppercase underline decoration-1 underline-offset-4 md:text-[1.5vw]">
+                    {service.title[0]}
+                    <br />
+                    {service.title[1]}
+                  </h3>
+                  <div className="mt-4 w-[80vw] md:mt-[1.2vw] md:h-[6.5vw] md:w-[30.88vw]">
+                    <p className="text-[14px] leading-[130%] text-(--dim) md:text-[1.25vw]">
+                      {service.body}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex h-[22vh] items-end md:h-[35vh]">
-                <ServicePills variant={service.id} align={idx === 0 ? "left" : "right"} />
+              <div className="flex h-[16vh] items-end md:h-[22vh]">
+                <ServicePills variant={service.id} />
               </div>
             </div>
           ))}
