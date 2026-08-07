@@ -33,9 +33,9 @@ const items = [
 
 function Pill({ Icon, name }) {
   return (
-    <span className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-(--ink) px-6 whitespace-nowrap text-(--cream) md:h-[3.75vw] md:gap-[0.7vw] md:px-[1.9vw]">
-      <Icon className="h-4 w-4 md:h-[1.3vw] md:w-[1.3vw]" />
-      <span className="font-body text-[13px] font-normal md:text-[1vw]">
+    <span className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full bg-(--ink) px-5 whitespace-nowrap text-(--cream) md:h-[3.1vw] md:gap-[0.6vw] md:px-[1.6vw]">
+      <Icon className="h-3.5 w-3.5 md:h-[1.1vw] md:w-[1.1vw]" />
+      <span className="font-body text-[12px] font-normal md:text-[0.88vw]">
         {name}
       </span>
     </span>
