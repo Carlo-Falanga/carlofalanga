@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LuArrowRight, LuMenu, LuX } from "react-icons/lu";
 
 const navLinks = [
@@ -31,10 +31,38 @@ function NavLink({ name, href }) {
 
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (reduced) return;
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      const delta = y - lastY.current;
+
+      if (Math.abs(delta) > 6) {
+        setHidden(delta > 0 && y > 120);
+        lastY.current = y;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 w-full bg-(--ink)">
-      <div className="flex items-center justify-between px-9 py-[2.4vw] md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-6">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 w-full bg-(--ink) transition-[transform,opacity] duration-400 ease-[ease] motion-reduce:transition-none ${
+        hidden && !menuOpen
+          ? "-translate-y-[8vw] opacity-0"
+          : "translate-y-0 opacity-100"
+      }`}
+    >
+      <div className="flex items-center justify-between px-9 py-[1.1vw] md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-6">
         <nav className="hidden w-fit items-center gap-[0.3125vw] rounded-full bg-(--cream) p-[0.31vw] md:flex md:justify-self-start">
           {navLinks.map((link) => (
             <NavLink key={link.name} name={link.name} href={link.href} />
@@ -44,7 +72,7 @@ export default function SiteHeader() {
         <img
           src="/logo/logo-dark.svg"
           alt="Carlo Falanga"
-          className="h-6 w-auto shrink-0 md:justify-self-center"
+          className="h-[2.3vw] w-auto shrink-0 md:justify-self-center"
         />
 
         <div className="flex items-center justify-end gap-4 md:justify-self-end">
