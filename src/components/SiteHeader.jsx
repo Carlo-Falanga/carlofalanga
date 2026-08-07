@@ -34,8 +34,8 @@ export default function SiteHeader() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 w-full bg-(--ink)">
-      <div className="flex h-[86px] items-center justify-between px-9 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-6">
-        <nav className="hidden w-fit items-center gap-[0.3125vw] rounded-full p-[0.31vw] md:flex md:justify-self-start">
+      <div className="flex items-center justify-between px-9 py-[2.4vw] md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-6">
+        <nav className="hidden w-fit items-center gap-[0.3125vw] rounded-full bg-(--cream) p-[0.31vw] md:flex md:justify-self-start">
           {navLinks.map((link) => (
             <NavLink key={link.name} name={link.name} href={link.href} />
           ))}
@@ -51,15 +51,18 @@ export default function SiteHeader() {
           <a
             href="/cv-carlo-alberto-falanga.pdf"
             download
-            className="hidden w-[12.38vw] shrink-0 items-center gap-[0.625vw] rounded-full bg-white p-[0.31vw] font-body text-[1vw] leading-[90%] font-normal text-(--ink) transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-(--sand) motion-reduce:transition-none md:inline-flex"
+            className="group/cta hidden w-[12.38vw] shrink-0 items-center gap-[0.625vw] rounded-full border-[0.31vw] border-(--shell) bg-white p-[0.31vw] font-body text-[1vw] leading-[90%] font-normal text-(--ink) md:inline-flex"
           >
             <span
               aria-hidden="true"
-              className="flex h-[2vw] w-[2vw] shrink-0 items-center justify-center rounded-full bg-(--mustard)"
+              className="relative flex h-[2vw] w-[2vw] shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--mustard) transition-colors duration-400 ease-[ease] group-hover/cta:bg-(--ink) motion-reduce:transition-none"
             >
-              <LuArrowRight className="h-[0.9vw] w-[0.9vw] text-(--ink)" />
+              <LuArrowRight className="h-[0.9vw] w-[0.9vw] text-(--ink) transition-all duration-400 ease-[ease] group-hover/cta:translate-x-[1.375vw] group-hover/cta:text-(--cream) motion-reduce:transition-none" />
+              <LuArrowRight className="absolute h-[0.9vw] w-[0.9vw] -translate-x-[1.3125vw] text-(--cream) opacity-0 transition-all duration-400 ease-[ease] group-hover/cta:translate-x-0 group-hover/cta:opacity-100 motion-reduce:transition-none" />
             </span>
-            Download CV
+            <span className="transition-transform duration-400 ease-[ease] group-hover/cta:translate-x-[0.3125vw] motion-reduce:transition-none">
+              Download CV
+            </span>
           </a>
 
           <button
