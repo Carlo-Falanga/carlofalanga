@@ -102,13 +102,13 @@ export default function Hero() {
         </p>
 
         <div className="hero-corners flex flex-col gap-6 pt-[36dvh] md:flex-row md:items-start md:justify-between md:pt-[45dvh]">
-          <p className="hero-corner text-[14px] leading-relaxed font-normal text-(--dim-invert) md:max-w-[320px]">
+          <p className="hero-corner text-[14px] leading-[130%] font-normal tracking-normal text-(--dim-invert) md:max-w-[320px]">
             I&rsquo;m a full-stack web developer &mdash; I build clean, modern
             web apps end-to-end, from interface to database. Currently studying
             at Boolean, looking for a team to build with.
           </p>
 
-          <p className="hero-corner text-right text-[14px] leading-relaxed font-normal text-(--cream) uppercase md:max-w-[160px]">
+          <p className="hero-corner text-right text-[14px] leading-[130%] font-normal tracking-normal text-(--cream) uppercase md:max-w-[160px]">
             <span className="block">BUILD</span>
             <span className="block">THINGS THAT</span>
             <span className="block">WORK.</span>

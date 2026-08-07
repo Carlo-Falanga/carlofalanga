@@ -39,7 +39,7 @@ body {
 .display-xl {
   font-family: var(--font-display);
   letter-spacing: -0.02em;
-  line-height: 0.86;
+  line-height: 0.78;
 }
 
 .mono-label {
