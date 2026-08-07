@@ -5,16 +5,26 @@ import { gsap } from "../../lib/gsap";
 const LINE_ONE = "CARLO";
 const LINE_TWO = "FALANGA";
 
-function renderLetters(word) {
-  return Array.from(word).map((char, idx) => (
-    <span key={`letter-${idx}`} className="inline-block">
-      <span className="inline-block overflow-hidden">
-        <span className="hero-letter relative inline-block text-(--cream)">
-          {char}
-        </span>
+function Word({ word, keepGlow }) {
+  return (
+    <span className="hero-line block overflow-hidden py-[0.06em]">
+      <span className="block whitespace-nowrap">
+        {Array.from(word).map((char, idx) => (
+          <span key={`${word}-${idx}`} className="hero-letter relative inline-block">
+            <span className="text-(--cream)">{char}</span>
+            <span
+              aria-hidden="true"
+              className={`hero-glow absolute inset-0 text-(--mustard) opacity-0 ${
+                keepGlow ? "hero-glow-keep" : ""
+              }`}
+            >
+              {char}
+            </span>
+          </span>
+        ))}
       </span>
     </span>
-  ));
+  );
 }
 
 export default function Hero() {
@@ -28,14 +38,17 @@ export default function Hero() {
 
       const letters = gsap.utils.toArray(".hero-letter");
       const corners = gsap.utils.toArray(".hero-corner");
+      const glowPass = gsap.utils.toArray(".hero-glow:not(.hero-glow-keep)");
+      const glowKeep = gsap.utils.toArray(".hero-glow-keep");
 
       if (reduceMotion) {
         gsap.set(letters, { yPercent: 0, opacity: 1 });
         gsap.set(corners, { opacity: 1, y: 0 });
+        gsap.set(glowKeep, { opacity: 1 });
         return;
       }
 
-      gsap.set(letters, { yPercent: 100, opacity: 0 });
+      gsap.set(letters, { yPercent: 110, opacity: 0 });
       gsap.set(corners, { opacity: 0, y: 24 });
 
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
@@ -43,14 +56,32 @@ export default function Hero() {
       tl.to(letters, {
         yPercent: 0,
         opacity: 1,
-        duration: 0.75,
-        stagger: 0.05,
-      }).addLabel("lettersDone");
+        duration: 0.85,
+        stagger: 0.045,
+      }).addLabel("in", "-=0.35");
+
+      tl.to(
+        glowPass,
+        { opacity: 1, duration: 0.18, stagger: 0.055, ease: "none" },
+        "in"
+      );
+
+      tl.to(
+        glowPass,
+        { opacity: 0, duration: 0.3, stagger: 0.055, ease: "none" },
+        "in+=0.26"
+      );
+
+      tl.to(
+        glowKeep,
+        { opacity: 1, duration: 0.22, stagger: 0.055, ease: "none" },
+        "in+=" + 0.055 * LINE_ONE.length
+      );
 
       tl.to(
         corners,
         { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
-        "lettersDone-=0.15"
+        "in+=0.5"
       );
     },
     { scope: containerRef }
@@ -61,23 +92,23 @@ export default function Hero() {
       ref={containerRef}
       className="full-bleed relative h-dvh min-h-[640px] overflow-hidden bg-(--ink)"
     >
-      <div className="relative flex h-full flex-col section-px">
+      <div className="section-px relative flex h-full flex-col">
         <h1 className="sr-only">
           Carlo Falanga &mdash; Full-Stack Web Developer
         </h1>
 
-        <p className="hero-eyebrow mono-label absolute left-9 top-[118px] text-[13px] text-(--cream)">
+        <p className="hero-eyebrow mono-label absolute top-[118px] left-9 text-[13px] text-(--cream)">
           Full-Stack Web Developer &middot; Italy
         </p>
 
         <div className="hero-corners flex flex-col gap-6 pt-[36dvh] md:flex-row md:items-start md:justify-between md:pt-[45dvh]">
-          <p className="hero-corner text-[14px] font-normal text-(--dim-invert) leading-relaxed md:max-w-[320px]">
+          <p className="hero-corner text-[14px] leading-relaxed font-normal text-(--dim-invert) md:max-w-[320px]">
             I&rsquo;m a full-stack web developer &mdash; I build clean, modern
             web apps end-to-end, from interface to database. Currently studying
             at Boolean, looking for a team to build with.
           </p>
 
-          <p className="hero-corner text-right text-[14px] font-normal uppercase text-(--cream) leading-relaxed md:max-w-[160px]">
+          <p className="hero-corner text-right text-[14px] leading-relaxed font-normal text-(--cream) uppercase md:max-w-[160px]">
             <span className="block">BUILD</span>
             <span className="block">THINGS THAT</span>
             <span className="block">WORK.</span>
@@ -86,22 +117,10 @@ export default function Hero() {
 
         <div
           aria-hidden="true"
-          className="hero-wordmark mt-auto flex flex-col display-xl uppercase font-medium text-[clamp(44px,calc((100vw_-_72px)_*_0.224),470px)]"
+          className="hero-wordmark display-xl mt-auto mb-[-0.2em] flex flex-col font-bold text-[clamp(38px,calc((100vw_-_72px)_*_0.172),400px)] uppercase"
         >
-          <div className="flex items-baseline">
-            <div className="inline-flex shrink-0">
-              {renderLetters(LINE_ONE)}
-            </div>
-            <div className="relative z-0 grow self-stretch">
-              <span
-                aria-hidden="true"
-                className="hero-accent-bar absolute -z-10 -left-3 top-[8%] h-[19%] w-[calc(100%_+_12px)] bg-(--mustard)"
-              />
-            </div>
-          </div>
-          <div className="inline-flex self-start">
-            {renderLetters(LINE_TWO)}
-          </div>
+          <Word word={LINE_ONE} />
+          <Word word={LINE_TWO} keepGlow />
         </div>
       </div>
     </section>
