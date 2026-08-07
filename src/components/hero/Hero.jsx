@@ -83,6 +83,19 @@ export default function Hero() {
         { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
         "in+=0.5"
       );
+
+      const scrollTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.5,
+        },
+      });
+
+      scrollTl
+        .to(".hero-wordmark", { yPercent: 26, ease: "none" }, 0)
+        .to(corners, { yPercent: -140, opacity: 0, ease: "none" }, 0);
     },
     { scope: containerRef }
   );
