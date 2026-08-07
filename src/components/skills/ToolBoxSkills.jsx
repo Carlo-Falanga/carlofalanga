@@ -33,7 +33,7 @@ const items = [
 
 function Pill({ Icon, name }) {
   return (
-    <span className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full bg-(--ink) px-5 whitespace-nowrap text-(--cream) md:h-[3vw] md:gap-[0.6vw] md:px-[1.6vw]">
+    <span className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-(--ink) px-6 whitespace-nowrap text-(--cream) md:h-[3.75vw] md:gap-[0.7vw] md:px-[1.9vw]">
       <Icon className="h-4 w-4 md:h-[1.3vw] md:w-[1.3vw]" />
       <span className="font-body text-[13px] font-normal md:text-[1vw]">
         {name}
@@ -69,7 +69,7 @@ export default function ToolBoxSkills() {
   const doubled = [...items, ...items];
 
   return (
-    <div ref={wrapperRef} className="w-full overflow-hidden py-6 md:py-[2vw]">
+    <div ref={wrapperRef} className="w-full overflow-hidden py-10 md:py-[3.5vw]">
       <div
         ref={trackRef}
         className="flex w-max items-center gap-3 md:gap-[1.25vw]"

@@ -79,6 +79,11 @@ export default function Skills() {
       id="skills"
       className="relative mt-[6.25vw] overflow-hidden bg-(--cream)"
     >
+      <div aria-hidden="true" className="absolute inset-0 flex">
+        <div className="w-1/2 bg-(--sand)" />
+        <div className="w-1/2 bg-(--shell)" />
+      </div>
+
       <div className="relative flex flex-col items-center">
         <div className="flex w-[105.26%] justify-center">
           <div
@@ -96,10 +101,10 @@ export default function Skills() {
                     ref={(el) => (lineRefs.current[idx] = el)}
                     className="skills-line relative block text-center"
                   >
-                    <span className="skills-line-dim block font-display text-[13vw] leading-[100%] font-medium tracking-normal text-(--dim) uppercase md:text-[7vw]">
+                    <span className="skills-line-dim block font-display text-[13vw] leading-[100%] font-normal tracking-normal text-(--dim) uppercase md:text-[7vw]">
                       {line}
                     </span>
-                    <span className="skills-line-solid absolute inset-0 block font-display text-[13vw] leading-[100%] font-medium tracking-normal text-white uppercase opacity-0 md:text-[7vw]">
+                    <span className="skills-line-solid absolute inset-0 block font-display text-[13vw] leading-[100%] font-normal tracking-normal text-white uppercase opacity-0 md:text-[7vw]">
                       {line}
                     </span>
                   </span>
@@ -111,12 +116,20 @@ export default function Skills() {
           {services.map((service, idx) => (
             <div
               key={service.id}
-              className={`group/side flex w-1/2 flex-col ${
-                idx === 0 ? "bg-(--sand)" : "bg-(--shell)"
-              }`}
+              className="group/side flex w-1/2 flex-col"
             >
-              <div className="flex h-[40vh] flex-col items-start justify-end pl-6 md:h-[52vh] md:pl-[5.63vw]">
-                <div className="flex w-full flex-col items-start md:w-[30.88vw]">
+              <div
+                className={`flex h-[42vh] flex-col justify-end md:h-[56vh] ${
+                  idx === 0
+                    ? "items-start pl-6 md:pl-[5.63vw]"
+                    : "items-end pr-6 md:pr-[5.63vw]"
+                }`}
+              >
+                <div
+                  className={`flex w-full flex-col md:w-[30.88vw] ${
+                    idx === 0 ? "items-start" : "items-end text-right"
+                  }`}
+                >
                   <h3 className="font-body text-[16px] leading-[130%] font-medium tracking-normal text-(--ink) uppercase underline decoration-1 underline-offset-4 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/side:-translate-y-[1.6vw] motion-reduce:transition-none motion-reduce:group-hover/side:translate-y-0 md:text-[1.5vw]">
                     {service.title[0]}
                     <br />
