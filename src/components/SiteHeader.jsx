@@ -12,7 +12,7 @@ function NavLink({ name, href }) {
   return (
     <a
       href={href}
-      className="group relative block shrink-0 overflow-hidden rounded-full bg-white px-[1.13vw] pt-[0.94vw] pb-[0.81vw] font-body text-[1vw] leading-none font-normal whitespace-nowrap normal-case tracking-normal transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-(--mustard) motion-reduce:transition-none"
+      className="group relative block shrink-0 overflow-hidden rounded-full bg-white px-[0.92vw] pt-[0.72vw] pb-[0.62vw] font-body text-[0.82vw] leading-none font-normal whitespace-nowrap normal-case tracking-normal transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-(--mustard) motion-reduce:transition-none"
     >
       <span className="block h-[1em] overflow-hidden">
         <span className="flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1/2 motion-reduce:transition-none motion-reduce:group-hover:translate-y-0">
@@ -56,10 +56,8 @@ export default function SiteHeader() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 w-full bg-(--ink) transition-[transform,opacity] duration-400 ease-[ease] motion-reduce:transition-none ${
-        hidden && !menuOpen
-          ? "-translate-y-[8vw] opacity-0"
-          : "translate-y-0 opacity-100"
+      className={`fixed inset-x-0 top-0 z-50 w-full bg-(--ink) transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+        hidden && !menuOpen ? "-translate-y-full" : "translate-y-0"
       }`}
     >
       <div className="flex items-center justify-between px-9 py-[1.1vw] md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-6">
@@ -72,21 +70,21 @@ export default function SiteHeader() {
         <img
           src="/logo/logo-dark.svg"
           alt="Carlo Falanga"
-          className="h-[2.3vw] w-auto shrink-0 md:justify-self-center"
+          className="h-[1.75vw] w-auto shrink-0 md:justify-self-center"
         />
 
         <div className="flex items-center justify-end gap-4 md:justify-self-end">
           <a
             href="/cv-carlo-alberto-falanga.pdf"
             download
-            className="group/cta hidden w-[12.38vw] shrink-0 items-center gap-[0.625vw] rounded-full border-[0.31vw] border-(--shell) bg-white p-[0.31vw] font-body text-[1vw] leading-[90%] font-normal text-(--ink) md:inline-flex"
+            className="group/cta hidden w-[10.2vw] shrink-0 items-center gap-[0.5vw] rounded-full border-[0.26vw] border-(--shell) bg-white p-[0.26vw] font-body text-[0.82vw] leading-[90%] font-normal text-(--ink) md:inline-flex"
           >
             <span
               aria-hidden="true"
-              className="relative flex h-[2vw] w-[2vw] shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--mustard) transition-colors duration-400 ease-[ease] group-hover/cta:bg-(--ink) motion-reduce:transition-none"
+              className="relative flex h-[1.65vw] w-[1.65vw] shrink-0 items-center justify-center overflow-hidden rounded-full bg-(--mustard) transition-colors duration-400 ease-[ease] group-hover/cta:bg-(--ink) motion-reduce:transition-none"
             >
-              <LuArrowRight className="h-[0.9vw] w-[0.9vw] text-(--ink) transition-all duration-400 ease-[ease] group-hover/cta:translate-x-[1.375vw] group-hover/cta:text-(--cream) motion-reduce:transition-none" />
-              <LuArrowRight className="absolute h-[0.9vw] w-[0.9vw] -translate-x-[1.3125vw] text-(--cream) opacity-0 transition-all duration-400 ease-[ease] group-hover/cta:translate-x-0 group-hover/cta:opacity-100 motion-reduce:transition-none" />
+              <LuArrowRight className="h-[0.74vw] w-[0.74vw] text-(--ink) transition-all duration-400 ease-[ease] group-hover/cta:translate-x-[1.15vw] group-hover/cta:text-(--cream) motion-reduce:transition-none" />
+              <LuArrowRight className="absolute h-[0.74vw] w-[0.74vw] -translate-x-[1.1vw] text-(--cream) opacity-0 transition-all duration-400 ease-[ease] group-hover/cta:translate-x-0 group-hover/cta:opacity-100 motion-reduce:transition-none" />
             </span>
             <span className="transition-transform duration-400 ease-[ease] group-hover/cta:translate-x-[0.3125vw] motion-reduce:transition-none">
               Download CV
