@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { CustomEase } from "gsap/CustomEase";
 import { gsap } from "../../lib/gsap";
-import ServicePills from "./ToolBoxSkills";
+import ToolBoxSkills from "./ToolBoxSkills";
 
 gsap.registerPlugin(CustomEase);
 CustomEase.create("skillsEase", "M0,0,C0.16,1,0.3,1,1,1");
@@ -130,12 +130,11 @@ export default function Skills() {
                 </div>
               </div>
 
-              <div className="flex h-[16vh] items-end md:h-[22vh]">
-                <ServicePills variant={service.id} />
-              </div>
             </div>
           ))}
         </div>
+
+        <ToolBoxSkills />
       </div>
     </section>
   );

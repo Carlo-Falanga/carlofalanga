@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import {
   SiHtml5,
   SiCss,
@@ -12,93 +14,68 @@ import {
   SiGit,
   SiGithub,
 } from "react-icons/si";
+import { gsap } from "../../lib/gsap";
 
-const GROUPS = {
-  frontend: {
-    flow: [
-      { name: "JavaScript", Icon: SiJavascript, wide: true },
-      { name: "React", Icon: SiReact },
-      { name: "HTML", Icon: SiHtml5, wide: true },
-      { name: "CSS", Icon: SiCss, wide: true },
-      { name: "React", Icon: SiReact },
-      { name: "JavaScript", Icon: SiJavascript },
-      { name: "HTML", Icon: SiHtml5, wide: true },
-      { name: "CSS", Icon: SiCss },
-    ],
-    over: [
-      { name: "HTML", Icon: SiHtml5, left: 2.5, bottom: 2.5 },
-      { name: "React", Icon: SiReact, left: 10, bottom: 3.75 },
-      { name: "CSS", Icon: SiCss, wide: true, left: 15, bottom: 2.5 },
-      { name: "JavaScript", Icon: SiJavascript, left: 27, bottom: 2.5 },
-      { name: "React", Icon: SiReact, left: 47, bottom: 2.5 },
-    ],
-  },
-  backend: {
-    flow: [
-      { name: "Node.js", Icon: SiNodedotjs, wide: true },
-      { name: "PHP", Icon: SiPhp },
-      { name: "Laravel", Icon: SiLaravel, wide: true },
-      { name: "Express", Icon: SiExpress, wide: true },
-      { name: "MySQL", Icon: SiMysql },
-      { name: "SQLite", Icon: SiSqlite },
-      { name: "GitHub", Icon: SiGithub, wide: true },
-      { name: "Git", Icon: SiGit },
-    ],
-    over: [
-      { name: "MySQL", Icon: SiMysql, left: 2.5, bottom: 2.5 },
-      { name: "SQLite", Icon: SiSqlite, left: 10, bottom: 3.75 },
-      { name: "Git", Icon: SiGit, wide: true, left: 15, bottom: 2.5 },
-      { name: "PHP", Icon: SiPhp, left: 27, bottom: 2.5 },
-      { name: "GitHub", Icon: SiGithub, left: 47, bottom: 2.5 },
-    ],
-  },
-};
+const items = [
+  { name: "JavaScript", Icon: SiJavascript },
+  { name: "React", Icon: SiReact },
+  { name: "HTML", Icon: SiHtml5 },
+  { name: "CSS", Icon: SiCss },
+  { name: "Node.js", Icon: SiNodedotjs },
+  { name: "Express", Icon: SiExpress },
+  { name: "PHP", Icon: SiPhp },
+  { name: "Laravel", Icon: SiLaravel },
+  { name: "MySQL", Icon: SiMysql },
+  { name: "SQLite", Icon: SiSqlite },
+  { name: "Git", Icon: SiGit },
+  { name: "GitHub", Icon: SiGithub },
+];
 
-function Pill({ Icon, name, wide, rotate, left, bottom }) {
-  const style = {};
-  if (rotate) style.transform = `rotateZ(${rotate}deg)`;
-  if (left !== undefined) style.left = `${left}vw`;
-  if (bottom !== undefined) style.bottom = `${bottom}vw`;
-
-  const base =
-    "inline-flex shrink-0 items-center justify-center rounded-full bg-(--ink) text-(--cream)";
-  const placed = left !== undefined ? "absolute" : "";
-
-  if (!wide) {
-    return (
-      <span
-        style={style}
-        className={`${base} ${placed} h-9 w-9 md:h-[3.75vw] md:w-[3.75vw]`}
-      >
-        <Icon className="h-3.5 w-3.5 md:h-[1.4vw] md:w-[1.4vw]" />
-      </span>
-    );
-  }
-
+function Pill({ Icon, name }) {
   return (
-    <span
-      style={style}
-      className={`${base} ${placed} h-7 gap-1.5 whitespace-nowrap px-3 md:h-[2.5vw] md:w-[8.75vw] md:gap-[0.6vw] md:px-0`}
-    >
-      <Icon className="h-3 w-3 md:h-[1.15vw] md:w-[1.15vw]" />
-      <span className="font-body text-[11px] font-normal md:text-[0.9vw]">
+    <span className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full bg-(--ink) px-5 whitespace-nowrap text-(--cream) md:h-[3vw] md:gap-[0.6vw] md:px-[1.6vw]">
+      <Icon className="h-4 w-4 md:h-[1.3vw] md:w-[1.3vw]" />
+      <span className="font-body text-[13px] font-normal md:text-[1vw]">
         {name}
       </span>
     </span>
   );
 }
 
-export default function ServicePills({ variant }) {
-  const group = GROUPS[variant] ?? GROUPS.frontend;
+export default function ToolBoxSkills() {
+  const wrapperRef = useRef(null);
+  const trackRef = useRef(null);
+
+  useGSAP(
+    () => {
+      const reduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      if (reduced) {
+        gsap.set(trackRef.current, { xPercent: 0 });
+        return;
+      }
+
+      gsap.fromTo(
+        trackRef.current,
+        { xPercent: 0 },
+        { xPercent: -50, duration: 34, ease: "none", repeat: -1 }
+      );
+    },
+    { scope: wrapperRef }
+  );
+
+  const doubled = [...items, ...items];
 
   return (
-    <div className="relative flex w-full items-end gap-2 md:gap-[1.25vw]">
-      {group.flow.map((item, idx) => (
-        <Pill key={`f-${item.name}-${idx}`} {...item} />
-      ))}
-      <div className="pointer-events-none absolute inset-0 hidden md:block">
-        {group.over.map((item, idx) => (
-          <Pill key={`o-${item.name}-${idx}`} {...item} />
+    <div ref={wrapperRef} className="w-full overflow-hidden py-6 md:py-[2vw]">
+      <div
+        ref={trackRef}
+        className="flex w-max items-center gap-3 md:gap-[1.25vw]"
+      >
+        {doubled.map((item, idx) => (
+          <Pill key={`${item.name}-${idx}`} {...item} />
         ))}
       </div>
     </div>
