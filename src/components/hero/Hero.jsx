@@ -102,13 +102,13 @@ export default function Hero() {
         </p>
 
         <div className="hero-corners flex flex-col gap-6 pt-[36dvh] md:flex-row md:items-start md:justify-between md:pt-[45dvh]">
-          <p className="hero-corner text-[14px] leading-[130%] font-normal tracking-normal text-(--dim-invert) md:max-w-[320px]">
+          <p className="hero-corner text-[15px] leading-[130%] font-normal tracking-normal text-(--dim-invert) md:max-w-[26vw] md:text-[1.25vw]">
             I&rsquo;m a full-stack web developer &mdash; I build clean, modern
             web apps end-to-end, from interface to database. Currently studying
             at Boolean, looking for a team to build with.
           </p>
 
-          <p className="hero-corner text-right text-[14px] leading-[130%] font-normal tracking-normal text-(--cream) uppercase md:max-w-[160px]">
+          <p className="hero-corner text-right text-[15px] leading-[130%] font-normal tracking-normal text-(--cream) uppercase md:max-w-[14vw] md:text-[1.25vw]">
             <span className="block">BUILD</span>
             <span className="block">THINGS THAT</span>
             <span className="block">WORK.</span>
@@ -117,7 +117,7 @@ export default function Hero() {
 
         <div
           aria-hidden="true"
-          className="hero-wordmark display-xl mt-auto mb-[-0.2em] flex flex-col font-bold text-[clamp(38px,calc((100vw_-_72px)_*_0.172),400px)] uppercase"
+          className="hero-wordmark display-xl mt-auto mb-[1.5vw] flex flex-col font-bold text-[clamp(38px,calc((100vw_-_72px)_*_0.172),400px)] uppercase"
         >
           <Word word={LINE_ONE} />
           <Word word={LINE_TWO} keepGlow />
