@@ -25,9 +25,12 @@ const GROUPS = {
       { name: "CSS", Icon: SiCss, wide: true },
     ],
     over: [
-      { name: "HTML", Icon: SiHtml5, left: 7.5 },
-      { name: "CSS", Icon: SiCss, left: 22.5 },
-      { name: "React", Icon: SiReact, left: 37.5 },
+      { name: "HTML", Icon: SiHtml5, left: 6, bottom: 2.4 },
+      { name: "CSS", Icon: SiCss, left: 11.5, bottom: 2.4 },
+      { name: "React", Icon: SiReact, wide: true, left: 15.75, bottom: 2.5 },
+      { name: "JavaScript", Icon: SiJavascript, left: 24.38, bottom: 2.4 },
+      { name: "CSS", Icon: SiCss, wide: true, left: 28.06, bottom: 3.69 },
+      { name: "React", Icon: SiReact, left: 36.69, bottom: 2.4 },
     ],
   },
   backend: {
@@ -41,21 +44,25 @@ const GROUPS = {
       { name: "GitHub", Icon: SiGithub, wide: true },
     ],
     over: [
-      { name: "MySQL", Icon: SiMysql, left: 7.5 },
-      { name: "SQLite", Icon: SiSqlite, left: 22.5 },
-      { name: "Git", Icon: SiGit, left: 37.5 },
+      { name: "MySQL", Icon: SiMysql, left: 6, bottom: 2.4 },
+      { name: "SQLite", Icon: SiSqlite, left: 11.5, bottom: 2.4 },
+      { name: "Express", Icon: SiExpress, wide: true, left: 15.75, bottom: 2.5 },
+      { name: "Git", Icon: SiGit, left: 24.38, bottom: 2.4 },
+      { name: "Laravel", Icon: SiLaravel, wide: true, left: 28.06, bottom: 3.69 },
+      { name: "PHP", Icon: SiPhp, left: 36.69, bottom: 2.4 },
     ],
   },
 };
 
-function Pill({ Icon, name, wide, rotate, left }) {
+function Pill({ Icon, name, wide, rotate, left, bottom }) {
   const style = {};
   if (rotate) style.transform = `rotateZ(${rotate}deg)`;
   if (left !== undefined) style.left = `${left}vw`;
+  if (bottom !== undefined) style.bottom = `${bottom}vw`;
 
   const base =
     "inline-flex shrink-0 items-center justify-center rounded-full bg-(--ink) text-(--cream)";
-  const placed = left !== undefined ? "absolute bottom-0" : "";
+  const placed = left !== undefined ? "absolute" : "";
 
   if (!wide) {
     return (
