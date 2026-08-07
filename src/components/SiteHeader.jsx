@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { LuMenu, LuX } from "react-icons/lu";
-
+import { Fragment, useState } from "react";
+import { LuArrowRight, LuMenu, LuX } from "react-icons/lu";
 
 const navLinks = [
   { name: "Work", href: "#projects" },
@@ -13,7 +12,7 @@ function NavLink({ name, href }) {
   return (
     <a
       href={href}
-      className="group relative block h-[41px] shrink-0 overflow-hidden whitespace-nowrap rounded-full bg-(--cream) px-8 font-body text-[14px] font-normal normal-case tracking-normal transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-(--mustard) motion-reduce:transition-none"
+      className="group relative block h-[41px] shrink-0 overflow-hidden whitespace-nowrap rounded-full px-8 font-body text-[14px] font-normal normal-case tracking-normal transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-(--mustard) motion-reduce:transition-none"
     >
       <span className="flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1/2 motion-reduce:transition-none motion-reduce:group-hover:translate-y-0">
         <span className="flex h-[41px] shrink-0 items-center text-(--ink)">
@@ -36,9 +35,17 @@ export default function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 w-full bg-(--ink)">
       <div className="flex h-[86px] items-center justify-between px-9 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-6">
-        <nav className="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => (
-            <NavLink key={link.name} name={link.name} href={link.href} />
+        <nav className="hidden w-fit items-center overflow-hidden rounded-full bg-(--cream) md:flex md:justify-self-start">
+          {navLinks.map((link, index) => (
+            <Fragment key={link.name}>
+              {index > 0 && (
+                <span
+                  aria-hidden="true"
+                  className="h-5 w-px shrink-0 bg-(--line)"
+                />
+              )}
+              <NavLink name={link.name} href={link.href} />
+            </Fragment>
           ))}
         </nav>
 
@@ -56,8 +63,10 @@ export default function SiteHeader() {
           >
             <span
               aria-hidden="true"
-              className="h-7 w-7 shrink-0 rounded-full bg-(--mustard)"
-            />
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-(--mustard)"
+            >
+              <LuArrowRight size={14} className="text-(--ink)" />
+            </span>
             Download CV
           </a>
 

@@ -29,8 +29,8 @@ export default function MagnetTransition() {
       ).matches;
 
       gsap.set(shapeRef.current, {
-        yPercent: 160,
-        opacity: 0,
+        yPercent: 220,
+        opacity: 1,
         rotate: 0,
         scale: 1,
       });
@@ -58,7 +58,7 @@ export default function MagnetTransition() {
         scrollTrigger: scrollTriggerConfig,
       });
 
-      tl.to(shapeRef.current, { yPercent: 0, opacity: 1, duration: 0.16 }, 0)
+      tl.to(shapeRef.current, { yPercent: 0, duration: 0.16 }, 0)
         .to(labelRef.current, { opacity: 1, duration: 0.1 }, 0.08)
         .to(
           shapeRef.current,
