@@ -2,41 +2,19 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../lib/gsap";
 
-const WORDMARK = "CARLO FALANGA";
-const SECOND_WORD_INDEX = WORDMARK.indexOf(" ") + 1;
+const LINE_ONE = "CARLO";
+const LINE_TWO = "FALANGA";
 
-function renderWordmark(text, secondWordIndex) {
-  return Array.from(text).map((char, idx) => {
-    if (char === " ") {
-      return (
-        <span
-          key={`space-${idx}`}
-          aria-hidden="true"
-          className="hero-space inline-block w-[0.28em]"
-        />
-      );
-    }
-
-    const isSecondWord = idx >= secondWordIndex;
-
-    return (
-      <span key={`letter-${idx}`} className="inline-block">
-        <span className="inline-block overflow-hidden">
-          <span className="hero-letter relative inline-block text-(--cream)">
-            {char}
-            {isSecondWord && (
-              <span
-                aria-hidden="true"
-                className="hero-fill absolute inset-0 text-(--mustard)"
-              >
-                {char}
-              </span>
-            )}
-          </span>
+function renderLetters(word) {
+  return Array.from(word).map((char, idx) => (
+    <span key={`letter-${idx}`} className="inline-block">
+      <span className="inline-block overflow-hidden">
+        <span className="hero-letter relative inline-block text-(--cream)">
+          {char}
         </span>
       </span>
-    );
-  });
+    </span>
+  ));
 }
 
 export default function Hero() {
@@ -49,18 +27,15 @@ export default function Hero() {
       ).matches;
 
       const letters = gsap.utils.toArray(".hero-letter");
-      const fillLetters = gsap.utils.toArray(".hero-fill");
       const corners = gsap.utils.toArray(".hero-corner");
 
       if (reduceMotion) {
         gsap.set(letters, { yPercent: 0, opacity: 1 });
-        gsap.set(fillLetters, { clipPath: "inset(0% 0% 0% 0%)" });
         gsap.set(corners, { opacity: 1, y: 0 });
         return;
       }
 
       gsap.set(letters, { yPercent: 100, opacity: 0 });
-      gsap.set(fillLetters, { clipPath: "inset(100% 0% 0% 0%)" });
       gsap.set(corners, { opacity: 0, y: 24 });
 
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
@@ -71,16 +46,6 @@ export default function Hero() {
         duration: 0.75,
         stagger: 0.05,
       }).addLabel("lettersDone");
-
-      tl.to(
-        fillLetters,
-        {
-          clipPath: "inset(0% 0% 0% 0%)",
-          duration: 0.6,
-          stagger: 0.07,
-        },
-        "lettersDone-=0.2"
-      );
 
       tl.to(
         corners,
@@ -101,6 +66,10 @@ export default function Hero() {
           Carlo Falanga &mdash; Full-Stack Web Developer
         </h1>
 
+        <p className="hero-eyebrow mono-label absolute left-9 top-[118px] text-[11px] text-(--dim-invert)">
+          Full-Stack Web Developer &middot; Italy
+        </p>
+
         <div className="hero-corners flex flex-col gap-6 pt-[36dvh] md:flex-row md:items-start md:justify-between md:pt-[45dvh]">
           <p className="hero-corner text-[14px] font-normal text-(--dim-invert) leading-relaxed md:max-w-[320px]">
             I&rsquo;m a full-stack web developer &mdash; I build clean, modern
@@ -115,14 +84,23 @@ export default function Hero() {
           </p>
         </div>
 
-        <div className="flex-1" />
-
         <div
           aria-hidden="true"
-          className="hero-wordmark translate-y-[4%] display uppercase font-medium leading-[0.82]"
+          className="hero-wordmark mt-auto flex flex-col display-xl uppercase font-medium text-[clamp(44px,calc((100vw_-_72px)_*_0.224),470px)]"
         >
-          <div className="flex items-baseline text-[clamp(30px,calc((100vw_-_72px)_*_0.1223),400px)] tracking-[-0.03em]">
-            {renderWordmark(WORDMARK, SECOND_WORD_INDEX)}
+          <div className="flex items-baseline">
+            <div className="inline-flex shrink-0">
+              {renderLetters(LINE_ONE)}
+            </div>
+            <div className="relative z-0 grow self-stretch">
+              <span
+                aria-hidden="true"
+                className="hero-accent-bar absolute -z-10 -left-3 top-[8%] h-[19%] w-[calc(100%_+_12px)] bg-(--mustard)"
+              />
+            </div>
+          </div>
+          <div className="inline-flex self-start">
+            {renderLetters(LINE_TWO)}
           </div>
         </div>
       </div>
