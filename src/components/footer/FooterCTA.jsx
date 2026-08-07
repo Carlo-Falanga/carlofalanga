@@ -3,7 +3,6 @@ import { LuArrowRight, LuArrowDown } from "react-icons/lu";
 export default function FooterCTA() {
   return (
     <section className="grid grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-10 py-16 md:py-32 section-px">
-      {/* Index rail, consistent with About/Skills/Projects/Contact */}
       <div className="hidden md:block md:col-start-1 md:col-span-2 font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim) pt-4">
         <span className="text-(--mustard)">05</span> Say hello
       </div>

@@ -10,7 +10,6 @@ export default function Experience() {
       id="experience"
       className="relative overflow-hidden border-b border-(--line) section-px py-12 md:py-22"
     >
-      {/* Background texture title: low-contrast typographic layer, not meant to be read */}
       <span
         aria-hidden="true"
         className="pointer-events-none select-none absolute -top-2 md:top-0 left-4 md:left-6 font-display font-normal uppercase leading-none text-[clamp(64px,16vw,240px)] tracking-[-0.03em] text-[color-mix(in_oklab,var(--ink)_6%,transparent)]"
@@ -19,13 +18,11 @@ export default function Experience() {
       </span>
 
       <div className="relative z-10">
-        {/* Index label, consistent with the rest of the site's nav rail */}
         <div className="font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim) mb-8 md:mb-12">
           07 Experience
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 divide-y md:divide-y-0 md:divide-x divide-(--line) border-t border-(--line)">
-          {/* Giant number */}
           <div className="md:col-span-3 relative flex items-start md:items-center py-8 md:py-16 md:px-8">
             <span className="font-display font-normal leading-none tracking-[-0.03em] text-[clamp(64px,10vw,168px)] text-(--ink)">
               01
@@ -36,7 +33,6 @@ export default function Experience() {
             />
           </div>
 
-          {/* Role + meta */}
           <div className="md:col-span-4 flex flex-col gap-3 py-8 md:py-16 md:px-8">
             <span className="font-mono lowercase tracking-[0.08em] text-[12px] text-(--dim)">
               (Role)
@@ -50,7 +46,6 @@ export default function Experience() {
             </div>
           </div>
 
-          {/* Highlights */}
           <div className="md:col-span-5 flex flex-col gap-3 py-8 md:py-16 md:px-8">
             <span className="font-mono lowercase tracking-[0.08em] text-[12px] text-(--dim)">
               (Highlights)

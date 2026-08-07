@@ -31,9 +31,6 @@ const skills = [
 
 const toolbox = ["Git", "GitHub", "npm", "VS Code", "Postman", "Vite", "REST API"];
 
-// Adobe suite: kept in its own list, rendered as a separate, unaccented
-// group so it reads as "also does design" rather than being mixed into
-// the Frontend/Backend/Database dev stack above.
 const designTools = [
   { name: "Adobe Photoshop",   Icon: TbBrandAdobePhotoshop },
   { name: "Adobe Illustrator", Icon: TbBrandAdobeIllustrator },
@@ -43,16 +40,9 @@ const designTools = [
 export default function ToolBoxSkills() {
   return (
     <div className="flex flex-col gap-10">
-
-      {/* Skills Grid*/}
       <div className="grid grid-cols-2 md:grid-cols-4 border-t border-l border-(--line)">
-
         {skills.map((skill) =>
           skill.featured ? (
-            /* Standout "Database" entry: pairs with the "wide" item right before it
-               (see below) to close the grid on a shared full-width row instead of
-               leaving a jagged, half-empty last row. Doubles as the section's
-               single mustard accent. */
             <div
               key={skill.name}
               style={{ "--hover-bg": skill.hoverBg }}
@@ -78,12 +68,10 @@ export default function ToolBoxSkills() {
                 skill.wide ? " md:col-span-2" : ""
               }`}
             >
-              {/* Icons */}
               <div className="border border-(--line) w-12 h-12 flex items-center justify-center">
                 <skill.Icon size={22} />
               </div>
 
-              {/* Name */}
               <div>
                 <p className="font-display text-[20px] md:text-[22px]">
                   {skill.name}
@@ -95,10 +83,8 @@ export default function ToolBoxSkills() {
             </div>
           )
         )}
-
       </div>
 
-      {/* Toolbox */}
       <div className="flex flex-col gap-3">
         <span className="font-mono uppercase tracking-[0.08em] text-[11px] text-(--dim)">
           — Toolbox
@@ -112,7 +98,6 @@ export default function ToolBoxSkills() {
         </div>
       </div>
 
-      {/* Design — Adobe suite, kept apart from the dev stack above */}
       <div className="flex flex-col gap-3">
         <span className="font-mono uppercase tracking-[0.08em] text-[11px] text-(--dim)">
           — Design
@@ -129,7 +114,6 @@ export default function ToolBoxSkills() {
           ))}
         </div>
       </div>
-
     </div>
   );
 }

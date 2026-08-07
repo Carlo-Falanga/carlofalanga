@@ -30,7 +30,6 @@ const education = [
 function EducationRow({ entry }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 divide-y md:divide-y-0 md:divide-x divide-(--line) border-t border-(--line)">
-      {/* Number */}
       <div className="md:col-span-3 flex items-start md:items-center py-8 md:py-12 md:px-8">
         <span
           className={
@@ -43,7 +42,6 @@ function EducationRow({ entry }) {
         </span>
       </div>
 
-      {/* Role + meta */}
       <div className="md:col-span-4 flex flex-col gap-3 py-8 md:py-12 md:px-8">
         <span className="font-mono lowercase tracking-[0.08em] text-[12px] text-(--dim)">
           (Education)
@@ -64,7 +62,6 @@ function EducationRow({ entry }) {
         </div>
       </div>
 
-      {/* Focus, only when there is one to show */}
       <div className="md:col-span-5 flex flex-col gap-3 py-8 md:py-12 md:px-8">
         {entry.description && (
           <>
@@ -87,7 +84,6 @@ export default function Education() {
       id="education"
       className="relative overflow-hidden border-b border-(--line) section-px py-12 md:py-22"
     >
-      {/* Background texture title: low-contrast typographic layer, not meant to be read */}
       <span
         aria-hidden="true"
         className="pointer-events-none select-none absolute -top-2 md:top-0 left-4 md:left-6 font-display font-normal uppercase leading-none text-[clamp(64px,16vw,220px)] tracking-[-0.03em] text-[color-mix(in_oklab,var(--ink)_6%,transparent)]"
@@ -96,7 +92,6 @@ export default function Education() {
       </span>
 
       <div className="relative z-10">
-        {/* Index label, consistent with the rest of the site's nav rail */}
         <div className="font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim) mb-8 md:mb-12">
           08 Education
         </div>

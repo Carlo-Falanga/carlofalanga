@@ -50,24 +50,20 @@ export default function Contact() {
       id="contact"
       className="grid grid-cols-1 md:grid-cols-12 gap-x-6 gap-y-8 md:gap-y-12 py-12 md:py-22 section-px border-b border-(--line)"
     >
-      {/* Label */}
       <div className="hidden md:block md:col-start-1 md:col-span-2 font-mono uppercase font-light tracking-[0.08em] text-[11px] text-(--dim) pt-4">
         <span className="text-(--mustard)">04</span> Contact
       </div>
 
-      {/* Title */}
       <h2 className="col-span-full md:col-start-3 md:col-span-10 font-display font-normal text-[36px] md:text-[72px] leading-[0.94] tracking-[-0.02em]">
         Get in <em>touch.</em>
       </h2>
 
-      {/* Left column */}
       <div className="col-span-full md:col-span-6 border-t border-(--line)">
         {contacts.slice(0, 3).map((c) => (
           <ContactRow key={c.label} {...c} />
         ))}
       </div>
 
-      {/* Right column */}
       <div className="col-span-full md:col-span-6 border-t border-(--line)">
         {contacts.slice(3).map((c) => (
           <ContactRow key={c.label} {...c} />

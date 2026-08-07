@@ -2,8 +2,6 @@ import { LuArrowUpRight } from "react-icons/lu";
 
 export default function ProjectCard({ project }) {
   if (project.comingSoon) {
-    /* Single lightweight teaser row (not a full mockup card): keeps the section
-       dense and honest instead of padding it out with an empty screenshot slot. */
     return (
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-6 py-8 border-b border-(--line) opacity-35">
         <div className="flex items-baseline gap-4">
@@ -21,7 +19,6 @@ export default function ProjectCard({ project }) {
 
   return (
     <div className="flex flex-col lg:flex-row gap-8 py-12 border-b border-(--line)">
-      {/* Image*/}
       <div className="lg:w-5/12 shrink-0 relative bg-(--soft) aspect-video lg:aspect-auto overflow-hidden">
         <img
           src={project.image}
@@ -30,9 +27,7 @@ export default function ProjectCard({ project }) {
         />
       </div>
 
-      {/* Project Content */}
       <div className="lg:w-7/12 flex flex-col gap-4">
-        {/* Titolo e numero */}
         <div className="flex items-start justify-between gap-4">
           <h3 className="font-display text-[24px] md:text-[36px]">
             {project.title}
@@ -42,12 +37,10 @@ export default function ProjectCard({ project }) {
           </span>
         </div>
 
-        {/* Project Type */}
         <em className="font-italic text-[15px] text-(--dim)">
           {project.type}
         </em>
 
-        {/* Description */}
         <p className="text-[15px] text-(--dim) leading-relaxed">
           {project.description}
         </p>
