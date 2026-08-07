@@ -1,31 +1,30 @@
 import { useEffect, useRef } from "react";
 import { CustomEase } from "gsap/CustomEase";
 import { gsap } from "../../lib/gsap";
-import ToolBoxSkills from "./ToolBoxSkills";
+import ServicePills from "./ToolBoxSkills";
 
 gsap.registerPlugin(CustomEase);
 CustomEase.create("skillsEase", "M0,0,C0.16,1,0.3,1,1,1");
 
-const TITLE_LINES = ["Two disciplines,", "one developer."];
+const TITLE_LINES = ["Two", "disciplines"];
 
-const blocks = [
+const services = [
   {
-    lines: ["Frontend", "development"],
-    description:
-      "React and JavaScript for the interface, HTML and CSS for the foundation, GSAP and Motion for everything that moves.",
+    id: "frontend",
+    title: ["Frontend", "development"],
+    body: "React and JavaScript for the interface, HTML and CSS for the foundation, GSAP and Motion for everything that moves.",
   },
   {
-    lines: ["Backend", "development"],
-    description:
-      "Node.js and Express for the API layer, PHP and Laravel from daily practice at Boolean, MySQL and SQLite for the data underneath.",
+    id: "backend",
+    title: ["Backend", "development"],
+    body: "Node.js and Express for the API layer, PHP and Laravel from daily practice at Boolean, MySQL and SQLite underneath.",
   },
 ];
 
 export default function Skills() {
   const sectionRef = useRef(null);
-  const lineRefs = useRef([]);
   const titleRef = useRef(null);
-  const blocksRef = useRef(null);
+  const lineRefs = useRef([]);
 
   useEffect(() => {
     const reduced = window.matchMedia(
@@ -37,7 +36,6 @@ export default function Skills() {
         lineRefs.current.map((l) => l?.querySelector(".skills-line-solid")),
         { opacity: 1 }
       );
-      gsap.set(blocksRef.current, { opacity: 1, y: 0 });
       return;
     }
 
@@ -51,7 +49,7 @@ export default function Skills() {
           .timeline({
             scrollTrigger: {
               trigger: sectionRef.current,
-              start: "top 80%",
+              start: "top 75%",
               once: true,
             },
             delay: idx * 0.08,
@@ -61,26 +59,13 @@ export default function Skills() {
       });
 
       gsap.to(titleRef.current, {
-        yPercent: 62,
+        yPercent: 55,
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top bottom",
           end: "bottom top",
           scrub: 0.6,
-        },
-      });
-
-      gsap.set(blocksRef.current, { opacity: 0, y: 40 });
-      gsap.to(blocksRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "skillsEase",
-        scrollTrigger: {
-          trigger: blocksRef.current,
-          start: "top 88%",
-          toggleActions: "play none none none",
         },
       });
     }, sectionRef);
@@ -92,31 +77,14 @@ export default function Skills() {
     <section
       ref={sectionRef}
       id="skills"
-      className="overflow-hidden border-b border-(--line) bg-(--cream)"
+      className="relative mt-[6.25vw] overflow-hidden bg-(--cream)"
     >
-      <div className="skills-tone full-bleed relative">
-        <div
-          aria-hidden="true"
-          className="absolute inset-y-0 left-0 hidden w-1/2 bg-(--sand) md:block"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-y-0 right-0 hidden w-1/2 bg-(--shell) md:block"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute top-0 bottom-16 left-1/2 hidden w-px -translate-x-1/2 bg-(--line) md:block"
-        />
-
-        <div className="relative section-px pt-12 pb-10 md:pt-[3vw] md:pb-[2vw]">
-          <div className="font-mono text-[11px] font-light tracking-[0.08em] text-(--dim) uppercase">
-            02 Skills
-          </div>
-
-          <h2
+      <div className="relative flex flex-col items-center">
+        <div className="flex w-[105.26%] justify-center">
+          <div
             ref={titleRef}
-            aria-label="Two disciplines, one developer."
-            className="mt-6 text-right font-display text-[13vw] leading-[100%] font-normal tracking-normal uppercase md:mt-[2.5vw] md:text-[7vw]"
+            aria-label="Two disciplines"
+            className="absolute top-[2.5vw] z-2 flex w-auto flex-col items-center text-[--cream] mix-blend-difference"
           >
             <span aria-hidden="true">
               {TITLE_LINES.map((line, idx) => (
@@ -128,46 +96,40 @@ export default function Skills() {
                     ref={(el) => (lineRefs.current[idx] = el)}
                     className="skills-line relative block"
                   >
-                    <span className="skills-line-dim block text-(--dim)">
+                    <span className="skills-line-dim block font-display text-[13vw] leading-[100%] font-normal tracking-normal text-(--dim) uppercase md:text-[7vw]">
                       {line}
                     </span>
-                    <span className="skills-line-solid absolute inset-0 block text-(--ink) opacity-0">
+                    <span className="skills-line-solid absolute inset-0 block font-display text-[13vw] leading-[100%] font-normal tracking-normal text-white uppercase opacity-0 md:text-[7vw]">
                       {line}
                     </span>
                   </span>
                 </span>
               ))}
             </span>
-          </h2>
-
-          <div
-            ref={blocksRef}
-            className="mt-14 grid grid-cols-1 gap-y-12 md:mt-[4vw] md:grid-cols-2 md:gap-x-6"
-          >
-            {blocks.map((block, idx) => (
-              <div
-                key={block.lines.join(" ")}
-                className={
-                  idx === 0
-                    ? "flex max-w-[32ch] flex-col gap-4 md:gap-[1.2vw]"
-                    : "flex max-w-[32ch] flex-col gap-4 md:mt-[9vw] md:ml-[2vw] md:gap-[1.2vw]"
-                }
-              >
-                <h3 className="font-display text-[26px] leading-[90%] font-normal tracking-normal text-(--ink) uppercase underline decoration-1 underline-offset-[6px] md:text-[3vw]">
-                  {block.lines[0]}
-                  <br />
-                  {block.lines[1]}
-                </h3>
-                <p className="text-[15px] leading-[130%] text-(--dim) md:text-[1.25vw]">
-                  {block.description}
-                </p>
-              </div>
-            ))}
           </div>
+
+          {services.map((service, idx) => (
+            <div key={service.id} className="flex w-1/2 flex-col">
+              <div className="flex h-[62vh] flex-col items-start justify-end pl-6 md:h-[82vh] md:pl-[5.63vw]">
+                <h3 className="font-body text-[16px] leading-[130%] font-medium tracking-normal text-(--ink) uppercase underline decoration-1 underline-offset-4 md:text-[1.5vw]">
+                  {service.title[0]}
+                  <br />
+                  {service.title[1]}
+                </h3>
+                <div className="mt-4 w-[80vw] md:mt-[1.2vw] md:h-[6.5vw] md:w-[30.88vw]">
+                  <p className="text-[14px] leading-[130%] text-(--dim) md:text-[1.25vw]">
+                    {service.body}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex h-[22vh] items-end md:h-[35vh]">
+                <ServicePills variant={service.id} align={idx === 0 ? "left" : "right"} />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-
-      <ToolBoxSkills />
     </section>
   );
 }
