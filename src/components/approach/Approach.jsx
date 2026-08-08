@@ -18,7 +18,7 @@ const values = [
     line1: "Modern",
     line2: "stack",
     description:
-      "React, Node.js, Express and MySQL day to day, with PHP and Laravel in active training at Boolean.",
+      "React, Node.js, Express and MySQL day to day, with PHP and Laravel from the Boolean master.",
   },
   {
     id: "03",

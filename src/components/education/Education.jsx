@@ -3,11 +3,11 @@ const education = [
     id: "01",
     role: "Full-Stack Web Development Master",
     org: "Boolean",
-    period: "Jan 2026 – Present",
+    period: "Jan 2026 – Aug 2026",
     location: "Remote",
     description:
-      "Full-time intensive program. Completed HTML5, CSS3, JavaScript ES6+, React, Node.js, Express, MySQL and REST APIs. Currently specializing in PHP and Laravel.",
-    current: true,
+      "Full-time intensive program covering HTML5, CSS3, JavaScript ES6+, React, Node.js, Express, MySQL and REST APIs, then PHP and Laravel.",
+    featured: true,
   },
   {
     id: "02",
@@ -15,7 +15,7 @@ const education = [
     org: "ILAS, Istituto di Comunicazione",
     period: "2021 – 2022",
     location: "Naples",
-    current: false,
+    featured: false,
   },
   {
     id: "03",
@@ -23,7 +23,7 @@ const education = [
     org: "ILAS, Istituto di Comunicazione",
     period: "2021 – 2022",
     location: "Naples",
-    current: false,
+    featured: false,
   },
 ];
 
@@ -33,7 +33,7 @@ function EducationRow({ entry }) {
       <div className="md:col-span-3 flex items-start md:items-center py-8 md:py-12 md:px-8">
         <span
           className={
-            entry.current
+            entry.featured
               ? "font-display font-normal leading-none tracking-[-0.03em] text-[clamp(56px,8vw,120px)] text-(--ink)"
               : "font-display font-normal leading-none tracking-[-0.03em] text-[clamp(48px,7vw,100px)] text-(--dim)"
           }
@@ -54,9 +54,9 @@ function EducationRow({ entry }) {
           <span className="font-mono uppercase tracking-[0.08em] text-[11px] text-(--dim)">
             {entry.period} &middot; {entry.location}
           </span>
-          {entry.current && (
+          {entry.featured && (
             <span className="font-mono uppercase tracking-[0.08em] text-[10px] text-(--ink) bg-(--mustard) px-2 py-1">
-              In progress
+              Top marks
             </span>
           )}
         </div>

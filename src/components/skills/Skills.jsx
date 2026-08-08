@@ -17,7 +17,7 @@ const services = [
   {
     id: "backend",
     title: ["Backend", "development"],
-    body: "Node.js and Express for the API layer, PHP and Laravel from daily practice at Boolean, MySQL and SQLite underneath.",
+    body: "Node.js and Express for the API layer, PHP and Laravel from the Boolean master, MySQL and SQLite underneath.",
   },
 ];
 
