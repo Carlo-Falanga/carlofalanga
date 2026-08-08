@@ -39,8 +39,8 @@ export default function ProjectCard({ project, index, total, cardRef }) {
     current.current.y += vy;
 
     const speed = Math.hypot(vx, vy);
-    const stretch = Math.min(1 + speed * 0.05, 1.42);
-    const angle = speed > 0.2 ? (Math.atan2(vy, vx) * 180) / Math.PI : 0;
+    const stretch = Math.min(1 + speed * 0.022, 1.16);
+    const angle = speed > 0.3 ? (Math.atan2(vy, vx) * 180) / Math.PI : 0;
 
     node.style.transform =
       `translate(${current.current.x}px, ${current.current.y}px) translate(-50%, -50%) ` +
@@ -85,12 +85,12 @@ export default function ProjectCard({ project, index, total, cardRef }) {
       <div
         onMouseMove={movePointer}
         onMouseEnter={enterPointer}
-        className="project-frame group/frame relative flex h-[50.26vw] w-full items-center justify-center overflow-hidden rounded-[1.3vw] bg-(--sand) min-[992px]:rounded-[0.63vw]"
+        className="project-frame group/frame relative flex min-[992px]:cursor-none h-[50.26vw] w-full items-center justify-center overflow-hidden rounded-[1.3vw] bg-(--sand) min-[992px]:rounded-[0.63vw]"
       >
         <span
           ref={pointerRef}
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 top-0 z-10 hidden h-[5.2vw] w-[5.2vw] items-center justify-center rounded-full bg-(--cream) opacity-0 mix-blend-difference transition-opacity duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/frame:opacity-100 motion-reduce:transition-none min-[992px]:flex"
+          className="pointer-events-none absolute left-0 top-0 z-10 hidden h-[4.4vw] w-[4.4vw] items-center justify-center rounded-full bg-(--cream) opacity-0 mix-blend-difference transition-opacity duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/frame:opacity-100 motion-reduce:transition-none min-[992px]:flex"
         >
           <span className="font-mono text-[0.58vw] tracking-[0.16em] text-(--ink) uppercase">
             Code
