@@ -8,11 +8,12 @@ function Tag({ children }) {
   );
 }
 
-function Reveal({ children, className = "" }) {
+function Reveal({ children, className = "", delay = 0 }) {
   return (
     <span className="block overflow-hidden">
       <span
-        className={`project-rise block translate-y-full transition-transform duration-400 ease-[ease] group-hover:translate-y-0 motion-reduce:translate-y-0 motion-reduce:transition-none ${className}`}
+        style={{ transitionDelay: `${delay}ms` }}
+        className={`project-rise block translate-y-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 motion-reduce:translate-y-0 motion-reduce:transition-none ${className}`}
       >
         {children}
       </span>
@@ -40,19 +41,19 @@ export default function ProjectCard({ project, index, total, cardRef }) {
       href={project.href}
       target="_blank"
       rel="noreferrer"
-      onMouseMove={movePointer}
       className="project-card group relative flex w-full flex-col items-center gap-[2.4vw] min-[992px]:w-[86.32%] min-[992px]:gap-[0.625vw]"
     >
-      <div className="pointer-events-none absolute left-0 top-0 z-10 hidden min-[992px]:block">
+      <div
+        onMouseMove={movePointer}
+        className="project-frame group/frame relative flex h-[50.26vw] w-full items-center justify-center overflow-hidden rounded-[1.3vw] bg-(--sand) min-[992px]:rounded-[0.63vw]"
+      >
         <span
           ref={pointerRef}
-          className="flex h-[7vw] w-[7vw] items-center justify-center rounded-full bg-(--ink) font-mono text-[0.7vw] uppercase text-(--cream) opacity-0 transition-opacity duration-300 ease-[ease] group-hover:opacity-100 motion-reduce:transition-none"
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 top-0 z-10 hidden items-center gap-[0.4vw] rounded-full border border-(--line-strong) bg-[color-mix(in_oklab,var(--shell)_78%,transparent)] px-[0.9vw] py-[0.45vw] font-mono text-[0.68vw] tracking-[0.06em] whitespace-nowrap text-(--ink) opacity-0 backdrop-blur-[6px] transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/frame:opacity-100 motion-reduce:transition-none min-[992px]:flex"
         >
-          GitHub
+          View code ↗
         </span>
-      </div>
-
-      <div className="project-frame flex h-[50.26vw] w-full items-center justify-center overflow-hidden rounded-[1.3vw] bg-(--sand) min-[992px]:rounded-[0.63vw]">
         {project.image ? (
           <img
             src={project.image}
@@ -69,9 +70,10 @@ export default function ProjectCard({ project, index, total, cardRef }) {
 
       <div className="flex w-full items-start justify-between gap-[2vw] min-[992px]:pointer-events-none min-[992px]:absolute min-[992px]:inset-0 min-[992px]:items-center">
         <div className="flex flex-col font-display font-medium min-[992px]:w-[15vw] min-[992px]:items-center">
-          {project.category.map((line) => (
+          {project.category.map((line, i) => (
             <Reveal
               key={line}
+              delay={i * 70}
               className="text-[4vw] leading-[130%] min-[480px]:text-[2.2vw] min-[992px]:text-[1.5vw]"
             >
               {line}
@@ -80,14 +82,14 @@ export default function ProjectCard({ project, index, total, cardRef }) {
         </div>
 
         <div className="flex flex-col items-end gap-[2vw] min-[992px]:w-[15vw] min-[992px]:items-center min-[992px]:gap-[1.25vw]">
-          <Reveal className="font-mono text-[3vw] leading-[110%] min-[480px]:text-[1.6vw] min-[992px]:text-[1vw]">
+          <Reveal delay={140} className="font-mono text-[3vw] leading-[110%] min-[480px]:text-[1.6vw] min-[992px]:text-[1vw]">
             <span>{counter}</span>
             <span className="opacity-40"> / {of}</span>
           </Reveal>
 
           <div className="flex flex-wrap justify-end gap-[1.6vw] min-[992px]:justify-center min-[992px]:gap-[0.5vw]">
-            {project.tags.map((tag) => (
-              <Reveal key={tag}>
+            {project.tags.map((tag, i) => (
+              <Reveal key={tag} delay={210 + i * 70}>
                 <Tag>{tag}</Tag>
               </Reveal>
             ))}
@@ -95,7 +97,7 @@ export default function ProjectCard({ project, index, total, cardRef }) {
         </div>
       </div>
 
-      <Reveal className="font-display text-[4.6vw] leading-[130%] font-medium uppercase min-[480px]:text-[2.2vw] min-[992px]:text-[1.5vw]">
+      <Reveal delay={350} className="font-display text-[4.6vw] leading-[130%] font-medium uppercase min-[480px]:text-[2.2vw] min-[992px]:text-[1.5vw]">
         <span className="underline decoration-1 underline-offset-[0.3em]">
           {project.title}
         </span>
