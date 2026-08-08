@@ -69,7 +69,7 @@ export default function Projects() {
     const PEAK_H = 28.13;
 
     const headWrap = headWrapRef.current;
-    const LIFT = 4.6;
+    const LIFT = 7.6;
 
     const driftHeading = () => {
       const vh = window.innerHeight;
