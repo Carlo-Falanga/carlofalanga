@@ -1,14 +1,12 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../lib/gsap";
-import { MAGNET_PATH, MAGNET_VIEWBOX } from "../../lib/shapes";
 
 const STATEMENT =
   "Every project here is built end to end — from the first sketch of the interface down to the database.";
 
 export default function Statement() {
   const sectionRef = useRef(null);
-  const glyphRef = useRef(null);
   const textRef = useRef(null);
   const lineRef = useRef(null);
 
@@ -20,12 +18,12 @@ export default function Statement() {
       const compact = window.matchMedia("(max-width: 991px)").matches;
 
       if (reduceMotion || compact) {
-        gsap.set([glyphRef.current, textRef.current], { opacity: 1 });
+        gsap.set(textRef.current, { opacity: 1 });
         gsap.set(lineRef.current, { scaleY: 1 });
         return;
       }
 
-      gsap.set([glyphRef.current, textRef.current], { opacity: 0 });
+      gsap.set(textRef.current, { opacity: 0 });
       gsap.set(lineRef.current, { scaleY: 0 });
 
       gsap
@@ -37,7 +35,6 @@ export default function Statement() {
             once: true,
           },
         })
-        .to(glyphRef.current, { opacity: 1, duration: 0.6 }, 0)
         .to(textRef.current, { opacity: 1, duration: 0.7 }, 0.08)
         .to(lineRef.current, { scaleY: 1, duration: 0.8 }, 0.16);
     },
@@ -51,14 +48,6 @@ export default function Statement() {
     >
       <div className="flex flex-col items-center">
         <div className="flex w-[86.41vw] flex-col items-center gap-y-[4.1vw] min-[480px]:w-[44.92vw] min-[480px]:gap-y-[1.95vw] min-[992px]:w-[30.33%] min-[992px]:gap-y-[1vw]">
-          <svg
-            ref={glyphRef}
-            viewBox={MAGNET_VIEWBOX}
-            aria-hidden="true"
-            className="w-[8.46vw] min-[480px]:w-[3.26vw] min-[992px]:w-[2.06vw]"
-          >
-            <path d={MAGNET_PATH} fill="var(--ink)" />
-          </svg>
 
           <p
             ref={textRef}
