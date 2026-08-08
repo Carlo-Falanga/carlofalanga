@@ -20,7 +20,7 @@ const projects = [
   {
     title: "Warehouse orders",
     category: ["Order", "management"],
-    tags: ["JavaScript", "Web"],
+    tags: ["React", "Node.js"],
     href: "https://github.com/Carlo-Falanga/warehouse-orders",
     image: "/images/screenshot-warehouse.webp",
   },
