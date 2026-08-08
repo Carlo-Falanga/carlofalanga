@@ -28,9 +28,14 @@ const principles = [
   },
 ];
 
-function Stage({ entry }) {
+function Stage({ entry, flipped }) {
   return (
-    <div className="relative flex w-full shrink-0 flex-col items-center justify-between border-t border-(--line-strong) py-[7.81vw] min-[992px]:-ml-px min-[992px]:h-[60vh] min-[992px]:w-[45vw] min-[992px]:border-x min-[992px]:border-t-0 min-[992px]:px-[2.5vw] min-[992px]:py-0">
+    <div
+      className={
+        "relative flex w-full shrink-0 flex-col items-center justify-between border-t border-(--line-strong) py-[7.81vw] min-[992px]:-ml-px min-[992px]:h-[60vh] min-[992px]:w-[45vw] min-[992px]:border-x min-[992px]:border-t-0 min-[992px]:px-[2.5vw] min-[992px]:py-0" +
+        (flipped ? " min-[992px]:flex-col-reverse" : "")
+      }
+    >
       <div className="flex w-full flex-col items-center gap-[5.13vw] min-[480px]:gap-[2.6vw] min-[992px]:gap-[1.25vw]">
         <h3 className="font-display text-[9.23vw] leading-[90%] font-normal uppercase min-[480px]:text-[6.77vw] min-[992px]:text-[3vw]">
           {entry.title}
@@ -40,7 +45,12 @@ function Stage({ entry }) {
         </p>
       </div>
 
-      <div className="mt-[10.77vw] flex w-full flex-col items-center gap-[5.13vw] min-[480px]:mt-[5.2vw] min-[480px]:gap-[2.6vw] min-[992px]:mt-0 min-[992px]:gap-[3.13vw]">
+      <div
+        className={
+          "mt-[10.77vw] flex w-full flex-col items-center gap-[5.13vw] min-[480px]:mt-[5.2vw] min-[480px]:gap-[2.6vw] min-[992px]:mt-0 min-[992px]:gap-[3.13vw]" +
+          (flipped ? " min-[992px]:flex-col-reverse" : "")
+        }
+      >
         <div className="hidden h-px w-[88.42%] shrink-0 bg-(--line-strong) min-[992px]:block" />
 
         <div className="flex flex-col items-center gap-[5.13vw] min-[480px]:gap-[2.6vw] min-[992px]:gap-[1.25vw]">
@@ -93,7 +103,7 @@ export default function Approach() {
             trigger: wrapper,
             start: "top top",
             end: () => "+=" + travel(),
-            scrub: 1,
+            scrub: 2,
             invalidateOnRefresh: true,
           },
         });
@@ -130,8 +140,8 @@ export default function Approach() {
           ref={trackRef}
           className="mt-[10.77vw] flex flex-col min-[480px]:mt-[13.02vw] min-[992px]:mt-0 min-[992px]:h-dvh min-[992px]:w-max min-[992px]:flex-row min-[992px]:items-center min-[992px]:pl-[36px]"
         >
-          {principles.map((entry) => (
-            <Stage key={entry.id} entry={entry} />
+          {principles.map((entry, index) => (
+            <Stage key={entry.id} entry={entry} flipped={index % 2 === 1} />
           ))}
         </div>
       </div>
