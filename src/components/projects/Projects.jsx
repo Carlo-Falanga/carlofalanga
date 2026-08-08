@@ -30,6 +30,7 @@ export default function Projects() {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const cardRefs = useRef([]);
+  const pointerRef = useRef(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -86,6 +87,61 @@ export default function Projects() {
       });
     };
 
+    const pointer = pointerRef.current;
+    const target = { x: 0, y: 0 };
+    const at = { x: 0, y: 0 };
+    let pointerRaf = 0;
+    let visible = false;
+    let primed = false;
+
+    const drawPointer = () => {
+      const vx = (target.x - at.x) * 0.14;
+      const vy = (target.y - at.y) * 0.14;
+      at.x += vx;
+      at.y += vy;
+
+      const speed = Math.hypot(vx, vy);
+      const stretch = Math.min(1 + speed * 0.022, 1.16);
+      const angle = speed > 0.3 ? (Math.atan2(vy, vx) * 180) / Math.PI : 0;
+
+      pointer.style.transform =
+        `translate(${at.x}px, ${at.y}px) translate(-50%, -50%) ` +
+        `rotate(${angle}deg) scale(${stretch}, ${1 / stretch}) rotate(${-angle}deg)`;
+
+      pointerRaf =
+        Math.abs(target.x - at.x) + Math.abs(target.y - at.y) > 0.4
+          ? requestAnimationFrame(drawPointer)
+          : 0;
+    };
+
+    const onPointerMove = (event) => {
+      target.x = event.clientX;
+      target.y = event.clientY;
+
+      if (!primed) {
+        at.x = target.x;
+        at.y = target.y;
+        primed = true;
+      }
+
+      const overFrame = [...frames].some((frame) => {
+        const box = frame.getBoundingClientRect();
+        return (
+          event.clientX >= box.left &&
+          event.clientX <= box.right &&
+          event.clientY >= box.top &&
+          event.clientY <= box.bottom
+        );
+      });
+
+      if (overFrame !== visible) {
+        visible = overFrame;
+        pointer.style.opacity = overFrame ? "1" : "0";
+      }
+
+      if (!pointerRaf) pointerRaf = requestAnimationFrame(drawPointer);
+    };
+
     const desktop = window.matchMedia("(min-width: 992px)");
     let frameId = 0;
     const onScroll = () => {
@@ -96,12 +152,17 @@ export default function Projects() {
       });
     };
 
-    if (desktop.matches) sizeFrames();
+    if (desktop.matches) {
+      sizeFrames();
+      window.addEventListener("mousemove", onPointerMove, { passive: true });
+    }
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
 
     return () => {
       observer.disconnect();
+      window.removeEventListener("mousemove", onPointerMove);
+      if (pointerRaf) cancelAnimationFrame(pointerRaf);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       if (frameId) cancelAnimationFrame(frameId);
@@ -119,6 +180,16 @@ export default function Projects() {
       ref={sectionRef}
       className="section-px mt-[23.08vw] min-[480px]:mt-[13.02vw] min-[992px]:mt-[9.38vw]"
     >
+      <span
+        ref={pointerRef}
+        aria-hidden="true"
+        className="pointer-events-none fixed left-0 top-0 z-30 hidden h-[4.4vw] w-[4.4vw] items-center justify-center rounded-full bg-(--cream) opacity-0 mix-blend-difference transition-opacity duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:hidden min-[992px]:flex"
+      >
+        <span className="font-mono text-[0.58vw] tracking-[0.16em] text-(--ink) uppercase">
+          Code
+        </span>
+      </span>
+
       <h2
         ref={headingRef}
         className="text-center font-display leading-[100%] font-normal uppercase text-[16vw] min-[480px]:text-[13vw] min-[992px]:text-[10.63vw]"

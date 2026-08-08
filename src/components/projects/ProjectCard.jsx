@@ -1,5 +1,3 @@
-import { useEffect, useRef } from "react";
-
 function Tag({ children }) {
   return (
     <span className="inline-flex items-center rounded-full bg-(--cream) px-[2.6vw] py-[1.4vw] text-[2.6vw] leading-[90%] min-[480px]:px-[1.6vw] min-[480px]:py-[0.9vw] min-[480px]:text-[1.4vw] min-[992px]:px-[0.9vw] min-[992px]:py-[0.62vw] min-[992px]:text-[1vw]">
@@ -24,55 +22,6 @@ function Reveal({ children, className = "", delay = 0 }) {
 export default function ProjectCard({ project, index, total, cardRef }) {
   const counter = String(index + 1).padStart(2, "0");
   const of = String(total).padStart(2, "0");
-  const pointerRef = useRef(null);
-  const target = useRef({ x: 0, y: 0 });
-  const current = useRef({ x: 0, y: 0 });
-  const raf = useRef(0);
-
-  const follow = () => {
-    const node = pointerRef.current;
-    if (!node) return;
-
-    const vx = (target.current.x - current.current.x) * 0.14;
-    const vy = (target.current.y - current.current.y) * 0.14;
-    current.current.x += vx;
-    current.current.y += vy;
-
-    const speed = Math.hypot(vx, vy);
-    const stretch = Math.min(1 + speed * 0.022, 1.16);
-    const angle = speed > 0.3 ? (Math.atan2(vy, vx) * 180) / Math.PI : 0;
-
-    node.style.transform =
-      `translate(${current.current.x}px, ${current.current.y}px) translate(-50%, -50%) ` +
-      `rotate(${angle}deg) scale(${stretch}, ${1 / stretch}) rotate(${-angle}deg)`;
-
-    raf.current =
-      Math.abs(target.current.x - current.current.x) +
-        Math.abs(target.current.y - current.current.y) >
-      0.4
-        ? requestAnimationFrame(follow)
-        : 0;
-  };
-
-  const movePointer = (event) => {
-    const box = event.currentTarget.getBoundingClientRect();
-    target.current = {
-      x: event.clientX - box.left,
-      y: event.clientY - box.top,
-    };
-    if (!raf.current) raf.current = requestAnimationFrame(follow);
-  };
-
-  const enterPointer = (event) => {
-    const box = event.currentTarget.getBoundingClientRect();
-    current.current = {
-      x: event.clientX - box.left,
-      y: event.clientY - box.top,
-    };
-    target.current = { ...current.current };
-  };
-
-  useEffect(() => () => cancelAnimationFrame(raf.current), []);
 
   return (
     <a
@@ -82,20 +31,7 @@ export default function ProjectCard({ project, index, total, cardRef }) {
       rel="noreferrer"
       className="project-card group relative flex w-full flex-col items-center gap-[2.4vw] min-[992px]:w-[86.32%] min-[992px]:gap-[0.625vw]"
     >
-      <div
-        onMouseMove={movePointer}
-        onMouseEnter={enterPointer}
-        className="project-frame group/frame relative flex min-[992px]:cursor-none h-[50.26vw] w-full items-center justify-center overflow-hidden rounded-[1.3vw] bg-(--sand) min-[992px]:rounded-[0.63vw]"
-      >
-        <span
-          ref={pointerRef}
-          aria-hidden="true"
-          className="pointer-events-none absolute left-0 top-0 z-10 hidden h-[4.4vw] w-[4.4vw] items-center justify-center rounded-full bg-(--cream) opacity-0 mix-blend-difference transition-opacity duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/frame:opacity-100 motion-reduce:transition-none min-[992px]:flex"
-        >
-          <span className="font-mono text-[0.58vw] tracking-[0.16em] text-(--ink) uppercase">
-            Code
-          </span>
-        </span>
+      <div className="project-frame group/frame relative flex h-[50.26vw] w-full items-center justify-center overflow-hidden rounded-[1.3vw] bg-(--sand) min-[992px]:cursor-none min-[992px]:rounded-[0.63vw]">
         {project.image ? (
           <img
             src={project.image}
