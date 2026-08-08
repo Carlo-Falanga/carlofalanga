@@ -32,13 +32,26 @@ export default function ProjectCard({ project, index, total, cardRef }) {
   const follow = () => {
     const node = pointerRef.current;
     if (!node) return;
-    current.current.x += (target.current.x - current.current.x) * 0.14;
-    current.current.y += (target.current.y - current.current.y) * 0.14;
-    node.style.transform = `translate(${current.current.x}px, ${current.current.y}px) translate(-50%, -50%)`;
 
-    const dx = Math.abs(target.current.x - current.current.x);
-    const dy = Math.abs(target.current.y - current.current.y);
-    raf.current = dx + dy > 0.4 ? requestAnimationFrame(follow) : 0;
+    const vx = (target.current.x - current.current.x) * 0.14;
+    const vy = (target.current.y - current.current.y) * 0.14;
+    current.current.x += vx;
+    current.current.y += vy;
+
+    const speed = Math.hypot(vx, vy);
+    const stretch = Math.min(1 + speed * 0.05, 1.42);
+    const angle = speed > 0.2 ? (Math.atan2(vy, vx) * 180) / Math.PI : 0;
+
+    node.style.transform =
+      `translate(${current.current.x}px, ${current.current.y}px) translate(-50%, -50%) ` +
+      `rotate(${angle}deg) scale(${stretch}, ${1 / stretch}) rotate(${-angle}deg)`;
+
+    raf.current =
+      Math.abs(target.current.x - current.current.x) +
+        Math.abs(target.current.y - current.current.y) >
+      0.4
+        ? requestAnimationFrame(follow)
+        : 0;
   };
 
   const movePointer = (event) => {
@@ -77,13 +90,10 @@ export default function ProjectCard({ project, index, total, cardRef }) {
         <span
           ref={pointerRef}
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 top-0 z-10 hidden flex-col items-center gap-[0.2vw] opacity-0 transition-opacity duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/frame:opacity-100 motion-reduce:transition-none min-[992px]:flex"
+          className="pointer-events-none absolute left-0 top-0 z-10 hidden h-[5.2vw] w-[5.2vw] items-center justify-center rounded-full bg-(--cream) opacity-0 mix-blend-difference transition-opacity duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/frame:opacity-100 motion-reduce:transition-none min-[992px]:flex"
         >
-          <span className="font-display text-[3.6vw] leading-[80%] font-normal tracking-[-0.05em] text-(--mustard)">
-            {counter}
-          </span>
-          <span className="font-mono text-[0.6vw] tracking-[0.18em] text-(--mustard) uppercase">
-            View code
+          <span className="font-mono text-[0.58vw] tracking-[0.16em] text-(--ink) uppercase">
+            Code
           </span>
         </span>
         {project.image ? (
