@@ -8,7 +8,7 @@ const projects = [
     category: ["E-commerce", "app"],
     tags: ["React", "Node.js"],
     href: "https://github.com/Carlo-Falanga/booldog-project-work",
-    image: "/images/screenshot-booldog.png",
+    image: "/images/screenshot-booldog.webp",
   },
   {
     title: "NaturaFit",
