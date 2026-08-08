@@ -27,21 +27,24 @@ export default function ProjectCard({ project, index, total, cardRef }) {
       className="project-card group block w-full"
     >
       <div className="flex flex-col gap-[4vw] min-[992px]:flex-row min-[992px]:items-center min-[992px]:gap-[2.5vw]">
-        <div className="order-2 shrink-0 font-display uppercase leading-[110%] min-[992px]:order-1 min-[992px]:w-[15vw]">
+        <div className="order-2 flex shrink-0 flex-col font-display font-medium min-[992px]:order-1 min-[992px]:w-[15vw] min-[992px]:items-center">
           {project.category.map((line) => (
-            <Reveal key={line} className="text-[4.6vw] min-[480px]:text-[2.4vw] min-[992px]:text-[1.5vw]">
+            <Reveal
+              key={line}
+              className="text-[4.6vw] leading-[130%] min-[480px]:text-[2.4vw] min-[992px]:text-[1.5vw]"
+            >
               {line}
             </Reveal>
           ))}
         </div>
 
-        <div className="project-frame order-1 flex w-full items-center justify-center overflow-hidden rounded-[2.4vw] bg-(--sand) p-[2.4vw] min-[992px]:order-2 min-[992px]:h-[28vw] min-[992px]:w-[53vw] min-[992px]:rounded-[0.63vw] min-[992px]:p-[1.6vw]">
+        <div className="project-frame order-1 flex h-[56vw] w-full items-center justify-center overflow-hidden rounded-[2.4vw] bg-(--sand) min-[992px]:order-2 min-[992px]:h-[28vw] min-[992px]:w-[53vw] min-[992px]:rounded-[0.63vw]">
           {project.image ? (
             <img
               src={project.image}
               alt={project.title}
               loading="lazy"
-              className="h-full w-full rounded-[1.2vw] object-cover object-top shadow-[0_1.2vw_3vw_rgba(32,32,35,0.12)] min-[992px]:rounded-[0.4vw]"
+              className="h-full w-full object-cover object-top"
             />
           ) : (
             <span className="font-display text-[10vw] leading-none text-(--line-strong) min-[992px]:text-[5vw]">
@@ -64,9 +67,11 @@ export default function ProjectCard({ project, index, total, cardRef }) {
         </div>
       </div>
 
-      <div className="mt-[3vw] min-[992px]:mt-[1.25vw]">
-        <Reveal className="font-display text-[5.6vw] leading-[130%] font-medium min-[480px]:text-[2.6vw] min-[992px]:text-[1.5vw]">
-          <span className="project-name inline-block">{project.title}</span>
+      <div className="mt-[3vw] flex justify-center min-[992px]:mt-[1.25vw]">
+        <Reveal className="font-display text-[5.6vw] leading-[130%] font-medium uppercase min-[480px]:text-[2.6vw] min-[992px]:text-[1.5vw]">
+          <span className="project-name inline-block underline decoration-1 underline-offset-[0.3em]">
+            {project.title}
+          </span>
         </Reveal>
       </div>
     </a>

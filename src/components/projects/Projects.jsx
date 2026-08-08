@@ -55,20 +55,20 @@ export default function Projects() {
 
     const reveal = (target) => {
       if (target === heading) {
-        gsap.to(heading, { opacity: 1, y: 0, duration: 1, ease: "power1.inOut" });
+        gsap.to(heading, { opacity: 1, y: 0, duration: 1, ease: "refEase" });
         return;
       }
       gsap.to(target.querySelectorAll(".project-rise"), {
         yPercent: 0,
         duration: 1,
-        ease: "power1.inOut",
+        ease: "refEase",
         stagger: 0.08,
       });
       gsap.to(target.querySelector(".project-frame"), {
         opacity: 1,
         y: 0,
         duration: 1,
-        ease: "power1.inOut",
+        ease: "refEase",
       });
     };
 
