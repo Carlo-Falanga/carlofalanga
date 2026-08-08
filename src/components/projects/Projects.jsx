@@ -204,7 +204,7 @@ export default function Projects() {
     <section
       id="projects"
       ref={sectionRef}
-      className="section-px mt-[13.02vw] min-[992px]:mt-[9.38vw]"
+      className="section-px mt-[13.02vw] min-[992px]:mt-[6.6vw]"
     >
       <span
         ref={pointerRef}
