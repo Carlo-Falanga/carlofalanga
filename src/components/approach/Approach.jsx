@@ -28,7 +28,7 @@ const principles = [
   },
 ];
 
-function Stage({ entry, flipped }) {
+function Stage({ entry, flipped, index, registerGlow }) {
   return (
     <div
       className={
@@ -58,7 +58,21 @@ function Stage({ entry, flipped }) {
             (Principle)
           </span>
           <span className="font-display text-[38.46vw] leading-[90%] font-normal tracking-[-0.05em] min-[480px]:text-[23.44vw] min-[992px]:text-[13.75vw]">
-            {entry.id}
+            {Array.from(entry.id).map((char, position) => (
+              <span
+                key={`${entry.id}-${position}`}
+                className="relative inline-block"
+              >
+                <span>{char}</span>
+                <span
+                  aria-hidden="true"
+                  ref={(node) => registerGlow(index, position, node)}
+                  className="absolute inset-0 text-(--mustard) opacity-0"
+                >
+                  {char}
+                </span>
+              </span>
+            ))}
           </span>
         </div>
       </div>
@@ -69,6 +83,13 @@ function Stage({ entry, flipped }) {
 export default function Approach() {
   const wrapperRef = useRef(null);
   const trackRef = useRef(null);
+  const glowRefs = useRef([]);
+  const activeRef = useRef(-1);
+
+  const registerGlow = (stage, position, node) => {
+    if (!glowRefs.current[stage]) glowRefs.current[stage] = [];
+    glowRefs.current[stage][position] = node;
+  };
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -96,6 +117,28 @@ export default function Approach() {
         sizeWrapper();
         ScrollTrigger.addEventListener("refreshInit", sizeWrapper);
 
+        const paintActive = (progress) => {
+          const count = principles.length;
+          const nearest = Math.min(
+            count - 1,
+            Math.max(0, Math.floor(progress * count))
+          );
+
+          if (nearest === activeRef.current) return;
+          activeRef.current = nearest;
+
+          glowRefs.current.forEach((digits, index) => {
+            if (!digits) return;
+            gsap.to(digits.filter(Boolean), {
+              opacity: index === nearest ? 1 : 0,
+              duration: 0.22,
+              stagger: 0.055,
+              ease: "none",
+              overwrite: true,
+            });
+          });
+        };
+
         const tween = gsap.to(track, {
           x: () => -distance(),
           ease: "none",
@@ -105,12 +148,20 @@ export default function Approach() {
             end: () => "+=" + travel(),
             scrub: 2,
             invalidateOnRefresh: true,
+            onUpdate: (self) => paintActive(self.progress),
+            onLeaveBack: () => {
+              activeRef.current = -1;
+              const all = glowRefs.current.flat().filter(Boolean);
+              gsap.to(all, { opacity: 0, duration: 0.22, ease: "none" });
+            },
           },
         });
 
         return () => {
           ScrollTrigger.removeEventListener("refreshInit", sizeWrapper);
           wrapper.style.height = "";
+          activeRef.current = -1;
+          gsap.set(glowRefs.current.flat().filter(Boolean), { opacity: 0 });
           tween.kill();
         };
       }
@@ -141,7 +192,13 @@ export default function Approach() {
           className="mt-[10.77vw] flex flex-col min-[480px]:mt-[13.02vw] min-[992px]:mt-0 min-[992px]:h-dvh min-[992px]:w-max min-[992px]:flex-row min-[992px]:items-center min-[992px]:pl-[36px]"
         >
           {principles.map((entry, index) => (
-            <Stage key={entry.id} entry={entry} flipped={index % 2 === 1} />
+            <Stage
+              key={entry.id}
+              entry={entry}
+              index={index}
+              flipped={index % 2 === 1}
+              registerGlow={registerGlow}
+            />
           ))}
         </div>
       </div>
