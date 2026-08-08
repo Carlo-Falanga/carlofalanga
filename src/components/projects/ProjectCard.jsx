@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 function Tag({ children }) {
   return (
@@ -25,15 +25,41 @@ export default function ProjectCard({ project, index, total, cardRef }) {
   const counter = String(index + 1).padStart(2, "0");
   const of = String(total).padStart(2, "0");
   const pointerRef = useRef(null);
+  const target = useRef({ x: 0, y: 0 });
+  const current = useRef({ x: 0, y: 0 });
+  const raf = useRef(0);
 
-  const movePointer = (event) => {
+  const follow = () => {
     const node = pointerRef.current;
     if (!node) return;
-    const box = event.currentTarget.getBoundingClientRect();
-    node.style.transform = `translate(${event.clientX - box.left}px, ${
-      event.clientY - box.top
-    }px) translate(-50%, -50%)`;
+    current.current.x += (target.current.x - current.current.x) * 0.14;
+    current.current.y += (target.current.y - current.current.y) * 0.14;
+    node.style.transform = `translate(${current.current.x}px, ${current.current.y}px) translate(-50%, -50%)`;
+
+    const dx = Math.abs(target.current.x - current.current.x);
+    const dy = Math.abs(target.current.y - current.current.y);
+    raf.current = dx + dy > 0.4 ? requestAnimationFrame(follow) : 0;
   };
+
+  const movePointer = (event) => {
+    const box = event.currentTarget.getBoundingClientRect();
+    target.current = {
+      x: event.clientX - box.left,
+      y: event.clientY - box.top,
+    };
+    if (!raf.current) raf.current = requestAnimationFrame(follow);
+  };
+
+  const enterPointer = (event) => {
+    const box = event.currentTarget.getBoundingClientRect();
+    current.current = {
+      x: event.clientX - box.left,
+      y: event.clientY - box.top,
+    };
+    target.current = { ...current.current };
+  };
+
+  useEffect(() => () => cancelAnimationFrame(raf.current), []);
 
   return (
     <a
@@ -45,14 +71,20 @@ export default function ProjectCard({ project, index, total, cardRef }) {
     >
       <div
         onMouseMove={movePointer}
+        onMouseEnter={enterPointer}
         className="project-frame group/frame relative flex h-[50.26vw] w-full items-center justify-center overflow-hidden rounded-[1.3vw] bg-(--sand) min-[992px]:rounded-[0.63vw]"
       >
         <span
           ref={pointerRef}
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 top-0 z-10 hidden h-[4.6vw] w-[4.6vw] scale-75 items-center justify-center rounded-full bg-(--mustard) font-mono text-[0.62vw] tracking-[0.12em] text-(--ink) uppercase opacity-0 transition-[opacity,scale] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/frame:scale-100 group-hover/frame:opacity-100 motion-reduce:transition-none min-[992px]:flex"
+          className="pointer-events-none absolute left-0 top-0 z-10 hidden flex-col items-center gap-[0.2vw] opacity-0 transition-opacity duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/frame:opacity-100 motion-reduce:transition-none min-[992px]:flex"
         >
-          Code
+          <span className="font-display text-[3.6vw] leading-[80%] font-normal tracking-[-0.05em] text-(--mustard)">
+            {counter}
+          </span>
+          <span className="font-mono text-[0.6vw] tracking-[0.18em] text-(--mustard) uppercase">
+            View code
+          </span>
         </span>
         {project.image ? (
           <img
