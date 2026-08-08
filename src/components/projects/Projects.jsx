@@ -193,6 +193,24 @@ export default function Projects() {
     };
 
     const desktop = window.matchMedia("(min-width: 992px)");
+
+    const cardObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-active");
+          cardObserver.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -18% 0px", threshold: 0.2 }
+    );
+
+    if (!desktop.matches) {
+      cardRefs.current
+        .filter(Boolean)
+        .forEach((card) => cardObserver.observe(card));
+    }
+
     let frameId = 0;
     const onScroll = () => {
       if (frameId) return;
@@ -216,6 +234,7 @@ export default function Projects() {
 
     return () => {
       observer.disconnect();
+      cardObserver.disconnect();
       window.removeEventListener("mousemove", onPointerMove);
       if (pointerRaf) cancelAnimationFrame(pointerRaf);
       if (sizeRaf) cancelAnimationFrame(sizeRaf);
