@@ -13,7 +13,7 @@
   --dim-invert: color-mix(in oklab, var(--cream) 60%, var(--ink));
   --line: color-mix(in oklab, var(--ink) 14%, transparent);
 
-  --bg: var(--cream);
+  --bg: var(--shell);
   --fg: var(--ink);
 }
 
