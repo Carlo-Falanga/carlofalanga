@@ -31,6 +31,7 @@ export default function Projects() {
   const headingRef = useRef(null);
   const cardRefs = useRef([]);
   const pointerRef = useRef(null);
+  const headWrapRef = useRef(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -66,6 +67,19 @@ export default function Projects() {
     const BASE_H = 16.19;
     const PEAK_W = 53.13;
     const PEAK_H = 28.13;
+
+    const headWrap = headWrapRef.current;
+    const LIFT = 8.3;
+
+    const driftHeading = () => {
+      const vh = window.innerHeight;
+      const box = headWrap.getBoundingClientRect();
+      const natural = box.top - (parseFloat(headWrap.dataset.lift) || 0);
+      const p = Math.min(Math.max(1 - natural / vh, 0), 1);
+      const lift = -p * (LIFT / 100) * window.innerWidth;
+      headWrap.dataset.lift = lift;
+      headWrap.style.transform = `translateY(${lift}px)`;
+    };
 
     const sizeFrames = () => {
       const vh = window.innerHeight;
@@ -156,6 +170,7 @@ export default function Projects() {
         frameId = 0;
         if (desktop.matches) {
           sizeFrames();
+          driftHeading();
           updateHover();
         }
       });
@@ -163,6 +178,7 @@ export default function Projects() {
 
     if (desktop.matches) {
       sizeFrames();
+      driftHeading();
       window.addEventListener("mousemove", onPointerMove, { passive: true });
     }
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -176,6 +192,7 @@ export default function Projects() {
       window.removeEventListener("resize", onScroll);
       if (frameId) cancelAnimationFrame(frameId);
       gsap.killTweensOf(heading);
+      headWrap.style.transform = "";
       frames.forEach((frame) => {
         frame.style.width = "";
         frame.style.height = "";
@@ -199,7 +216,7 @@ export default function Projects() {
         </span>
       </span>
 
-      <div className="relative z-[1] mix-blend-difference min-[992px]:sticky min-[992px]:top-[-13.1vw] min-[992px]:mb-[-4.4vw]">
+      <div ref={headWrapRef} className="relative z-[1] mix-blend-difference min-[992px]:mb-[-4.4vw]">
         <h2
           ref={headingRef}
           className="text-center font-display leading-[100%] font-normal text-white uppercase text-[16vw] min-[480px]:text-[13vw] min-[992px]:text-[10.63vw]"
