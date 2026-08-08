@@ -81,23 +81,53 @@ export default function Projects() {
       headWrap.style.transform = `translateY(${lift}px)`;
     };
 
-    const sizeFrames = () => {
+    const sizes = new WeakMap();
+    let sizeRaf = 0;
+
+    const targetFor = (frame) => {
       const vh = window.innerHeight;
+      const box = frame.parentElement.getBoundingClientRect();
+      const centre = box.top + box.height / 2;
+      const p = 1 - centre / vh;
+
+      let t = 0;
+      if (p > 0 && p < 1) {
+        if (p < 0.2) t = p / 0.2;
+        else if (p <= 0.6) t = 1;
+        else t = (1 - p) / 0.4;
+      }
+      const eased = t * t * (3 - 2 * t);
+      return {
+        w: BASE_W + (PEAK_W - BASE_W) * eased,
+        h: BASE_H + (PEAK_H - BASE_H) * eased,
+      };
+    };
+
+    const stepFrames = () => {
+      let moving = false;
       frames.forEach((frame) => {
-        const box = frame.parentElement.getBoundingClientRect();
-        const centre = box.top + box.height / 2;
-        const p = 1 - centre / vh;
+        const target = targetFor(frame);
+        const current = sizes.get(frame) || target;
+        const w = current.w + (target.w - current.w) * 0.12;
+        const h = current.h + (target.h - current.h) * 0.12;
+        sizes.set(frame, { w, h });
+        frame.style.width = w + "vw";
+        frame.style.height = h + "vw";
+        if (Math.abs(target.w - w) > 0.01) moving = true;
+      });
+      sizeRaf = moving ? requestAnimationFrame(stepFrames) : 0;
+    };
 
-        let t = 0;
-        if (p > 0 && p < 1) {
-          if (p < 0.2) t = p / 0.2;
-          else if (p <= 0.6) t = 1;
-          else t = (1 - p) / 0.4;
-        }
-        const eased = t * t * (3 - 2 * t);
+    const sizeFrames = () => {
+      if (!sizeRaf) sizeRaf = requestAnimationFrame(stepFrames);
+    };
 
-        frame.style.width = BASE_W + (PEAK_W - BASE_W) * eased + "vw";
-        frame.style.height = BASE_H + (PEAK_H - BASE_H) * eased + "vw";
+    const settleFrames = () => {
+      frames.forEach((frame) => {
+        const target = targetFor(frame);
+        sizes.set(frame, target);
+        frame.style.width = target.w + "vw";
+        frame.style.height = target.h + "vw";
       });
     };
 
@@ -177,7 +207,7 @@ export default function Projects() {
     };
 
     if (desktop.matches) {
-      sizeFrames();
+      settleFrames();
       driftHeading();
       window.addEventListener("mousemove", onPointerMove, { passive: true });
     }
@@ -188,6 +218,7 @@ export default function Projects() {
       observer.disconnect();
       window.removeEventListener("mousemove", onPointerMove);
       if (pointerRaf) cancelAnimationFrame(pointerRaf);
+      if (sizeRaf) cancelAnimationFrame(sizeRaf);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       if (frameId) cancelAnimationFrame(frameId);
