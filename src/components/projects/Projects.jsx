@@ -40,55 +40,76 @@ export default function Projects() {
     ).matches;
 
     const heading = headingRef.current;
-    const cards = cardRefs.current.filter(Boolean);
-    const lines = section.querySelectorAll(".project-rise");
     const frames = section.querySelectorAll(".project-frame");
 
     if (reduced) {
-      gsap.set([heading, ...lines, ...frames], { opacity: 1, y: 0, yPercent: 0 });
+      gsap.set(heading, { opacity: 1, y: 0 });
       return;
     }
 
     gsap.set(heading, { opacity: 0, y: 18 });
-    gsap.set(lines, { yPercent: 100 });
-    gsap.set(frames, { opacity: 0, y: 18 });
-
-    const reveal = (target) => {
-      if (target === heading) {
-        gsap.to(heading, { opacity: 1, y: 0, duration: 1, ease: "refEase" });
-        return;
-      }
-      gsap.to(target.querySelectorAll(".project-rise"), {
-        yPercent: 0,
-        duration: 1,
-        ease: "refEase",
-        stagger: 0.08,
-      });
-      gsap.to(target.querySelector(".project-frame"), {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "refEase",
-      });
-    };
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          reveal(entry.target);
+          gsap.to(heading, { opacity: 1, y: 0, duration: 1, ease: "refEase" });
           observer.unobserve(entry.target);
         });
       },
       { rootMargin: "0px 0px -12% 0px", threshold: 0.05 }
     );
-
     observer.observe(heading);
-    cards.forEach((card) => observer.observe(card));
+
+    const BASE_W = 28.13;
+    const BASE_H = 16.19;
+    const PEAK_W = 53.13;
+    const PEAK_H = 28.13;
+
+    const sizeFrames = () => {
+      const vh = window.innerHeight;
+      frames.forEach((frame) => {
+        const box = frame.parentElement.getBoundingClientRect();
+        const centre = box.top + box.height / 2;
+        const p = 1 - centre / vh;
+
+        let t = 0;
+        if (p > 0 && p < 1) {
+          if (p < 0.2) t = p / 0.2;
+          else if (p <= 0.6) t = 1;
+          else t = (1 - p) / 0.4;
+        }
+        const eased = t * t * (3 - 2 * t);
+
+        frame.style.width = BASE_W + (PEAK_W - BASE_W) * eased + "vw";
+        frame.style.height = BASE_H + (PEAK_H - BASE_H) * eased + "vw";
+      });
+    };
+
+    const desktop = window.matchMedia("(min-width: 992px)");
+    let frameId = 0;
+    const onScroll = () => {
+      if (frameId) return;
+      frameId = requestAnimationFrame(() => {
+        frameId = 0;
+        if (desktop.matches) sizeFrames();
+      });
+    };
+
+    if (desktop.matches) sizeFrames();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
 
     return () => {
       observer.disconnect();
-      gsap.killTweensOf([heading, ...lines, ...frames]);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frameId) cancelAnimationFrame(frameId);
+      gsap.killTweensOf(heading);
+      frames.forEach((frame) => {
+        frame.style.width = "";
+        frame.style.height = "";
+      });
     };
   }, []);
 

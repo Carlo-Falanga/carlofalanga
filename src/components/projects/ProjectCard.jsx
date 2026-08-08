@@ -11,7 +11,11 @@ function Tag({ children }) {
 function Reveal({ children, className = "" }) {
   return (
     <span className="block overflow-hidden">
-      <span className={`project-rise block ${className}`}>{children}</span>
+      <span
+        className={`project-rise block translate-y-full transition-transform duration-400 ease-[ease] group-hover:translate-y-0 motion-reduce:translate-y-0 motion-reduce:transition-none ${className}`}
+      >
+        {children}
+      </span>
     </span>
   );
 }
@@ -48,7 +52,7 @@ export default function ProjectCard({ project, index, total, cardRef }) {
         </span>
       </div>
 
-      <div className="project-frame flex h-[50.26vw] w-full items-center justify-center overflow-hidden rounded-[1.3vw] bg-(--sand) min-[992px]:h-[16.19vw] min-[992px]:w-[28.13vw] min-[992px]:rounded-[0.63vw]">
+      <div className="project-frame flex h-[50.26vw] w-full items-center justify-center overflow-hidden rounded-[1.3vw] bg-(--sand) min-[992px]:rounded-[0.63vw]">
         {project.image ? (
           <img
             src={project.image}
@@ -83,7 +87,9 @@ export default function ProjectCard({ project, index, total, cardRef }) {
 
           <div className="flex flex-wrap justify-end gap-[1.6vw] min-[992px]:justify-center min-[992px]:gap-[0.5vw]">
             {project.tags.map((tag) => (
-              <Tag key={tag}>{tag}</Tag>
+              <Reveal key={tag}>
+                <Tag>{tag}</Tag>
+              </Reveal>
             ))}
           </div>
         </div>
