@@ -11,7 +11,7 @@ function Reveal({ children, className = "", delay = 0 }) {
     <span className="block overflow-hidden">
       <span
         style={{ transitionDelay: `${delay}ms` }}
-        className={`project-rise block translate-y-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 motion-reduce:translate-y-0 motion-reduce:transition-none ${className}`}
+        className={`project-rise block translate-y-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-[.is-active]:translate-y-0 motion-reduce:translate-y-0 motion-reduce:transition-none ${className}`}
       >
         {children}
       </span>
@@ -37,7 +37,7 @@ export default function ProjectCard({ project, index, total, cardRef }) {
             src={project.image}
             alt={project.title}
             loading="lazy"
-            className="h-full w-full object-cover object-top transition-transform duration-400 ease-[ease] group-hover:scale-[1.03] motion-reduce:transition-none"
+            className="h-full w-full object-cover object-top transition-transform duration-400 ease-[ease] group-[.is-active]:scale-[1.03] motion-reduce:transition-none"
           />
         ) : (
           <span className="font-display text-[10vw] leading-none text-(--line-strong) min-[992px]:text-[4vw]">

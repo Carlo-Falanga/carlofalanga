@@ -114,6 +114,26 @@ export default function Projects() {
           : 0;
     };
 
+    const inside = (box, x, y) =>
+      x >= box.left && x <= box.right && y >= box.top && y <= box.bottom;
+
+    const updateHover = () => {
+      if (!primed) return;
+      let overFrame = false;
+
+      cardRefs.current.filter(Boolean).forEach((card) => {
+        const frame = card.querySelector(".project-frame");
+        const over = frame ? inside(frame.getBoundingClientRect(), target.x, target.y) : false;
+        card.classList.toggle("is-active", over);
+        if (over) overFrame = true;
+      });
+
+      if (overFrame !== visible) {
+        visible = overFrame;
+        pointer.style.opacity = overFrame ? "1" : "0";
+      }
+    };
+
     const onPointerMove = (event) => {
       target.x = event.clientX;
       target.y = event.clientY;
@@ -124,21 +144,7 @@ export default function Projects() {
         primed = true;
       }
 
-      const overFrame = [...frames].some((frame) => {
-        const box = frame.getBoundingClientRect();
-        return (
-          event.clientX >= box.left &&
-          event.clientX <= box.right &&
-          event.clientY >= box.top &&
-          event.clientY <= box.bottom
-        );
-      });
-
-      if (overFrame !== visible) {
-        visible = overFrame;
-        pointer.style.opacity = overFrame ? "1" : "0";
-      }
-
+      updateHover();
       if (!pointerRaf) pointerRaf = requestAnimationFrame(drawPointer);
     };
 
@@ -148,7 +154,10 @@ export default function Projects() {
       if (frameId) return;
       frameId = requestAnimationFrame(() => {
         frameId = 0;
-        if (desktop.matches) sizeFrames();
+        if (desktop.matches) {
+          sizeFrames();
+          updateHover();
+        }
       });
     };
 
