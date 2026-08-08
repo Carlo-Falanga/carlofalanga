@@ -40,15 +40,17 @@ function Stage({ entry }) {
         </p>
       </div>
 
-      <div className="pointer-events-none absolute top-[19.69vw] hidden h-px w-[88.42%] bg-(--line-strong) min-[992px]:block" />
+      <div className="mt-[10.77vw] flex w-full flex-col items-center gap-[5.13vw] min-[480px]:mt-[5.2vw] min-[480px]:gap-[2.6vw] min-[992px]:mt-0 min-[992px]:gap-[3.13vw]">
+        <div className="hidden h-px w-[88.42%] shrink-0 bg-(--line-strong) min-[992px]:block" />
 
-      <div className="mt-[10.77vw] flex flex-col items-center gap-[5.13vw] min-[480px]:mt-[5.2vw] min-[480px]:gap-[2.6vw] min-[992px]:mt-0 min-[992px]:gap-[1.25vw]">
-        <span className="text-[4.1vw] leading-[110%] opacity-60 min-[480px]:text-[2.08vw] min-[992px]:text-[1vw]">
-          (Principle)
-        </span>
-        <span className="font-display text-[38.46vw] leading-[90%] font-normal tracking-[-0.05em] min-[480px]:text-[23.44vw] min-[992px]:text-[13.75vw]">
-          {entry.id}
-        </span>
+        <div className="flex flex-col items-center gap-[5.13vw] min-[480px]:gap-[2.6vw] min-[992px]:gap-[1.25vw]">
+          <span className="text-[4.1vw] leading-[110%] opacity-60 min-[480px]:text-[2.08vw] min-[992px]:text-[1vw]">
+            (Principle)
+          </span>
+          <span className="font-display text-[38.46vw] leading-[90%] font-normal tracking-[-0.05em] min-[480px]:text-[23.44vw] min-[992px]:text-[13.75vw]">
+            {entry.id}
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -75,8 +77,10 @@ export default function Approach() {
         const distance = () => track.scrollWidth - window.innerWidth;
         const travel = () => distance() * 0.71;
 
+        const HOLD = 0.8;
+
         const sizeWrapper = () => {
-          wrapper.style.height = window.innerHeight + travel() + "px";
+          wrapper.style.height = window.innerHeight + travel() / HOLD + "px";
         };
 
         sizeWrapper();
