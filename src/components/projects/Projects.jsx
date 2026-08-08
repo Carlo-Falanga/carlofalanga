@@ -201,12 +201,12 @@ export default function Projects() {
 
       <h2
         ref={headingRef}
-        className="text-center font-display leading-[100%] font-normal uppercase text-[16vw] min-[480px]:text-[13vw] min-[992px]:text-[10.63vw]"
+        className="relative z-20 text-center font-display leading-[100%] font-normal uppercase text-[16vw] min-[480px]:text-[13vw] min-[992px]:sticky min-[992px]:top-[-13.1vw] min-[992px]:mb-[-4.4vw] min-[992px]:text-[10.63vw]"
       >
         Projects
       </h2>
 
-      <div className="mt-[8vw] flex flex-col items-center gap-[5.47vw] min-[992px]:mt-[3vw] min-[992px]:gap-[4.375vw]">
+      <div className="relative z-10 mt-[8vw] flex flex-col items-center gap-[5.47vw] min-[992px]:mt-0 min-[992px]:gap-[4.375vw]">
         {projects.map((project, index) => (
           <ProjectCard
             key={project.title}
