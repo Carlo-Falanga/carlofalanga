@@ -8,7 +8,7 @@ const BODY =
   "I trained as a graphic designer in Naples, then moved to code. I finished Boolean's full-stack master with top marks, and I build with React and Node on one side, PHP and Laravel on the other.";
 
 const NUM_LABEL = "(Projects built)";
-const NUM_VALUE = "02";
+const NUM_VALUE = "03";
 
 export default function About() {
   const sectionRef = useRef(null);
