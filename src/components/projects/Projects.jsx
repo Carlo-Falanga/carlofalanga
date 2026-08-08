@@ -15,14 +15,14 @@ const projects = [
     category: ["Wellness", "platform"],
     tags: ["Laravel", "React"],
     href: "https://github.com/Carlo-Falanga/naturafit-client",
-    image: null,
+    image: "/images/screenshot-naturafit.webp",
   },
   {
     title: "Warehouse orders",
     category: ["Order", "management"],
     tags: ["JavaScript", "Web"],
     href: "https://github.com/Carlo-Falanga/warehouse-orders",
-    image: null,
+    image: "/images/screenshot-warehouse.webp",
   },
 ];
 
