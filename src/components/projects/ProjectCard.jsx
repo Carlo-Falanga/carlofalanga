@@ -1,6 +1,6 @@
 function Tag({ children }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-(--cream) px-[2.6vw] py-[1.4vw] text-[2.6vw] leading-[90%] min-[480px]:px-[1.6vw] min-[480px]:py-[0.9vw] min-[480px]:text-[1.4vw] min-[992px]:px-[0.9vw] min-[992px]:py-[0.62vw] min-[992px]:text-[1vw]">
+    <span className="inline-flex items-center rounded-full bg-(--cream) font-body px-[2.6vw] py-[1.4vw] text-[2.6vw] leading-[90%] min-[480px]:px-[1.6vw] min-[480px]:py-[0.9vw] min-[480px]:text-[1.4vw] min-[992px]:px-[0.9vw] min-[992px]:py-[0.62vw] min-[992px]:text-[1vw]">
       {children}
     </span>
   );
@@ -47,7 +47,7 @@ export default function ProjectCard({ project, index, total, cardRef }) {
       </div>
 
       <div className="flex w-full items-start justify-between gap-[2vw] min-[992px]:pointer-events-none min-[992px]:absolute min-[992px]:inset-0 min-[992px]:items-center">
-        <div className="flex flex-col font-display font-medium min-[992px]:w-[15vw] min-[992px]:items-center">
+        <div className="flex flex-col font-display font-medium min-[992px]:w-[15vw] min-[992px]:items-end min-[992px]:text-right">
           {project.category.map((line, i) => (
             <Reveal
               key={line}
@@ -59,13 +59,13 @@ export default function ProjectCard({ project, index, total, cardRef }) {
           ))}
         </div>
 
-        <div className="flex flex-col items-end gap-[2vw] min-[992px]:w-[15vw] min-[992px]:items-center min-[992px]:gap-[1.25vw]">
-          <Reveal delay={140} className="font-mono text-[3vw] leading-[110%] min-[480px]:text-[1.6vw] min-[992px]:text-[1vw]">
+        <div className="flex flex-col items-end gap-[2vw] min-[992px]:w-[15vw] min-[992px]:items-start min-[992px]:gap-[1.25vw]">
+          <Reveal delay={140} className="font-body text-[3vw] leading-[110%] min-[480px]:text-[1.6vw] min-[992px]:text-[1vw]">
             <span>{counter}</span>
             <span className="opacity-40"> / {of}</span>
           </Reveal>
 
-          <div className="flex flex-wrap justify-end gap-[1.6vw] min-[992px]:justify-center min-[992px]:gap-[0.5vw]">
+          <div className="flex flex-wrap justify-end gap-[1.6vw] min-[992px]:justify-start min-[992px]:gap-[0.5vw]">
             {project.tags.map((tag, i) => (
               <Reveal key={tag} delay={210 + i * 70}>
                 <Tag>{tag}</Tag>
