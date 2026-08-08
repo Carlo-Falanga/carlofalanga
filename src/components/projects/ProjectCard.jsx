@@ -47,20 +47,20 @@ export default function ProjectCard({ project, index, total, cardRef }) {
       </div>
 
       <div className="flex w-full items-start justify-between gap-[2vw] min-[992px]:pointer-events-none min-[992px]:absolute min-[992px]:inset-0 min-[992px]:items-center">
-        <div className="flex flex-col font-display font-medium min-[992px]:w-[15vw] min-[992px]:items-end min-[992px]:text-right">
+        <div className="flex flex-col font-display font-medium min-[992px]:w-[9.5vw] min-[992px]:items-end min-[992px]:pr-[1.2vw] min-[992px]:text-right">
           {project.category.map((line, i) => (
             <Reveal
               key={line}
               delay={i * 70}
-              className="text-[4vw] leading-[130%] min-[480px]:text-[2.2vw] min-[992px]:text-[1.5vw]"
+              className="text-[4vw] leading-[110%] min-[480px]:text-[2.2vw] min-[992px]:text-[1.38vw]"
             >
               {line}
             </Reveal>
           ))}
         </div>
 
-        <div className="flex flex-col items-end gap-[2vw] min-[992px]:w-[15vw] min-[992px]:items-start min-[992px]:gap-[1.25vw]">
-          <Reveal delay={140} className="font-body text-[3vw] leading-[110%] min-[480px]:text-[1.6vw] min-[992px]:text-[1vw]">
+        <div className="flex flex-col items-end gap-[2vw] min-[992px]:w-[9.5vw] min-[992px]:items-start min-[992px]:pl-[1.2vw] min-[992px]:gap-[1.25vw]">
+          <Reveal delay={140} className="font-body font-medium text-[3vw] leading-[130%] min-[480px]:text-[1.6vw] min-[992px]:text-[1.5vw]">
             <span>{counter}</span>
             <span className="opacity-40"> / {of}</span>
           </Reveal>
