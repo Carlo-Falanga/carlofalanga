@@ -183,9 +183,9 @@ export default function Projects() {
       <span
         ref={pointerRef}
         aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-30 hidden h-[4.4vw] w-[4.4vw] items-center justify-center rounded-full bg-(--cream) opacity-0 mix-blend-difference transition-opacity duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:hidden min-[992px]:flex"
+        className="pointer-events-none fixed left-0 top-0 z-30 hidden h-[3.9vw] w-[3.9vw] items-center justify-center rounded-full bg-(--cream) opacity-0 mix-blend-difference transition-opacity duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:hidden min-[992px]:flex"
       >
-        <span className="font-mono text-[0.58vw] tracking-[0.16em] text-(--ink) uppercase">
+        <span className="font-display text-[0.7vw] leading-[110%] font-normal text-(--ink) uppercase">
           Code
         </span>
       </span>
