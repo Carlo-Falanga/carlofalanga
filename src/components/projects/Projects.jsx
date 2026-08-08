@@ -69,7 +69,7 @@ export default function Projects() {
     const PEAK_H = 28.13;
 
     const headWrap = headWrapRef.current;
-    const LIFT = 8.3;
+    const LIFT = 4.6;
 
     const driftHeading = () => {
       const vh = window.innerHeight;
@@ -204,7 +204,7 @@ export default function Projects() {
     <section
       id="projects"
       ref={sectionRef}
-      className="section-px mt-[10vw] min-[480px]:mt-[6vw] min-[992px]:mt-[12vw]"
+      className="section-px mt-[13.02vw] min-[992px]:mt-[9.38vw]"
     >
       <span
         ref={pointerRef}
@@ -219,7 +219,7 @@ export default function Projects() {
       <div ref={headWrapRef} className="relative z-[1] mix-blend-difference min-[992px]:mb-[-4.4vw]">
         <h2
           ref={headingRef}
-          className="text-center font-display leading-[100%] font-normal text-white uppercase text-[16vw] min-[480px]:text-[13vw] min-[992px]:text-[10.63vw]"
+          className="text-center font-display leading-[100%] font-normal tracking-[-0.02em] text-white uppercase text-[11.98vw] min-[992px]:text-[10.63vw]"
         >
           Projects
         </h2>
