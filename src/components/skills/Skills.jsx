@@ -25,21 +25,41 @@ export default function Skills() {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const lineRefs = useRef([]);
+  const blockRefs = useRef([]);
 
   useEffect(() => {
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+    const compact = window.matchMedia("(max-width: 991px)").matches;
 
     if (reduced) {
       gsap.set(
         lineRefs.current.map((l) => l?.querySelector(".skills-line-solid")),
         { opacity: 1 }
       );
+      gsap.set(blockRefs.current, { opacity: 1 });
       return;
     }
 
     const ctx = gsap.context(() => {
+      if (compact) {
+        gsap.set(blockRefs.current, { opacity: 1 });
+      } else {
+        gsap.set(blockRefs.current, { opacity: 0 });
+        gsap.to(blockRefs.current, {
+          opacity: 1,
+          duration: 0.7,
+          ease: "siteEase",
+          stagger: 0.09,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 60%",
+            once: true,
+          },
+        });
+      }
+
       lineRefs.current.forEach((line, idx) => {
         if (!line) return;
         gsap.set(line, { yPercent: 110 });
@@ -119,13 +139,14 @@ export default function Skills() {
               className="group/side flex w-1/2 flex-col"
             >
               <div
-                className={`flex h-[42vh] flex-col justify-end md:h-[56vh] ${
+                className={`flex h-[100.77vw] flex-col justify-end min-[480px]:h-[55.08vw] min-[992px]:h-[82vh] ${
                   idx === 0
                     ? "items-start pl-6 md:pl-[5.63vw]"
                     : "items-end pr-6 md:pr-[5.63vw]"
                 }`}
               >
                 <div
+                  ref={(el) => (blockRefs.current[idx] = el)}
                   className={`flex w-full flex-col md:w-[30.88vw] ${
                     idx === 0 ? "items-start" : "items-end text-right"
                   }`}

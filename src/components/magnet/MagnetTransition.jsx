@@ -1,9 +1,7 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../lib/gsap";
-
-const MAGNET_PATH =
-  "M0,0 L0,120 A100,100 0 0 0 200,120 L200,0 L160,0 L160,120 A60,60 0 0 1 40,120 L40,0 Z";
+import { MAGNET_PATH, MAGNET_VIEWBOX } from "../../lib/shapes";
 
 export default function MagnetTransition() {
   const sectionRef = useRef(null);
@@ -91,7 +89,7 @@ export default function MagnetTransition() {
         <div className="absolute inset-0 grid place-items-center">
           <svg
             ref={shapeRef}
-            viewBox="0 0 200 220"
+            viewBox={MAGNET_VIEWBOX}
             aria-hidden="true"
             style={{ transformOrigin: "50% 50%" }}
             className="magnet-shape [grid-area:1/1] aspect-[200/220] h-[34vh] min-h-[220px] w-auto will-change-transform"
