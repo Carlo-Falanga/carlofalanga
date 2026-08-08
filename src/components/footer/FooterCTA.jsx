@@ -88,7 +88,7 @@ export default function FooterCTA() {
           ref={subRef}
           className="mt-6 md:mt-8 max-w-[46ch] text-[16px] md:text-[18px] text-(--dim-invert) leading-relaxed"
         >
-          Full-stack web developer, Boolean master graduate &mdash; looking for
+          Full-stack web developer and Boolean master graduate, looking for
           a team to build with.
         </p>
 

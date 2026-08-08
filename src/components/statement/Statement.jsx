@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "../../lib/gsap";
 
 const STATEMENT =
-  "Every project here is built end to end — from the first sketch of the interface down to the database.";
+  "Every project here is built end to end, from the first sketch of the interface down to the database.";
 
 export default function Statement() {
   const sectionRef = useRef(null);

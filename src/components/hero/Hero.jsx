@@ -107,7 +107,7 @@ export default function Hero() {
     >
       <div className="section-px relative flex h-full flex-col">
         <h1 className="sr-only">
-          Carlo Falanga &mdash; Full-Stack Web Developer
+          Carlo Falanga, Full-Stack Web Developer
         </h1>
 
         <div className="hero-corners mt-auto flex flex-col gap-6 pb-[0.8vh] md:flex-row md:items-end md:justify-between">

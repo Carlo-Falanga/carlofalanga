@@ -8,8 +8,7 @@ import Approach from "./components/approach/Approach";
 import Skills from "./components/skills/Skills"
 import Statement from "./components/statement/Statement"
 import Projects from "./components/projects/Projects"
-import Experience from "./components/experience/Experience";
-import Education from "./components/education/Education";
+import Background from "./components/background/Background";
 import Contact from "./components/contact/Contact"
 
 
@@ -23,8 +22,7 @@ function App() {
       <Approach/>
       <Statement/>
       <Projects/>
-      <Experience/>
-      <Education/>
+      <Background/>
       <Contact/>
       <MagnetTransition />
       <FooterCTA />
