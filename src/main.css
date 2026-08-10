@@ -62,6 +62,7 @@
 
   --sp-section-x: 4.1vw;
   --sp-section-top: 32vw;
+  --sp-anchor-top: 96px;
 
   --nav-vw: 1vw;
   --nav-offset: 0px;
@@ -110,6 +111,7 @@
 
     --sp-section-x: min(2.5vw, 40px);
     --sp-section-top: min(9.38vw, 150px);
+    --sp-anchor-top: 120px;
 
     --nav-vw: clamp(16.25px, 1vw, 17.5px);
   }
@@ -121,6 +123,10 @@ body {
   color: var(--fg);
   font-family: var(--font-body);
   overflow-x: clip;
+}
+
+html {
+  scroll-padding-top: var(--sp-anchor-top);
 }
 
 @layer components {
