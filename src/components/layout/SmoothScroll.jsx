@@ -5,7 +5,14 @@ import { prefersReducedMotion } from "../../lib/media";
 
 export default function SmoothScroll({ children }) {
   useEffect(() => {
-    if (prefersReducedMotion()) return;
+    const refresh = () => ScrollTrigger.refresh();
+
+    window.addEventListener("load", refresh);
+    document.fonts.ready.then(refresh);
+
+    if (prefersReducedMotion()) {
+      return () => window.removeEventListener("load", refresh);
+    }
 
     const lenis = new Lenis({
       lerp: 0.1,
@@ -20,11 +27,6 @@ export default function SmoothScroll({ children }) {
 
     gsap.ticker.add(onTick);
     gsap.ticker.lagSmoothing(0);
-
-    const refresh = () => ScrollTrigger.refresh();
-
-    window.addEventListener("load", refresh);
-    document.fonts.ready.then(refresh);
 
     return () => {
       window.removeEventListener("load", refresh);
