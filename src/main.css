@@ -125,10 +125,6 @@ body {
   overflow-x: clip;
 }
 
-html {
-  scroll-padding-top: var(--sp-anchor-top);
-}
-
 @layer components {
   .t-1h {
     font-size: var(--t-1h);
@@ -266,6 +262,10 @@ html {
 
   .section-mt {
     margin-top: var(--sp-section-top);
+  }
+
+  .section-anchor {
+    scroll-margin-top: var(--sp-anchor-top);
   }
 
   .no-scrollbar {
