@@ -3,7 +3,7 @@ import SiteHeader from "./components/SiteHeader";
 import FooterCTA from "./components/footer/FooterCTA";
 import MagnetTransition from "./components/magnet/MagnetTransition";
 import Hero from "./components/sections/Hero";
-import About from "./components/about/About";
+import About from "./components/sections/About";
 import Approach from "./components/approach/Approach";
 import Skills from "./components/skills/Skills"
 import Statement from "./components/statement/Statement"
