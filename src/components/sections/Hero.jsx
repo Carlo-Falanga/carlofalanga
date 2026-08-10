@@ -1,6 +1,12 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../lib/gsap";
+import { prefersReducedMotion } from "../../lib/media";
+import GlowText, {
+  GLOW_KEEP,
+  GLOW_LETTER,
+  GLOW_PASS,
+} from "../ui/GlowText";
 
 const LINE_ONE = "CARLO";
 const LINE_TWO = "FALANGA";
@@ -9,19 +15,7 @@ function Word({ word, keepGlow }) {
   return (
     <span className="hero-line block overflow-hidden py-[0.06em]">
       <span className="block whitespace-nowrap">
-        {Array.from(word).map((char, idx) => (
-          <span key={`${word}-${idx}`} className="hero-letter relative inline-block">
-            <span className="text-(--cream)">{char}</span>
-            <span
-              aria-hidden="true"
-              className={`hero-glow absolute inset-0 text-(--mustard) opacity-0 ${
-                keepGlow ? "hero-glow-keep" : ""
-              }`}
-            >
-              {char}
-            </span>
-          </span>
-        ))}
+        <GlowText text={word} keep={keepGlow} />
       </span>
     </span>
   );
@@ -32,16 +26,15 @@ export default function Hero() {
 
   useGSAP(
     () => {
-      const reduceMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
+      const hero = containerRef.current;
+      const find = (selector) => Array.from(hero.querySelectorAll(selector));
 
-      const letters = gsap.utils.toArray(".hero-letter");
-      const corners = gsap.utils.toArray(".hero-corner");
-      const glowPass = gsap.utils.toArray(".hero-glow:not(.hero-glow-keep)");
-      const glowKeep = gsap.utils.toArray(".hero-glow-keep");
+      const letters = find(GLOW_LETTER);
+      const corners = find(".hero-corner");
+      const glowPass = find(GLOW_PASS);
+      const glowKeep = find(GLOW_KEEP);
 
-      if (reduceMotion) {
+      if (prefersReducedMotion()) {
         gsap.set(letters, { yPercent: 0, opacity: 1 });
         gsap.set(corners, { opacity: 1, y: 0 });
         gsap.set(glowKeep, { opacity: 1 });
@@ -88,8 +81,10 @@ export default function Hero() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "bottom top",
+          end: () =>
+            "+=" + (containerRef.current.offsetHeight || window.innerHeight),
           scrub: 0.5,
+          invalidateOnRefresh: true,
         },
       });
 
@@ -105,26 +100,26 @@ export default function Hero() {
       ref={containerRef}
       className="full-bleed relative h-dvh min-h-[640px] overflow-hidden bg-(--ink)"
     >
-      <div className="section-px relative flex h-full flex-col">
+      <div className="section-px relative flex h-full flex-col justify-center laptop:justify-end">
         <h1 className="sr-only">
           Carlo Falanga, Full-Stack Web Developer
         </h1>
 
-        <div className="hero-corners mt-auto flex flex-col gap-6 pb-[0.8vh] md:flex-row md:items-end md:justify-between">
-          <p className="hero-corner text-[15px] leading-[130%] font-normal tracking-normal text-(--dim-invert) uppercase md:text-[1.25vw]">
+        <div className="hero-corners contents tablet:flex tablet:flex-row tablet:items-end tablet:justify-between tablet:pb-[2vh] laptop:mt-auto laptop:pb-[0.8vh]">
+          <p className="hero-corner t-body order-3 mt-[6vw] text-center text-(--dim-invert) uppercase tablet:order-1 tablet:mt-0 tablet:text-left">
             Full-Stack Web Developer &middot; Italy
           </p>
 
-          <p className="hero-corner text-right text-[15px] leading-[130%] font-normal tracking-normal text-(--cream) uppercase md:max-w-[14vw] md:text-[1.25vw]">
-            <span className="block">BUILD</span>
-            <span className="block">THINGS THAT</span>
-            <span className="block">WORK.</span>
+          <p className="hero-corner t-body order-1 mb-[6vw] text-center text-(--cream) uppercase tablet:order-2 tablet:mb-0 tablet:max-w-[14vw] tablet:text-right">
+            <span className="inline tablet:block">BUILD</span>{" "}
+            <span className="inline tablet:block">THINGS THAT</span>{" "}
+            <span className="inline tablet:block">WORK.</span>
           </p>
         </div>
 
         <div
           aria-hidden="true"
-          className="hero-wordmark display-xl mb-[0.4vh] flex flex-col font-bold text-[clamp(38px,min(calc((100vw_-_72px)_*_0.172),40vh),400px)] uppercase"
+          className="hero-wordmark display-xl order-2 mb-[0.4vh] flex flex-col font-bold text-[18.5vw] text-(--cream) uppercase tablet:text-[clamp(38px,min(calc((100vw_-_(2_*_var(--sp-section-x)))_*_0.172),40vh),400px)]"
         >
           <Word word={LINE_ONE} />
           <Word word={LINE_TWO} keepGlow />
