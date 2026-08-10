@@ -1,10 +1,7 @@
 import { useEffect, useRef } from "react";
-import { CustomEase } from "gsap/CustomEase";
 import { gsap } from "../../lib/gsap";
-import ToolBoxSkills from "./ToolBoxSkills";
-
-gsap.registerPlugin(CustomEase);
-CustomEase.create("skillsEase", "M0,0,C0.16,1,0.3,1,1,1");
+import { isCompact, prefersReducedMotion } from "../../lib/media";
+import StackMarquee from "./StackMarquee";
 
 const TITLE_LINES = ["Web", "development"];
 
@@ -28,23 +25,27 @@ export default function Skills() {
   const blockRefs = useRef([]);
 
   useEffect(() => {
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    const compact = window.matchMedia("(max-width: 991px)").matches;
-
-    if (reduced) {
-      gsap.set(
-        lineRefs.current.map((l) => l?.querySelector(".skills-line-solid")),
-        { opacity: 1 }
-      );
+    if (prefersReducedMotion()) {
+      const solids = lineRefs.current
+        .filter(Boolean)
+        .map((line) => line.querySelector(".skills-line-solid"));
+      gsap.set(solids, { opacity: 1 });
       gsap.set(blockRefs.current, { opacity: 1 });
       return;
     }
 
     const ctx = gsap.context(() => {
-      if (compact) {
-        gsap.set(blockRefs.current, { opacity: 1 });
+      if (isCompact()) {
+        blockRefs.current.filter(Boolean).forEach((block) => {
+          gsap.set(block, { opacity: 0, y: 24 });
+          gsap.to(block, {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "siteEase",
+            scrollTrigger: { trigger: block, start: "top 85%", once: true },
+          });
+        });
       } else {
         gsap.set(blockRefs.current, { opacity: 0 });
         gsap.to(blockRefs.current, {
@@ -74,8 +75,8 @@ export default function Skills() {
             },
             delay: idx * 0.08,
           })
-          .to(line, { yPercent: 0, duration: 0.7, ease: "skillsEase" })
-          .to(solid, { opacity: 1, duration: 0.6, ease: "skillsEase" }, 0.05);
+          .to(line, { yPercent: 0, duration: 0.7, ease: "siteEase" })
+          .to(solid, { opacity: 1, duration: 0.6, ease: "siteEase" }, 0.05);
       });
 
       gsap.to(titleRef.current, {
@@ -99,17 +100,17 @@ export default function Skills() {
       id="skills"
       className="relative mt-[6.25vw] overflow-hidden bg-(--cream)"
     >
-      <div aria-hidden="true" className="absolute inset-0 flex">
+      <div aria-hidden="true" className="absolute inset-0 hidden laptop:flex">
         <div className="w-1/2 bg-(--sand)" />
         <div className="w-1/2 bg-(--shell)" />
       </div>
 
       <div className="relative flex flex-col items-center">
-        <div className="flex w-[105.26%] justify-center">
+        <div className="flex w-full flex-col laptop:w-[105.26%] laptop:flex-row laptop:justify-center">
           <div
             ref={titleRef}
             aria-label="Web development"
-            className="absolute top-[0.8vw] z-2 flex w-auto flex-col items-center text-[--cream] mix-blend-difference"
+            className="section-px z-2 flex w-full flex-col items-center pt-[14vw] pb-[10vw] text-(--ink) tablet:pt-[8vw] tablet:pb-[6vw] laptop:absolute laptop:top-[0.8vw] laptop:w-auto laptop:p-0 laptop:text-[--cream] laptop:mix-blend-difference"
           >
             <span aria-hidden="true">
               {TITLE_LINES.map((line, idx) => (
@@ -121,10 +122,10 @@ export default function Skills() {
                     ref={(el) => (lineRefs.current[idx] = el)}
                     className="skills-line relative block text-center"
                   >
-                    <span className="skills-line-dim block font-display text-[13vw] leading-[100%] font-normal tracking-normal text-(--dim) uppercase md:text-[7vw]">
+                    <span className="t-h2-lg skills-line-dim block font-display text-(--dim)">
                       {line}
                     </span>
-                    <span className="skills-line-solid absolute inset-0 block font-display text-[13vw] leading-[100%] font-normal tracking-normal text-white uppercase opacity-0 md:text-[7vw]">
+                    <span className="t-h2-lg skills-line-solid absolute inset-0 block font-display text-(--ink) opacity-0 laptop:text-white">
                       {line}
                     </span>
                   </span>
@@ -136,28 +137,28 @@ export default function Skills() {
           {services.map((service, idx) => (
             <div
               key={service.id}
-              className="group/side flex w-1/2 flex-col"
+              className="group/side flex w-full flex-col laptop:w-1/2"
             >
               <div
-                className={`flex h-[100.77vw] flex-col justify-end min-[480px]:h-[55.08vw] min-[992px]:h-[82vh] ${
+                className={`section-px flex flex-col justify-end py-[12vw] tablet:py-[7vw] laptop:h-[82vh] laptop:py-0 ${
                   idx === 0
-                    ? "items-start pl-6 md:pl-[5.63vw]"
-                    : "items-end pr-6 md:pr-[5.63vw]"
+                    ? "items-start laptop:pl-[5.63vw]"
+                    : "items-start laptop:items-end laptop:pr-[5.63vw]"
                 }`}
               >
                 <div
                   ref={(el) => (blockRefs.current[idx] = el)}
-                  className={`flex w-full flex-col md:w-[30.88vw] ${
-                    idx === 0 ? "items-start" : "items-end text-right"
+                  className={`flex w-full flex-col items-start laptop:w-[30.88vw] ${
+                    idx === 0 ? "" : "laptop:items-end laptop:text-right"
                   }`}
                 >
-                  <h3 className="font-body text-[16px] leading-[130%] font-medium tracking-normal text-(--ink) uppercase underline decoration-1 underline-offset-4 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/side:-translate-y-[1.6vw] motion-reduce:transition-none motion-reduce:group-hover/side:translate-y-0 md:text-[1.5vw]">
+                  <h3 className="t-title2 font-body text-(--ink) uppercase underline decoration-1 underline-offset-4 transition-transform duration-500 ease-site laptop:group-hover/side:-translate-y-[1.6vw] motion-reduce:transition-none motion-reduce:group-hover/side:translate-y-0">
                     {service.title[0]}
                     <br />
                     {service.title[1]}
                   </h3>
-                  <div className="h-[9rem] w-full md:h-[6.5vw]">
-                    <p className="translate-y-[1.2vw] text-[14px] leading-[130%] text-(--dim) opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/side:translate-y-0 group-hover/side:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none md:text-[1.25vw]">
+                  <div className="mt-[4vw] w-full tablet:mt-[2.4vw] laptop:mt-0 laptop:h-[6.5vw]">
+                    <p className="t-body text-(--dim) transition-all duration-500 ease-site laptop:translate-y-[1.2vw] laptop:opacity-0 laptop:group-hover/side:translate-y-0 laptop:group-hover/side:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none">
                       {service.body}
                     </p>
                   </div>
@@ -168,7 +169,7 @@ export default function Skills() {
           ))}
         </div>
 
-        <ToolBoxSkills />
+        <StackMarquee />
       </div>
     </section>
   );

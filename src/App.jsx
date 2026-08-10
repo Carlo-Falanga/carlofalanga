@@ -5,7 +5,7 @@ import MagnetTransition from "./components/magnet/MagnetTransition";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Approach from "./components/approach/Approach";
-import Skills from "./components/skills/Skills"
+import Skills from "./components/sections/Skills"
 import Statement from "./components/statement/Statement"
 import Projects from "./components/projects/Projects"
 import Background from "./components/background/Background";
