@@ -6,7 +6,7 @@ import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Approach from "./components/sections/Approach";
 import Skills from "./components/sections/Skills"
-import Statement from "./components/statement/Statement"
+import Statement from "./components/sections/Statement"
 import Projects from "./components/projects/Projects"
 import Background from "./components/background/Background";
 import Contact from "./components/contact/Contact"
