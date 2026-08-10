@@ -3,9 +3,10 @@ import { LuArrowRight } from "react-icons/lu";
 import { prefersReducedMotion } from "../../lib/media";
 
 const navLinks = [
-  { name: "Work", href: "#projects" },
   { name: "About", href: "#about" },
   { name: "Stack", href: "#skills" },
+  { name: "Work", href: "#projects" },
+  { name: "Background", href: "#background" },
   { name: "Contact", href: "#contact" },
 ];
 
