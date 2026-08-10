@@ -9,12 +9,12 @@ const services = [
   {
     id: "frontend",
     title: ["Frontend", "development"],
-    body: "React and JavaScript for the interface, HTML and CSS for the foundation, GSAP and Motion for everything that moves.",
+    body: "React and JavaScript for the interface, HTML and CSS for the foundation, and a layout that has to hold at every screen size.",
   },
   {
     id: "backend",
     title: ["Backend", "development"],
-    body: "Node.js and Express for the API layer, PHP and Laravel from the Boolean master, MySQL and SQLite underneath.",
+    body: "Node.js and Express for the API layer, PHP and Laravel from the Boolean master, MySQL underneath and SQLite picked up on my own.",
   },
 ];
 
