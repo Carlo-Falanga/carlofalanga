@@ -309,7 +309,7 @@ export default function Background() {
     <section
       ref={sectionRef}
       id="background"
-      className="section-mt section-px"
+      className="section-mt section-px section-anchor"
     >
       <div className="flex w-full flex-col laptop:flex-row laptop:items-start laptop:gap-[2.5vw]">
         <div className="laptop:sticky laptop:top-[16vh] laptop:flex laptop:w-[45vw] laptop:shrink-0 laptop:flex-col">

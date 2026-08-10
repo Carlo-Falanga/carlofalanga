@@ -66,7 +66,7 @@ export default function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="section-mt section-px"
+      className="section-mt section-px section-anchor"
     >
       <div className="flex w-full flex-col items-start">
         <h2 className="flex w-full flex-col items-start tablet:w-[80%] laptop:w-[60%]">
