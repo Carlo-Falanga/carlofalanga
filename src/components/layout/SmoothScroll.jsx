@@ -1,16 +1,11 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
+import { prefersReducedMotion } from "../../lib/media";
 
 export default function SmoothScroll({ children }) {
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (prefersReducedMotion) {
-      return;
-    }
+    if (prefersReducedMotion()) return;
 
     const lenis = new Lenis({
       lerp: 0.1,
@@ -26,7 +21,13 @@ export default function SmoothScroll({ children }) {
     gsap.ticker.add(onTick);
     gsap.ticker.lagSmoothing(0);
 
+    const refresh = () => ScrollTrigger.refresh();
+
+    window.addEventListener("load", refresh);
+    document.fonts.ready.then(refresh);
+
     return () => {
+      window.removeEventListener("load", refresh);
       gsap.ticker.remove(onTick);
       lenis.destroy();
     };
