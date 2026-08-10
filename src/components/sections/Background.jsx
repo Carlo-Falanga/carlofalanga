@@ -36,6 +36,10 @@ const entries = [
     title: "Web Design Diploma",
     org: "ILAS, Istituto di Comunicazione",
     meta: "2021 to 2022 · Naples",
+    aside: "(Focus)",
+    body:
+      "Design made for the browser: page layout, typographic hierarchy and how a composition " +
+      "has to behave when the screen changes size. The first step from print towards code.",
   },
   {
     id: "04",
@@ -43,6 +47,10 @@ const entries = [
     title: "Graphic Design Diploma",
     org: "ILAS, Istituto di Comunicazione",
     meta: "2021 to 2022 · Naples",
+    aside: "(Focus)",
+    body:
+      "Typography, grids and composition, learned for print. It is the foundation everything " +
+      "after it was built on, from the magazine work to the way I lay out an interface.",
   },
 ];
 
