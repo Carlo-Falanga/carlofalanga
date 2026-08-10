@@ -90,8 +90,8 @@ export default function SiteHeader() {
             </nav>
 
             <a
-              href="/cv-carlo-alberto-falanga.pdf"
-              download
+              href="/carlo-alberto-falanga-cv.pdf"
+              download="Carlo-Alberto-Falanga-CV.pdf"
               className="t-footer rounded-full bg-(--mustard) px-[clamp(14px,4.6vw,20px)] py-[clamp(9px,3vw,13px)] font-medium text-(--ink) transition-opacity duration-300 hover:opacity-80 tablet:hidden motion-reduce:transition-none"
             >
               Download CV
@@ -116,8 +116,8 @@ export default function SiteHeader() {
 
           <div className="order-3 hidden items-center justify-end gap-4 tablet:flex tablet:justify-self-end">
             <a
-              href="/cv-carlo-alberto-falanga.pdf"
-              download
+              href="/carlo-alberto-falanga-cv.pdf"
+              download="Carlo-Alberto-Falanga-CV.pdf"
               className="group/cta inline-flex w-[clamp(120px,18vw,150px)] shrink-0 items-center gap-[clamp(6px,0.9vw,8px)] rounded-full border-[clamp(3px,0.46vw,4px)] border-(--shell) bg-white p-[clamp(3px,0.46vw,4px)] font-body text-[clamp(12px,1.48vw,13px)] leading-[90%] font-normal text-(--ink) laptop:w-[calc(9.2*var(--nav-vw))] laptop:gap-[calc(0.45*var(--nav-vw))] laptop:border-[calc(0.23*var(--nav-vw))] laptop:p-[calc(0.23*var(--nav-vw))] laptop:text-[calc(0.74*var(--nav-vw))]"
             >
               <span
