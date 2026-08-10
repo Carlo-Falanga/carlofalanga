@@ -8,7 +8,7 @@ import Approach from "./components/sections/Approach";
 import Skills from "./components/sections/Skills"
 import Statement from "./components/sections/Statement"
 import Projects from "./components/sections/Projects"
-import Background from "./components/background/Background";
+import Background from "./components/sections/Background";
 import Contact from "./components/contact/Contact"
 
 
