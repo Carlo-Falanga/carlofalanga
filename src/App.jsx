@@ -4,7 +4,7 @@ import FooterCTA from "./components/footer/FooterCTA";
 import MagnetTransition from "./components/magnet/MagnetTransition";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
-import Approach from "./components/approach/Approach";
+import Approach from "./components/sections/Approach";
 import Skills from "./components/sections/Skills"
 import Statement from "./components/statement/Statement"
 import Projects from "./components/projects/Projects"
