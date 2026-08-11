@@ -8,6 +8,12 @@ export function laptopQuery() {
   return window.matchMedia(`(min-width: ${LAPTOP_MIN_WIDTH}px)`);
 }
 
+export function mouseQuery() {
+  return window.matchMedia(
+    `(min-width: ${LAPTOP_MIN_WIDTH}px) and (hover: hover) and (pointer: fine)`,
+  );
+}
+
 export function isCompact() {
   return window.matchMedia(`(max-width: ${LAPTOP_MIN_WIDTH - 1}px)`).matches;
 }

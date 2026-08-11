@@ -30,7 +30,7 @@ export default function ProjectCard({ project, index, total }) {
       rel="noreferrer"
       className="project-card group relative flex w-full flex-col items-center gap-[5vw] tablet:gap-[3vw] laptop:w-[86.32%] laptop:gap-[0.625vw]"
     >
-      <div className="project-frame group/frame relative flex h-[50.26vw] w-full items-center justify-center overflow-hidden rounded-[1.3vw] bg-(--ink) laptop:cursor-none laptop:rounded-[0.63vw]">
+      <div className="project-frame group/frame relative flex h-[50.26vw] w-full items-center justify-center overflow-hidden rounded-[1.3vw] bg-(--ink) mouse:laptop:cursor-none laptop:rounded-[0.63vw]">
         {project.image ? (
           <img
             src={project.image}

@@ -152,13 +152,13 @@ export default function Skills() {
                     idx === 0 ? "" : "laptop:items-end laptop:text-right"
                   }`}
                 >
-                  <h3 className="t-title2 font-body text-(--ink) uppercase underline decoration-1 underline-offset-4 transition-transform duration-500 ease-site laptop:group-hover/side:-translate-y-[1.6vw] motion-reduce:transition-none motion-reduce:group-hover/side:translate-y-0">
+                  <h3 className="t-title2 font-body text-(--ink) uppercase underline decoration-1 underline-offset-4 transition-transform duration-500 ease-site mouse:laptop:group-hover/side:-translate-y-[1.6vw] motion-reduce:transition-none motion-reduce:group-hover/side:translate-y-0">
                     {service.title[0]}
                     <br />
                     {service.title[1]}
                   </h3>
-                  <div className="mt-[4vw] w-full tablet:mt-[2.4vw] laptop:mt-0 laptop:h-[6.5vw]">
-                    <p className="t-body text-(--dim) transition-all duration-500 ease-site laptop:translate-y-[1.2vw] laptop:opacity-0 laptop:group-hover/side:translate-y-0 laptop:group-hover/side:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none">
+                  <div className="mt-[4vw] w-full tablet:mt-[2.4vw] laptop:mt-0 laptop:min-h-[6.5vw] mouse:laptop:h-[6.5vw]">
+                    <p className="t-body text-(--dim) transition-all duration-500 ease-site mouse:laptop:translate-y-[1.2vw] mouse:laptop:opacity-0 mouse:laptop:group-hover/side:translate-y-0 mouse:laptop:group-hover/side:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none">
                       {service.body}
                     </p>
                   </div>
