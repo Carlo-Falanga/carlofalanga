@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "../../lib/gsap";
-import { laptopQuery, prefersReducedMotion } from "../../lib/media";
+import { isTouch, laptopQuery, prefersReducedMotion } from "../../lib/media";
 import ProjectCard from "./ProjectCard";
 import ProjectCursor from "./ProjectCursor";
 
@@ -170,18 +170,20 @@ function useScrollGeometry(sectionRef, headWrapRef) {
       };
     }
 
+    const lifts = !isTouch();
+
     let scrollRaf = 0;
     const onScroll = () => {
       if (scrollRaf) return;
       scrollRaf = requestAnimationFrame(() => {
         scrollRaf = 0;
         if (!sizeRaf) sizeRaf = requestAnimationFrame(easeSizes);
-        driftHeading();
+        if (lifts) driftHeading();
       });
     };
 
     settleSizes();
-    driftHeading();
+    if (lifts) driftHeading();
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
