@@ -16,6 +16,7 @@ export default function StackMarquee({ items = allItems, speed = 34 }) {
   useEffect(() => {
     const wrapper = wrapperRef.current;
 
+    // off screen it would still run on the compositor, so it starts paused
     const watcher = new IntersectionObserver(([entry]) => {
       wrapper.classList.toggle("is-paused", !entry.isIntersecting);
     });
