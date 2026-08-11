@@ -118,26 +118,28 @@ function useScrollGeometry(sectionRef, headWrapRef) {
     let sizeRaf = 0;
 
     const easeSizes = () => {
+      const goals = frames.map(sizeOf);
       let moving = false;
 
-      frames.forEach((frame, index) => {
-        const goal = sizeOf(frame);
-        const size = {
-          w: current[index].w + (goal.w - current[index].w) * SIZE_FOLLOW,
-          h: current[index].h + (goal.h - current[index].h) * SIZE_FOLLOW,
-        };
+      const next = goals.map((goal, index) => ({
+        w: current[index].w + (goal.w - current[index].w) * SIZE_FOLLOW,
+        h: current[index].h + (goal.h - current[index].h) * SIZE_FOLLOW,
+      }));
+
+      next.forEach((size, index) => {
         current[index] = size;
-        applySize(frame, size);
-        if (Math.abs(goal.w - size.w) > 0.01) moving = true;
+        applySize(frames[index], size);
+        if (Math.abs(goals[index].w - size.w) > 0.01) moving = true;
       });
 
       sizeRaf = moving ? requestAnimationFrame(easeSizes) : 0;
     };
 
     const settleSizes = () => {
-      frames.forEach((frame, index) => {
-        current[index] = sizeOf(frame);
-        applySize(frame, current[index]);
+      const goals = frames.map(sizeOf);
+      goals.forEach((goal, index) => {
+        current[index] = goal;
+        applySize(frames[index], goal);
       });
     };
 
