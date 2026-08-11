@@ -4,8 +4,8 @@ import { LAPTOP_MIN_WIDTH } from "../../lib/media";
 import GlowText, { GLOW_COPY } from "../ui/GlowText";
 import CodePanel from "./CodePanel";
 
-const PINNED_TRACK = `(min-width: ${LAPTOP_MIN_WIDTH}px) and (prefers-reduced-motion: no-preference)`;
-const CAROUSEL = `(max-width: ${LAPTOP_MIN_WIDTH - 1}px), (prefers-reduced-motion: reduce)`;
+const PINNED_TRACK = `(min-width: ${LAPTOP_MIN_WIDTH}px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)`;
+const CAROUSEL = `(max-width: ${LAPTOP_MIN_WIDTH - 1}px), (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce)`;
 
 const principles = [
   {
@@ -57,7 +57,7 @@ function Stage({ entry, flipped }) {
   return (
     <div
       className={
-        "approach-stage relative -ml-px flex h-[62svh] w-[82vw] shrink-0 snap-start items-center justify-center gap-[12vw] border-x border-(--line-strong) px-[6vw] text-center tablet:w-[52vw] tablet:gap-[6vw] tablet:px-[3vw] laptop:w-[45vw] laptop:justify-between laptop:gap-0 laptop:px-[2.5vw] laptop:motion-safe:h-[60vh] " +
+        "approach-stage relative -ml-px flex h-[62svh] w-[82vw] shrink-0 snap-start items-center justify-center gap-[12vw] border-x border-(--line-strong) px-[6vw] text-center tablet:w-[52vw] tablet:gap-[6vw] tablet:px-[3vw] laptop:w-[45vw] laptop:justify-between laptop:gap-0 laptop:px-[2.5vw] mouse:laptop:motion-safe:h-[60vh] " +
         (flipped ? "flex-col-reverse" : "flex-col")
       }
     >
@@ -106,22 +106,25 @@ export default function Approach() {
     const mm = gsap.matchMedia();
 
     mm.add(PINNED_TRACK, () => {
-      const distance = () => track.scrollWidth - window.innerWidth;
-      const travel = () => distance() * 0.71;
-
       const STAGE = 0.6;
       const GAP = 0.05;
 
-      const lead = () => window.innerHeight * 0.25;
-      const tail = () => window.innerHeight * 0.15;
-      const run = () => lead() + travel();
+      const glows = stages.map(glowOf);
+      const allGlows = glows.flat();
 
-      const eased = (progress) =>
-        Math.min(Math.max((progress * run() - lead()) / travel(), 0), 1);
-
+      let distance = 0;
+      let travel = 0;
+      let lead = 0;
+      let tail = 0;
+      let run = 0;
+      let middle = 0;
       let centers = [];
 
+      const eased = (progress) =>
+        Math.min(Math.max((progress * run - lead) / travel, 0), 1);
+
       const sizeWrapper = () => {
+        const vw = window.innerWidth;
         const vh = window.innerHeight;
         const headHeight = heading.offsetHeight;
         const trackHeight = vh * (STAGE + 2 * GAP);
@@ -129,7 +132,15 @@ export default function Approach() {
         track.style.height = trackHeight + "px";
         pinned.style.top = -(headHeight - vh * ((1 - STAGE) / 2 - GAP)) + "px";
         pinned.style.height = headHeight + trackHeight + "px";
-        wrapper.style.height = vh + run() + tail() + "px";
+
+        distance = track.scrollWidth - vw;
+        travel = distance * 0.71;
+        lead = vh * 0.25;
+        tail = vh * 0.15;
+        run = lead + travel;
+        middle = vw / 2;
+
+        wrapper.style.height = vh + run + tail + "px";
         centers = stages.map((item) => item.offsetLeft + item.offsetWidth / 2);
       };
 
@@ -137,8 +148,7 @@ export default function Approach() {
       ScrollTrigger.addEventListener("refreshInit", sizeWrapper);
 
       const paintActive = (progress) => {
-        const x = -distance() * eased(progress);
-        const middle = window.innerWidth / 2;
+        const x = -distance * eased(progress);
 
         let nearest = 0;
         let best = Infinity;
@@ -153,9 +163,9 @@ export default function Approach() {
         if (nearest === activeRef.current) return;
         activeRef.current = nearest;
 
-        stages.forEach((stage, index) => {
+        glows.forEach((glow, index) => {
           if (index === nearest) return;
-          gsap.to(glowOf(stage), {
+          gsap.to(glow, {
             opacity: 0,
             duration: 0.2,
             ease: "none",
@@ -163,7 +173,7 @@ export default function Approach() {
           });
         });
 
-        gsap.to(glowOf(stages[nearest]), {
+        gsap.to(glows[nearest], {
           opacity: 1,
           duration: 0.22,
           stagger: 0.055,
@@ -174,18 +184,18 @@ export default function Approach() {
       };
 
       const tween = gsap.to(track, {
-        x: () => -distance(),
+        x: () => -distance,
         ease: eased,
         scrollTrigger: {
           trigger: wrapper,
           start: "top top",
-          end: () => "+=" + run(),
+          end: () => "+=" + run,
           scrub: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => paintActive(self.progress),
           onLeaveBack: () => {
             activeRef.current = -1;
-            gsap.to(everyGlow(), { opacity: 0, duration: 0.22, ease: "none" });
+            gsap.to(allGlows, { opacity: 0, duration: 0.22, ease: "none" });
           },
         },
       });
@@ -264,7 +274,7 @@ export default function Approach() {
     <section id="approach" ref={wrapperRef} className="section-mt relative">
       <div
         ref={stageRef}
-        className="laptop:motion-safe:sticky laptop:motion-safe:overflow-hidden"
+        className="mouse:laptop:motion-safe:sticky mouse:laptop:motion-safe:overflow-hidden"
       >
         <div ref={headingRef} className="section-px flex items-start pt-[2vh]">
           <h2 className="t-h3 font-display laptop:w-3/5">
@@ -278,7 +288,7 @@ export default function Approach() {
 
         <div
           ref={trackRef}
-          className="no-scrollbar mt-[8vw] flex snap-x snap-mandatory scroll-pl-(--sp-section-x) items-center overflow-x-auto px-(--sp-section-x) tablet:mt-[4vw] laptop:motion-safe:mt-0 laptop:motion-safe:h-dvh laptop:motion-safe:w-max laptop:motion-safe:snap-none laptop:motion-safe:overflow-visible laptop:motion-safe:pr-0"
+          className="no-scrollbar mt-[8vw] flex snap-x snap-mandatory scroll-pl-(--sp-section-x) items-center overflow-x-auto px-(--sp-section-x) tablet:mt-[4vw] mouse:laptop:motion-safe:mt-0 mouse:laptop:motion-safe:h-dvh mouse:laptop:motion-safe:w-max mouse:laptop:motion-safe:snap-none mouse:laptop:motion-safe:overflow-visible mouse:laptop:motion-safe:pr-0"
         >
           {principles.map((entry, index) => (
             <Fragment key={entry.id}>
@@ -287,7 +297,7 @@ export default function Approach() {
               {entry.panel && (
                 <figure
                   className={
-                    "@container h-[62svh] w-[82vw] shrink-0 snap-start overflow-hidden tablet:w-[52vw] laptop:w-[45vw] laptop:motion-safe:h-[60vh] " +
+                    "@container h-[62svh] w-[82vw] shrink-0 snap-start overflow-hidden tablet:w-[52vw] laptop:w-[45vw] mouse:laptop:motion-safe:h-[60vh] " +
                     entry.panel.surface
                   }
                 >
@@ -315,7 +325,7 @@ export default function Approach() {
           ))}
         </div>
 
-        <div className="section-px mt-[6vw] flex items-center gap-[4vw] tablet:mt-[3vw] tablet:gap-[2vw] laptop:motion-safe:hidden">
+        <div className="section-px mt-[6vw] flex items-center gap-[4vw] tablet:mt-[3vw] tablet:gap-[2vw] mouse:laptop:motion-safe:hidden">
           <span className="t-descrpt shrink-0 font-semibold opacity-70">Swipe</span>
           <span className="relative block h-[2px] w-full bg-(--line-strong)">
             <span
