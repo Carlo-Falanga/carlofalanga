@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "../../lib/gsap";
-import { isTouch, laptopQuery, prefersReducedMotion } from "../../lib/media";
+import { laptopQuery, prefersReducedMotion } from "../../lib/media";
 import ProjectCard from "./ProjectCard";
 import ProjectCursor from "./ProjectCursor";
 
@@ -143,17 +143,23 @@ function useScrollGeometry(sectionRef, headWrapRef) {
       });
     };
 
+    let headTop = 0;
+    let headLift = 0;
+
+    const measureHead = () => {
+      headTop = headWrap.getBoundingClientRect().top + window.scrollY - headLift;
+    };
+
     const driftHeading = () => {
-      const box = headWrap.getBoundingClientRect();
-      const natural = box.top - (parseFloat(headWrap.dataset.lift) || 0);
+      const natural = headTop - window.scrollY;
       const past = Math.min(Math.max(1 - natural / window.innerHeight, 0), 1);
-      const lift = -past * (HEADING_LIFT / 100) * window.innerWidth;
-      headWrap.dataset.lift = lift;
-      headWrap.style.transform = `translateY(${lift}px)`;
+      headLift = -past * (HEADING_LIFT / 100) * window.innerWidth;
+      headWrap.style.transform = `translateY(${headLift}px)`;
     };
 
     const reset = () => {
       if (sizeRaf) cancelAnimationFrame(sizeRaf);
+      headLift = 0;
       headWrap.style.transform = "";
       frames.forEach((frame) => {
         frame.style.width = "";
@@ -170,27 +176,31 @@ function useScrollGeometry(sectionRef, headWrapRef) {
       };
     }
 
-    const lifts = !isTouch();
-
     let scrollRaf = 0;
     const onScroll = () => {
       if (scrollRaf) return;
       scrollRaf = requestAnimationFrame(() => {
         scrollRaf = 0;
         if (!sizeRaf) sizeRaf = requestAnimationFrame(easeSizes);
-        if (lifts) driftHeading();
+        driftHeading();
       });
     };
 
+    const onResize = () => {
+      measureHead();
+      onScroll();
+    };
+
     settleSizes();
-    if (lifts) driftHeading();
+    measureHead();
+    driftHeading();
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
       if (scrollRaf) cancelAnimationFrame(scrollRaf);
       reset();
     };
