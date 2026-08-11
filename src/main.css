@@ -47,7 +47,7 @@
 @custom-variant mouse (@media (hover: hover) and (pointer: fine));
 
 :root {
-  --t-num-b: min(var(--t-num-b-w), 24dvh);
+  --t-num-b: min(var(--t-num-b-w), 24svh);
 
   --t-1h: 13.33vw;
   --t-h2: 8.21vw;
@@ -77,7 +77,7 @@
 
 @media (min-width: 440px) {
   :root {
-    --t-num-b: min(var(--t-num-b-w), 26dvh);
+    --t-num-b: min(var(--t-num-b-w), 26svh);
 
     --t-1h: clamp(59px, calc(8.33vw + 22.35px), 105px);
     --t-h2: clamp(36px, calc(5.98vw + 9.69px), 69px);
