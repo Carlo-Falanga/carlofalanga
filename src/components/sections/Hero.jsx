@@ -98,7 +98,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="full-bleed relative h-dvh min-h-[640px] overflow-hidden bg-(--ink)"
+      className="full-bleed relative h-svh min-h-[640px] overflow-hidden bg-(--ink)"
     >
       <div className="section-px relative flex h-full flex-col justify-center laptop:justify-end">
         <h1 className="sr-only">

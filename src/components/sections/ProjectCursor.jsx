@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { laptopQuery, prefersReducedMotion } from "../../lib/media";
+import { mouseQuery, prefersReducedMotion } from "../../lib/media";
 
 const FOLLOW = 0.14;
 const STRETCH_PER_PIXEL = 0.022;
@@ -14,7 +14,7 @@ export default function ProjectCursor({ sectionRef }) {
     const pointer = pointerRef.current;
     if (!section || !pointer || prefersReducedMotion()) return;
 
-    const desktop = laptopQuery();
+    const desktop = mouseQuery();
     const frames = Array.from(section.querySelectorAll(".project-frame"));
 
     const target = { x: 0, y: 0 };
@@ -118,7 +118,7 @@ export default function ProjectCursor({ sectionRef }) {
     <span
       ref={pointerRef}
       aria-hidden="true"
-      className="pointer-events-none fixed left-0 top-0 z-30 hidden h-[clamp(48px,3.9vw,68px)] w-[clamp(48px,3.9vw,68px)] items-center justify-center rounded-full bg-(--cream) opacity-0 mix-blend-difference transition-opacity duration-300 ease-site motion-reduce:hidden laptop:flex"
+      className="pointer-events-none fixed left-0 top-0 z-30 hidden h-[clamp(48px,3.9vw,68px)] w-[clamp(48px,3.9vw,68px)] items-center justify-center rounded-full bg-(--cream) opacity-0 mix-blend-difference transition-opacity duration-300 ease-site motion-reduce:hidden mouse:laptop:flex"
     >
       <span className="font-display text-[clamp(12px,0.8vw,13px)] leading-[110%] font-normal text-(--ink) uppercase">
         Code
