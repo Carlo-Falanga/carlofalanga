@@ -98,19 +98,15 @@ export default function Skills() {
     <section
       ref={sectionRef}
       id="skills"
-      className="relative mt-[6.25vw] overflow-hidden bg-(--cream)"
+      className="relative mt-[6.25vw] overflow-hidden bg-(--ink)"
     >
-      <div aria-hidden="true" className="absolute inset-0 hidden laptop:flex">
-        <div className="w-1/2 bg-(--sand)" />
-        <div className="w-1/2 bg-(--shell)" />
-      </div>
 
       <div className="relative flex flex-col items-center">
         <div className="flex w-full flex-col laptop:w-[105.26%] laptop:flex-row laptop:justify-center">
           <div
             ref={titleRef}
             aria-label="Web development"
-            className="section-px z-2 flex w-full flex-col items-center pt-[14vw] pb-[10vw] text-(--ink) tablet:pt-[8vw] tablet:pb-[6vw] laptop:absolute laptop:top-[0.8vw] laptop:w-auto laptop:p-0 laptop:text-[--cream] laptop:mix-blend-difference"
+            className="section-px z-2 flex w-full flex-col items-center pt-[14vw] pb-[10vw] text-(--cream) tablet:pt-[8vw] tablet:pb-[6vw] laptop:absolute laptop:top-[0.8vw] laptop:w-auto laptop:p-0"
           >
             <span aria-hidden="true">
               {TITLE_LINES.map((line, idx) => (
@@ -122,10 +118,10 @@ export default function Skills() {
                     ref={(el) => (lineRefs.current[idx] = el)}
                     className="skills-line relative block text-center"
                   >
-                    <span className="t-h2-lg skills-line-dim block font-display text-(--dim)">
+                    <span className="t-h2-lg skills-line-dim block font-display text-(--dim-invert)">
                       {line}
                     </span>
-                    <span className="t-h2-lg skills-line-solid absolute inset-0 block font-display text-(--ink) opacity-0 laptop:text-white">
+                    <span className="t-h2-lg skills-line-solid absolute inset-0 block font-display text-(--cream) opacity-0 laptop:text-white">
                       {line}
                     </span>
                   </span>
@@ -137,10 +133,10 @@ export default function Skills() {
           {services.map((service, idx) => (
             <div
               key={service.id}
-              className="group/side flex w-full flex-col laptop:w-1/2"
+              className="flex w-full flex-col laptop:w-1/2"
             >
               <div
-                className={`section-px flex flex-col justify-end py-[12vw] tablet:py-[7vw] laptop:h-[82vh] laptop:py-0 ${
+                className={`section-px flex flex-col justify-end py-[12vw] tablet:py-[7vw] laptop:h-[60vh] laptop:pt-0 laptop:pb-[4vw] ${
                   idx === 0
                     ? "items-start laptop:pl-[5.63vw]"
                     : "items-start laptop:items-end laptop:pr-[5.63vw]"
@@ -152,15 +148,13 @@ export default function Skills() {
                     idx === 0 ? "" : "laptop:items-end laptop:text-right"
                   }`}
                 >
-                  <h3 className="t-title2 font-body text-(--ink) uppercase underline decoration-1 underline-offset-4 transition-transform duration-500 ease-site mouse:laptop:group-hover/side:-translate-y-[1.6vw] motion-reduce:transition-none motion-reduce:group-hover/side:translate-y-0">
+                  <h3 className="t-title2 font-body text-(--cream) uppercase underline decoration-1 underline-offset-4">
                     {service.title[0]}
                     <br />
                     {service.title[1]}
                   </h3>
-                  <div className="mt-[4vw] w-full tablet:mt-[2.4vw] laptop:mt-0 laptop:min-h-[6.5vw] mouse:laptop:h-[6.5vw]">
-                    <p className="t-body text-(--dim) transition-all duration-500 ease-site mouse:laptop:translate-y-[1.2vw] mouse:laptop:opacity-0 mouse:laptop:group-hover/side:translate-y-0 mouse:laptop:group-hover/side:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none">
-                      {service.body}
-                    </p>
+                  <div className="mt-[4vw] w-full tablet:mt-[2.4vw] laptop:mt-[1.25vw]">
+                    <p className="t-body text-(--dim-invert)">{service.body}</p>
                   </div>
                 </div>
               </div>

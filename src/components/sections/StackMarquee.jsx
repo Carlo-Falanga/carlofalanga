@@ -3,7 +3,7 @@ import { allItems } from "./stacks";
 
 function Pill({ Icon, name }) {
   return (
-    <span className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full bg-(--ink) px-5 whitespace-nowrap text-(--cream) tablet:h-[6.2vw] tablet:gap-[1.2vw] tablet:px-[3.2vw] laptop:h-[3.1vw] laptop:gap-[0.6vw] laptop:px-[1.6vw]">
+    <span className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full bg-(--cream) px-5 whitespace-nowrap text-(--ink) tablet:h-[6.2vw] tablet:gap-[1.2vw] tablet:px-[3.2vw] laptop:h-[3.1vw] laptop:gap-[0.6vw] laptop:px-[1.6vw]">
       <Icon className="h-3.5 w-3.5 tablet:h-[2.2vw] tablet:w-[2.2vw] laptop:h-[1.1vw] laptop:w-[1.1vw]" />
       <span className="t-tag font-body">{name}</span>
     </span>
