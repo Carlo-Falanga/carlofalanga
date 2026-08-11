@@ -1,7 +1,3 @@
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "../../lib/gsap";
-import { prefersReducedMotion } from "../../lib/media";
 import { allItems } from "./stacks";
 
 function Pill({ Icon, name }) {
@@ -14,33 +10,14 @@ function Pill({ Icon, name }) {
 }
 
 export default function StackMarquee({ items = allItems, speed = 34 }) {
-  const wrapperRef = useRef(null);
-  const trackRef = useRef(null);
-
-  useGSAP(
-    () => {
-      if (prefersReducedMotion()) {
-        gsap.set(trackRef.current, { xPercent: 0 });
-        return;
-      }
-
-      gsap.fromTo(
-        trackRef.current,
-        { xPercent: 0 },
-        { xPercent: -50, duration: speed, ease: "none", repeat: -1 }
-      );
-    },
-    { scope: wrapperRef }
-  );
-
   const repeats = items.length < 8 ? 4 : 2;
   const doubled = Array.from({ length: repeats }, () => items).flat();
 
   return (
-    <div ref={wrapperRef} className="w-full overflow-hidden py-10 tablet:py-[7vw] laptop:py-[3.5vw]">
+    <div className="w-full overflow-hidden py-10 tablet:py-[7vw] laptop:py-[3.5vw]">
       <div
-        ref={trackRef}
-        className="flex w-max items-center gap-3 tablet:gap-[2.5vw] laptop:gap-[1.25vw]"
+        className="marquee-track flex w-max items-center gap-3 tablet:gap-[2.5vw] laptop:gap-[1.25vw]"
+        style={{ animationDuration: `${speed}s` }}
       >
         {doubled.map((item, idx) => (
           <Pill key={`${item.name}-${idx}`} {...item} />

@@ -284,4 +284,25 @@ body {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  .marquee-track {
+    animation: marquee-slide linear infinite;
+    will-change: transform;
+  }
+}
+
+@keyframes marquee-slide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
 }
