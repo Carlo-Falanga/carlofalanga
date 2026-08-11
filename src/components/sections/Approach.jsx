@@ -4,8 +4,8 @@ import { LAPTOP_MIN_WIDTH } from "../../lib/media";
 import GlowText, { GLOW_COPY } from "../ui/GlowText";
 import CodePanel from "./CodePanel";
 
-const PINNED_TRACK = `(min-width: ${LAPTOP_MIN_WIDTH}px) and (prefers-reduced-motion: no-preference)`;
-const CAROUSEL = `(max-width: ${LAPTOP_MIN_WIDTH - 1}px), (prefers-reduced-motion: reduce)`;
+const PINNED_TRACK = `(min-width: ${LAPTOP_MIN_WIDTH}px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)`;
+const CAROUSEL = `(max-width: ${LAPTOP_MIN_WIDTH - 1}px), (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce)`;
 
 const principles = [
   {
@@ -57,7 +57,7 @@ function Stage({ entry, flipped }) {
   return (
     <div
       className={
-        "approach-stage relative -ml-px flex h-[62svh] w-[82vw] shrink-0 snap-start items-center justify-center gap-[12vw] border-x border-(--line-strong) px-[6vw] text-center tablet:w-[52vw] tablet:gap-[6vw] tablet:px-[3vw] laptop:w-[45vw] laptop:justify-between laptop:gap-0 laptop:px-[2.5vw] laptop:motion-safe:h-[60vh] " +
+        "approach-stage relative -ml-px flex h-[62svh] w-[82vw] shrink-0 snap-start items-center justify-center gap-[12vw] border-x border-(--line-strong) px-[6vw] text-center tablet:w-[52vw] tablet:gap-[6vw] tablet:px-[3vw] laptop:w-[45vw] laptop:justify-between laptop:gap-0 laptop:px-[2.5vw] mouse:laptop:motion-safe:h-[60vh] " +
         (flipped ? "flex-col-reverse" : "flex-col")
       }
     >
@@ -274,7 +274,7 @@ export default function Approach() {
     <section id="approach" ref={wrapperRef} className="section-mt relative">
       <div
         ref={stageRef}
-        className="laptop:motion-safe:sticky laptop:motion-safe:overflow-hidden"
+        className="mouse:laptop:motion-safe:sticky mouse:laptop:motion-safe:overflow-hidden"
       >
         <div ref={headingRef} className="section-px flex items-start pt-[2vh]">
           <h2 className="t-h3 font-display laptop:w-3/5">
@@ -288,7 +288,7 @@ export default function Approach() {
 
         <div
           ref={trackRef}
-          className="no-scrollbar mt-[8vw] flex snap-x snap-mandatory scroll-pl-(--sp-section-x) items-center overflow-x-auto px-(--sp-section-x) tablet:mt-[4vw] laptop:motion-safe:mt-0 laptop:motion-safe:h-dvh laptop:motion-safe:w-max laptop:motion-safe:snap-none laptop:motion-safe:overflow-visible laptop:motion-safe:pr-0"
+          className="no-scrollbar mt-[8vw] flex snap-x snap-mandatory scroll-pl-(--sp-section-x) items-center overflow-x-auto px-(--sp-section-x) tablet:mt-[4vw] mouse:laptop:motion-safe:mt-0 mouse:laptop:motion-safe:h-dvh mouse:laptop:motion-safe:w-max mouse:laptop:motion-safe:snap-none mouse:laptop:motion-safe:overflow-visible mouse:laptop:motion-safe:pr-0"
         >
           {principles.map((entry, index) => (
             <Fragment key={entry.id}>
@@ -297,7 +297,7 @@ export default function Approach() {
               {entry.panel && (
                 <figure
                   className={
-                    "@container h-[62svh] w-[82vw] shrink-0 snap-start overflow-hidden tablet:w-[52vw] laptop:w-[45vw] laptop:motion-safe:h-[60vh] " +
+                    "@container h-[62svh] w-[82vw] shrink-0 snap-start overflow-hidden tablet:w-[52vw] laptop:w-[45vw] mouse:laptop:motion-safe:h-[60vh] " +
                     entry.panel.surface
                   }
                 >
@@ -325,7 +325,7 @@ export default function Approach() {
           ))}
         </div>
 
-        <div className="section-px mt-[6vw] flex items-center gap-[4vw] tablet:mt-[3vw] tablet:gap-[2vw] laptop:motion-safe:hidden">
+        <div className="section-px mt-[6vw] flex items-center gap-[4vw] tablet:mt-[3vw] tablet:gap-[2vw] mouse:laptop:motion-safe:hidden">
           <span className="t-descrpt shrink-0 font-semibold opacity-70">Swipe</span>
           <span className="relative block h-[2px] w-full bg-(--line-strong)">
             <span
