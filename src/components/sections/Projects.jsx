@@ -9,7 +9,7 @@ const projects = [
     title: "BoolDog",
     category: ["E-commerce", "app"],
     tags: ["React", "Node.js"],
-    href: "https://github.com/Carlo-Falanga/booldog-project-work",
+    href: "https://github.com/Carlo-Falanga/booldog",
     image: "/images/screenshot-booldog.webp",
   },
   {
