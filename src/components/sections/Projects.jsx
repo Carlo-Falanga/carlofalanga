@@ -98,6 +98,7 @@ function useScrollGeometry(sectionRef, headWrapRef) {
         else ramp = (1 - past) / 0.4;
       }
 
+      // smoothstep, so the card eases into its peak size instead of snapping
       const eased = ramp * ramp * (3 - 2 * ramp);
       const { baseW, baseH, peakW, peakH } = desktop.matches
         ? DESKTOP_SIZE
@@ -117,6 +118,7 @@ function useScrollGeometry(sectionRef, headWrapRef) {
     const current = frames.map(sizeOf);
     let sizeRaf = 0;
 
+    // the cards chase their goal size, and the loop stops itself once they arrive
     const easeSizes = () => {
       const goals = frames.map(sizeOf);
       let moving = false;
@@ -147,6 +149,7 @@ function useScrollGeometry(sectionRef, headWrapRef) {
     let headLift = 0;
 
     const measureHead = () => {
+      // take the lift back off, or every measure would stack on the last one
       headTop = headWrap.getBoundingClientRect().top + window.scrollY - headLift;
     };
 
@@ -176,6 +179,7 @@ function useScrollGeometry(sectionRef, headWrapRef) {
       };
     }
 
+    // scroll fires far more often than the screen repaints, so keep one frame at a time
     let scrollRaf = 0;
     const onScroll = () => {
       if (scrollRaf) return;

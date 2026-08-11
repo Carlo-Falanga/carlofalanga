@@ -120,6 +120,7 @@ export default function Approach() {
       let middle = 0;
       let centers = [];
 
+      // the track only moves for part of the pin: the lead in and the tail stay still
       const eased = (progress) =>
         Math.min(Math.max((progress * run - lead) / travel, 0), 1);
 
@@ -130,6 +131,7 @@ export default function Approach() {
         const trackHeight = vh * (STAGE + 2 * GAP);
 
         track.style.height = trackHeight + "px";
+        // pull the block up by the heading, so the stages land centred on screen
         pinned.style.top = -(headHeight - vh * ((1 - STAGE) / 2 - GAP)) + "px";
         pinned.style.height = headHeight + trackHeight + "px";
 
@@ -145,6 +147,7 @@ export default function Approach() {
       };
 
       sizeWrapper();
+      // remeasure first, or a refresh would work off the old heights
       ScrollTrigger.addEventListener("refreshInit", sizeWrapper);
 
       const paintActive = (progress) => {
@@ -183,6 +186,7 @@ export default function Approach() {
         });
       };
 
+      // same curve here and in paintActive, so the glow never lights the wrong stage
       const tween = gsap.to(track, {
         x: () => -distance,
         ease: eased,
