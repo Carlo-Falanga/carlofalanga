@@ -33,21 +33,28 @@
   --font-code: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --breakpoint-*: initial;
+  --breakpoint-phone: 440px;
   --breakpoint-tablet: 576px;
+  --breakpoint-pad: 768px;
   --breakpoint-laptop: 992px;
+  --breakpoint-wide: 1200px;
   --breakpoint-desktop: 1400px;
 
   --ease-site: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-fade: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
+@custom-variant mouse (@media (hover: hover) and (pointer: fine));
+
 :root {
+  --t-num-b: min(var(--t-num-b-w), 24dvh);
+
   --t-1h: 13.33vw;
   --t-h2: 8.21vw;
   --t-h2-lg: 10.77vw;
   --t-h3: 9.23vw;
   --t-h4: 9.23vw;
-  --t-num-b: 38.46vw;
+  --t-num-b-w: 38.46vw;
   --t-num-idx: clamp(52px, 15vw, 96px);
   --t-num-m: 4.62vw;
   --t-title1: 5.13vw;
@@ -68,26 +75,28 @@
   --nav-offset: 0px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 440px) {
   :root {
-    --t-1h: 11.98vw;
-    --t-h2: 7.29vw;
-    --t-h2-lg: 7.29vw;
-    --t-h3: 6.77vw;
-    --t-h4: 5.47vw;
-    --t-num-b: 23.44vw;
-    --t-num-m: max(16px, 2.34vw);
-    --t-title1: max(17px, 2.6vw);
-    --t-title2: max(16px, 2.34vw);
-    --t-title3: max(15px, 2.08vw);
-    --t-body: clamp(15px, 2.08vw, 21px);
-    --t-descrpt: max(13px, 2.08vw);
-    --t-tag: max(13px, 2.08vw);
-    --t-footer: max(13px, 2.08vw);
-    --t-link: max(12px, 1.95vw);
+    --t-num-b: min(var(--t-num-b-w), 26dvh);
 
-    --sp-section-x: 2.08vw;
-    --sp-section-top: 13.02vw;
+    --t-1h: clamp(59px, calc(8.33vw + 22.35px), 105px);
+    --t-h2: clamp(36px, calc(5.98vw + 9.69px), 69px);
+    --t-h2-lg: clamp(47px, calc(3.99vw + 29.44px), 69px);
+    --t-h3: clamp(41px, calc(1.63vw + 33.83px), 50px);
+    --t-h4: clamp(30px, calc(-1.99vw + 49.76px), 41px);
+    --t-num-b-w: clamp(136px, calc(-5.98vw + 195.31px), 169px);
+    --t-num-m: clamp(17px, calc(-0.54vw + 22.38px), 20px);
+    --t-title1: clamp(17px, calc(-1vw + 26.9px), 22.5px);
+    --t-title2: clamp(17px, calc(-0.54vw + 22.38px), 20px);
+    --t-title3: clamp(16px, calc(-0.36vw + 19.58px), 18px);
+    --t-body: clamp(15px, calc(-0.54vw + 20.38px), 18px);
+    --t-descrpt: clamp(13px, calc(-0.91vw + 22px), 18px);
+    --t-tag: clamp(13px, calc(-0.91vw + 22px), 18px);
+    --t-footer: clamp(13px, calc(-0.91vw + 22px), 18px);
+    --t-link: clamp(12px, calc(-0.91vw + 21px), 17px);
+
+    --sp-section-x: clamp(18px, calc(1.27vw + 12.41px), 25px);
+    --sp-section-top: clamp(93px, calc(-8.7vw + 179.28px), 141px);
   }
 }
 
@@ -98,7 +107,7 @@
     --t-h2-lg: min(7vw, 112px);
     --t-h3: min(5vw, 80px);
     --t-h4: min(3vw, 48px);
-    --t-num-b: min(13.75vw, 220px);
+    --t-num-b-w: min(13.75vw, 220px);
     --t-num-m: clamp(17px, 1.5vw, 24px);
     --t-title1: clamp(17px, 1.5vw, 24px);
     --t-title2: clamp(17px, 1.5vw, 24px);
