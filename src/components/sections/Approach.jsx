@@ -57,7 +57,7 @@ function Stage({ entry, flipped }) {
   return (
     <div
       className={
-        "approach-stage relative -ml-px flex h-[62dvh] w-[82vw] shrink-0 snap-start items-center justify-center gap-[12vw] border-x border-(--line-strong) px-[6vw] text-center tablet:w-[52vw] tablet:gap-[6vw] tablet:px-[3vw] laptop:w-[45vw] laptop:justify-between laptop:gap-0 laptop:px-[2.5vw] laptop:motion-safe:h-[60vh] " +
+        "approach-stage relative -ml-px flex h-[62svh] w-[82vw] shrink-0 snap-start items-center justify-center gap-[12vw] border-x border-(--line-strong) px-[6vw] text-center tablet:w-[52vw] tablet:gap-[6vw] tablet:px-[3vw] laptop:w-[45vw] laptop:justify-between laptop:gap-0 laptop:px-[2.5vw] laptop:motion-safe:h-[60vh] " +
         (flipped ? "flex-col-reverse" : "flex-col")
       }
     >
@@ -287,7 +287,7 @@ export default function Approach() {
               {entry.panel && (
                 <figure
                   className={
-                    "@container h-[62dvh] w-[82vw] shrink-0 snap-start overflow-hidden tablet:w-[52vw] laptop:w-[45vw] laptop:motion-safe:h-[60vh] " +
+                    "@container h-[62svh] w-[82vw] shrink-0 snap-start overflow-hidden tablet:w-[52vw] laptop:w-[45vw] laptop:motion-safe:h-[60vh] " +
                     entry.panel.surface
                   }
                 >
