@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { allItems } from "./stacks";
 
 function Pill({ Icon, name }) {
@@ -10,11 +11,27 @@ function Pill({ Icon, name }) {
 }
 
 export default function StackMarquee({ items = allItems, speed = 34 }) {
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+
+    const watcher = new IntersectionObserver(([entry]) => {
+      wrapper.classList.toggle("is-paused", !entry.isIntersecting);
+    });
+    watcher.observe(wrapper);
+
+    return () => watcher.disconnect();
+  }, []);
+
   const repeats = items.length < 8 ? 4 : 2;
   const doubled = Array.from({ length: repeats }, () => items).flat();
 
   return (
-    <div className="w-full overflow-hidden py-10 tablet:py-[7vw] laptop:py-[3.5vw]">
+    <div
+      ref={wrapperRef}
+      className="is-paused w-full overflow-hidden py-10 tablet:py-[7vw] laptop:py-[3.5vw]"
+    >
       <div
         className="marquee-track flex w-max items-center gap-3 tablet:gap-[2.5vw] laptop:gap-[1.25vw]"
         style={{ animationDuration: `${speed}s` }}

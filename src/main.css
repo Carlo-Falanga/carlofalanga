@@ -287,7 +287,10 @@ body {
 
   .marquee-track {
     animation: marquee-slide linear infinite;
-    will-change: transform;
+  }
+
+  .is-paused .marquee-track {
+    animation-play-state: paused;
   }
 }
 
