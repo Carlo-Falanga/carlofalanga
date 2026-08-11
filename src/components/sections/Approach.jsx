@@ -106,22 +106,25 @@ export default function Approach() {
     const mm = gsap.matchMedia();
 
     mm.add(PINNED_TRACK, () => {
-      const distance = () => track.scrollWidth - window.innerWidth;
-      const travel = () => distance() * 0.71;
-
       const STAGE = 0.6;
       const GAP = 0.05;
 
-      const lead = () => window.innerHeight * 0.25;
-      const tail = () => window.innerHeight * 0.15;
-      const run = () => lead() + travel();
+      const glows = stages.map(glowOf);
+      const allGlows = glows.flat();
 
-      const eased = (progress) =>
-        Math.min(Math.max((progress * run() - lead()) / travel(), 0), 1);
-
+      let distance = 0;
+      let travel = 0;
+      let lead = 0;
+      let tail = 0;
+      let run = 0;
+      let middle = 0;
       let centers = [];
 
+      const eased = (progress) =>
+        Math.min(Math.max((progress * run - lead) / travel, 0), 1);
+
       const sizeWrapper = () => {
+        const vw = window.innerWidth;
         const vh = window.innerHeight;
         const headHeight = heading.offsetHeight;
         const trackHeight = vh * (STAGE + 2 * GAP);
@@ -129,7 +132,15 @@ export default function Approach() {
         track.style.height = trackHeight + "px";
         pinned.style.top = -(headHeight - vh * ((1 - STAGE) / 2 - GAP)) + "px";
         pinned.style.height = headHeight + trackHeight + "px";
-        wrapper.style.height = vh + run() + tail() + "px";
+
+        distance = track.scrollWidth - vw;
+        travel = distance * 0.71;
+        lead = vh * 0.25;
+        tail = vh * 0.15;
+        run = lead + travel;
+        middle = vw / 2;
+
+        wrapper.style.height = vh + run + tail + "px";
         centers = stages.map((item) => item.offsetLeft + item.offsetWidth / 2);
       };
 
@@ -137,8 +148,7 @@ export default function Approach() {
       ScrollTrigger.addEventListener("refreshInit", sizeWrapper);
 
       const paintActive = (progress) => {
-        const x = -distance() * eased(progress);
-        const middle = window.innerWidth / 2;
+        const x = -distance * eased(progress);
 
         let nearest = 0;
         let best = Infinity;
@@ -153,9 +163,9 @@ export default function Approach() {
         if (nearest === activeRef.current) return;
         activeRef.current = nearest;
 
-        stages.forEach((stage, index) => {
+        glows.forEach((glow, index) => {
           if (index === nearest) return;
-          gsap.to(glowOf(stage), {
+          gsap.to(glow, {
             opacity: 0,
             duration: 0.2,
             ease: "none",
@@ -163,7 +173,7 @@ export default function Approach() {
           });
         });
 
-        gsap.to(glowOf(stages[nearest]), {
+        gsap.to(glows[nearest], {
           opacity: 1,
           duration: 0.22,
           stagger: 0.055,
@@ -174,18 +184,18 @@ export default function Approach() {
       };
 
       const tween = gsap.to(track, {
-        x: () => -distance(),
+        x: () => -distance,
         ease: eased,
         scrollTrigger: {
           trigger: wrapper,
           start: "top top",
-          end: () => "+=" + run(),
+          end: () => "+=" + run,
           scrub: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => paintActive(self.progress),
           onLeaveBack: () => {
             activeRef.current = -1;
-            gsap.to(everyGlow(), { opacity: 0, duration: 0.22, ease: "none" });
+            gsap.to(allGlows, { opacity: 0, duration: 0.22, ease: "none" });
           },
         },
       });
