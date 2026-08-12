@@ -58,7 +58,7 @@ function Stage({ entry, flipped }) {
   return (
     <div
       className={
-        "approach-stage relative -ml-px flex h-[62svh] w-[82vw] shrink-0 snap-start items-center justify-center gap-[12vw] border-x border-(--line-strong) px-[6vw] text-center tablet:w-[52vw] tablet:gap-[6vw] tablet:px-[3vw] laptop:w-[45vw] laptop:justify-between laptop:gap-0 laptop:px-[2.5vw] laptop:motion-safe:h-[60vh] " +
+        "approach-stage relative -ml-px flex h-[62svh] w-[82vw] shrink-0 snap-start items-center justify-center gap-[12vw] border-x border-(--line-strong) px-[6vw] text-center tablet:w-[52vw] tablet:gap-[6vw] tablet:px-[3vw] laptop:w-[45vw] laptop:justify-between laptop:gap-0 laptop:px-[2.5vw] laptop:motion-safe:h-[60vh] laptop:motion-reduce:ml-0 laptop:motion-reduce:w-1/2 " +
         (flipped ? "flex-col-reverse" : "flex-col")
       }
     >
@@ -243,15 +243,29 @@ export default function Approach() {
         });
       };
 
+      const statico = () => track.scrollWidth - track.clientWidth < 2;
+
+      const paintAll = () => {
+        if (!statico()) return;
+        activeRef.current = -1;
+        gsap.set(everyGlow(), { opacity: 1 });
+      };
+
+      const onResize = () => {
+        drawProgress();
+        paintAll();
+      };
+
       drawProgress();
+      paintAll();
       track.addEventListener("scroll", onTrackScroll, { passive: true });
-      window.addEventListener("resize", drawProgress);
+      window.addEventListener("resize", onResize);
 
       const fade = prefersReducedMotion() ? 0 : 0.22;
       const step = prefersReducedMotion() ? 0 : 0.055;
 
       const paintStage = (index) => {
-        if (index === activeRef.current) return;
+        if (statico() || index === activeRef.current) return;
         activeRef.current = index;
 
         stages.forEach((stage, position) => {
@@ -287,7 +301,7 @@ export default function Approach() {
       return () => {
         observer.disconnect();
         track.removeEventListener("scroll", onTrackScroll);
-        window.removeEventListener("resize", drawProgress);
+        window.removeEventListener("resize", onResize);
         if (progressRaf) cancelAnimationFrame(progressRaf);
         activeRef.current = -1;
         gsap.set(everyGlow(), { opacity: 0 });
@@ -315,7 +329,7 @@ export default function Approach() {
 
         <div
           ref={trackRef}
-          className="no-scrollbar mt-[8vw] flex snap-x snap-mandatory scroll-pl-(--sp-section-x) items-center overflow-x-auto px-(--sp-section-x) tablet:mt-[4vw] laptop:motion-safe:mt-0 laptop:motion-safe:h-dvh laptop:motion-safe:w-max laptop:motion-safe:snap-none laptop:motion-safe:overflow-visible laptop:motion-safe:pr-0"
+          className="no-scrollbar mt-[8vw] flex snap-x snap-mandatory scroll-pl-(--sp-section-x) items-center overflow-x-auto px-(--sp-section-x) tablet:mt-[4vw] laptop:motion-safe:mt-0 laptop:motion-safe:h-dvh laptop:motion-safe:w-max laptop:motion-safe:snap-none laptop:motion-safe:overflow-visible laptop:motion-safe:pr-0 laptop:motion-reduce:mt-[2.5vw] laptop:motion-reduce:flex-wrap laptop:motion-reduce:gap-y-[6vw]"
         >
           {principles.map((entry, index) => (
             <Fragment key={entry.id}>
@@ -324,7 +338,7 @@ export default function Approach() {
               {entry.panel && (
                 <figure
                   className={
-                    "@container h-[62svh] w-[82vw] shrink-0 snap-start overflow-hidden tablet:w-[52vw] laptop:w-[45vw] laptop:motion-safe:h-[60vh] " +
+                    "@container h-[62svh] w-[82vw] shrink-0 snap-start overflow-hidden tablet:w-[52vw] laptop:w-[45vw] laptop:motion-safe:h-[60vh] laptop:motion-reduce:w-1/2 " +
                     entry.panel.surface
                   }
                 >
@@ -352,7 +366,7 @@ export default function Approach() {
           ))}
         </div>
 
-        <div className="section-px mt-[6vw] flex items-center gap-[4vw] tablet:mt-[3vw] tablet:gap-[2vw] laptop:motion-safe:hidden">
+        <div className="section-px mt-[6vw] flex items-center gap-[4vw] tablet:mt-[3vw] tablet:gap-[2vw] laptop:hidden">
           <span className="t-descrpt shrink-0 font-semibold opacity-70">Swipe</span>
           <span className="relative block h-[2px] w-full bg-(--line-strong)">
             <span
