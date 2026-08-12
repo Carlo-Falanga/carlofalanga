@@ -22,6 +22,7 @@
   --dim-invert: color-mix(in oklab, var(--cream) 60%, var(--ink));
   --line: color-mix(in oklab, var(--ink) 14%, transparent);
   --line-strong: color-mix(in oklab, var(--ink) 30%, transparent);
+  --line-invert: color-mix(in oklab, var(--cream) 22%, transparent);
 
   --bg: var(--shell);
   --fg: var(--ink);
@@ -283,29 +284,5 @@ body {
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
-  }
-
-  .marquee-track {
-    animation: marquee-slide linear infinite;
-  }
-
-  .is-paused .marquee-track {
-    animation-play-state: paused;
-  }
-}
-
-@keyframes marquee-slide {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
   }
 }
