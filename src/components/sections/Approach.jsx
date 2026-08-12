@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
-import { LAPTOP_MIN_WIDTH } from "../../lib/media";
+import { LAPTOP_MIN_WIDTH, prefersReducedMotion } from "../../lib/media";
 import GlowText, { GLOW_COPY } from "../ui/GlowText";
 import CodePanel from "./CodePanel";
 
@@ -247,12 +247,29 @@ export default function Approach() {
       track.addEventListener("scroll", onTrackScroll, { passive: true });
       window.addEventListener("resize", drawProgress);
 
+      const fade = prefersReducedMotion() ? 0 : 0.22;
+      const step = prefersReducedMotion() ? 0 : 0.055;
+
       const paintStage = (index) => {
         if (index === activeRef.current) return;
         activeRef.current = index;
 
         stages.forEach((stage, position) => {
-          gsap.set(glowOf(stage), { opacity: position === index ? 1 : 0 });
+          if (position === index) return;
+          gsap.to(glowOf(stage), {
+            opacity: 0,
+            duration: fade,
+            ease: "none",
+            overwrite: true,
+          });
+        });
+
+        gsap.to(glowOf(stages[index]), {
+          opacity: 1,
+          duration: fade,
+          stagger: step,
+          ease: "none",
+          overwrite: true,
         });
       };
 
