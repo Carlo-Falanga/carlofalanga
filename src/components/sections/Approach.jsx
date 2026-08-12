@@ -108,6 +108,9 @@ export default function Approach() {
     mm.add(PINNED_TRACK, () => {
       const STAGE = 0.6;
       const GAP = 0.05;
+      const TRAVEL = 0.5;
+      const LEAD = 0.15;
+      const TAIL = 0.1;
 
       const glows = stages.map(glowOf);
       const allGlows = glows.flat();
@@ -120,9 +123,11 @@ export default function Approach() {
       let middle = 0;
       let centers = [];
 
-      // the track only moves for part of the pin: the lead in and the tail stay still
-      const eased = (progress) =>
-        Math.min(Math.max((progress * run - lead) / travel, 0), 1);
+      // eases in and out, or the track would leave and arrive at full speed
+      const eased = (progress) => {
+        const t = Math.min(Math.max((progress * run - lead) / travel, 0), 1);
+        return t * t * (3 - 2 * t);
+      };
 
       const sizeWrapper = () => {
         const vw = window.innerWidth;
@@ -136,9 +141,9 @@ export default function Approach() {
         pinned.style.height = headHeight + trackHeight + "px";
 
         distance = track.scrollWidth - vw;
-        travel = distance * 0.71;
-        lead = vh * 0.25;
-        tail = vh * 0.15;
+        travel = distance * TRAVEL;
+        lead = vh * LEAD;
+        tail = vh * TAIL;
         run = lead + travel;
         middle = vw / 2;
 

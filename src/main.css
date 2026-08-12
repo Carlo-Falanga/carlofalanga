@@ -22,6 +22,7 @@
   --dim-invert: color-mix(in oklab, var(--cream) 60%, var(--ink));
   --line: color-mix(in oklab, var(--ink) 14%, transparent);
   --line-strong: color-mix(in oklab, var(--ink) 30%, transparent);
+  --line-invert: color-mix(in oklab, var(--cream) 22%, transparent);
 
   --bg: var(--shell);
   --fg: var(--ink);
@@ -140,7 +141,7 @@ body {
     line-height: 100%;
     letter-spacing: -0.02em;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 600;
   }
 
   .t-h2-lg {
@@ -148,7 +149,7 @@ body {
     line-height: 100%;
     letter-spacing: 0;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 600;
   }
 
   .t-h2 {
@@ -156,7 +157,7 @@ body {
     line-height: 100%;
     letter-spacing: 0;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 600;
   }
 
   .t-h3 {
@@ -164,7 +165,7 @@ body {
     line-height: 100%;
     letter-spacing: 0;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 600;
   }
 
   .t-h4 {
@@ -172,7 +173,7 @@ body {
     line-height: 90%;
     letter-spacing: 0;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 500;
   }
 
   .t-num-b {
@@ -199,19 +200,19 @@ body {
     font-size: var(--t-title1);
     line-height: 110%;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 450;
   }
 
   .t-title2 {
     font-size: var(--t-title2);
     line-height: 130%;
-    font-weight: 500;
+    font-weight: 450;
   }
 
   .t-title3 {
     font-size: var(--t-title3);
     line-height: 110%;
-    font-weight: 500;
+    font-weight: 450;
   }
 
   .t-body {
@@ -283,29 +284,5 @@ body {
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
-  }
-
-  .marquee-track {
-    animation: marquee-slide linear infinite;
-  }
-
-  .is-paused .marquee-track {
-    animation-play-state: paused;
-  }
-}
-
-@keyframes marquee-slide {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
   }
 }

@@ -13,25 +13,31 @@ import {
   SiGithub,
 } from "react-icons/si";
 
-export const frontendItems = [
-  { name: "JavaScript", Icon: SiJavascript },
-  { name: "React", Icon: SiReact },
-  { name: "HTML", Icon: SiHtml5 },
-  { name: "CSS", Icon: SiCss },
-];
-
-export const backendItems = [
-  { name: "Node.js", Icon: SiNodedotjs },
-  { name: "Express", Icon: SiExpress },
-  { name: "PHP", Icon: SiPhp },
-  { name: "Laravel", Icon: SiLaravel },
-  { name: "MySQL", Icon: SiMysql },
-  { name: "SQLite", Icon: SiSqlite },
-];
-
-export const allItems = [
-  ...frontendItems,
-  ...backendItems,
-  { name: "Git", Icon: SiGit },
-  { name: "GitHub", Icon: SiGithub },
+export const groups = [
+  {
+    label: "Frontend",
+    rows: [
+      { name: "React", icons: [SiReact] },
+      { name: "JavaScript", icons: [SiJavascript] },
+      { name: "HTML, CSS", icons: [SiHtml5, SiCss] },
+    ],
+  },
+  {
+    label: "Backend",
+    rows: [
+      { name: "Node.js, Express", icons: [SiNodedotjs, SiExpress] },
+      { name: "PHP, Laravel", icons: [SiPhp, SiLaravel] },
+    ],
+  },
+  {
+    label: "Database",
+    rows: [
+      { name: "MySQL", icons: [SiMysql] },
+      { name: "SQLite", icons: [SiSqlite] },
+    ],
+  },
+  {
+    label: "Tooling",
+    rows: [{ name: "Git, GitHub", icons: [SiGit, SiGithub] }],
+  },
 ];

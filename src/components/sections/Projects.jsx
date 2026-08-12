@@ -118,7 +118,7 @@ function useScrollGeometry(sectionRef, headWrapRef) {
     const current = frames.map(sizeOf);
     let sizeRaf = 0;
 
-    // the cards chase their goal size, and the loop stops itself once they arrive
+    // the loop stops itself once the cards arrive, so it is not always running
     const easeSizes = () => {
       const goals = frames.map(sizeOf);
       let moving = false;
