@@ -60,11 +60,11 @@ function Entry({ entry }) {
       </span>
 
       <div className="bg-meta mt-[3.08vw] flex flex-wrap items-baseline gap-x-[3.08vw] gap-y-[1vw] tablet:mt-[1.56vw] tablet:gap-x-[1.56vw] laptop:mt-[0.94vw] laptop:gap-x-[1.25vw]">
-        <span className="t-title1">{entry.org}</span>
-        <span className="t-descrpt opacity-60">{entry.meta}</span>
+        <span className="t-title1 font-normal">{entry.org}</span>
+        <span className="t-descrpt text-(--dim)">{entry.meta}</span>
       </div>
 
-      <p className="bg-body t-body mt-[4.1vw] w-full opacity-75 tablet:mt-[2.08vw] laptop:mt-[1.25vw] laptop:w-[84%]">
+      <p className="bg-body t-body mt-[4.1vw] w-full text-(--dim) tablet:mt-[2.08vw] laptop:mt-[1.25vw] laptop:w-[84%]">
         {entry.body}
       </p>
     </article>
@@ -151,7 +151,8 @@ export default function Background() {
               key={group.label}
               className="bg-group mt-[16vw] first:mt-0 tablet:mt-[9vw] laptop:mt-[5vw] laptop:first:mt-0"
             >
-              <h3 className="bg-label t-tag inline-block self-start rounded-full bg-(--mustard) px-[4vw] py-[1.8vw] font-body text-(--ink) uppercase tablet:px-[2.2vw] tablet:py-[1vw] laptop:px-[1.15vw] laptop:py-[0.5vw]">
+              {/* same pill as the header CTA: mustard on ink, sentence case */}
+              <h3 className="bg-label t-footer inline-block self-start rounded-full bg-(--mustard) px-[clamp(14px,4.6vw,20px)] py-[clamp(9px,3vw,13px)] font-body leading-none font-medium whitespace-nowrap text-(--ink) normal-case">
                 {group.label}
               </h3>
 
