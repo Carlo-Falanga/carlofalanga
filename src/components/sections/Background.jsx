@@ -9,22 +9,20 @@ const TITLE = "Background";
 const entries = [
   {
     id: "01",
-    label: "(Education)",
+    label: "Education",
     title: "Full-Stack Web Development Master",
     org: "Boolean",
     meta: "Jan to Aug 2026 · Remote",
-    aside: "(Focus)",
     body:
       "JavaScript, React, Node and Express on one side, PHP and Laravel on the other. " +
       "MySQL and REST APIs, from the schema up to the endpoints the client consumes.",
   },
   {
     id: "02",
-    label: "(Role)",
+    label: "Role",
     title: "Graphic Designer",
     org: "Capri Green srl",
     meta: "Jul 2023 to Dec 2025 · Capri, Italy",
-    aside: "(Highlights)",
     body:
       "Graphics for luxury magazines with an international distribution, keeping the visual " +
       "identity and the layout consistent across issues, on editorial deadlines and in direct " +
@@ -32,22 +30,20 @@ const entries = [
   },
   {
     id: "03",
-    label: "(Education)",
+    label: "Education",
     title: "Web Design Diploma",
     org: "ILAS, Istituto di Comunicazione",
     meta: "2021 to 2022 · Naples",
-    aside: "(Focus)",
     body:
       "Design made for the browser: page layout, typographic hierarchy and how a composition " +
       "has to behave when the screen changes size. The first step from print towards code.",
   },
   {
     id: "04",
-    label: "(Education)",
+    label: "Education",
     title: "Graphic Design Diploma",
     org: "ILAS, Istituto di Comunicazione",
     meta: "2021 to 2022 · Naples",
-    aside: "(Focus)",
     body:
       "Typography, grids and composition, learned for print. It is the foundation everything " +
       "after it was built on, from the magazine work to the way I lay out an interface.",
@@ -99,14 +95,11 @@ function Entry({ entry, index, register }) {
           </span>
         </div>
 
-        {entry.aside && (
+        {entry.body && (
           <div
-            ref={(node) => register(index, "aside", node)}
+            ref={(node) => register(index, "body", node)}
             className="mt-[6.15vw] flex flex-col items-start gap-[3.08vw] tablet:mt-[3.13vw] tablet:gap-[1.56vw] laptop:mt-[2.5vw] laptop:gap-[1.25vw]"
           >
-            <span className="t-descrpt opacity-60">
-              {entry.aside}
-            </span>
             <p className="t-body w-full opacity-75">
               {entry.body}
             </p>
@@ -255,7 +248,7 @@ export default function Background() {
         gsap.set(headingRef.current, { yPercent: 0, opacity: 1 });
         rows.forEach((row) => {
           gsap.set(
-            [row.title, row.label, row.meta, row.aside].filter(Boolean),
+            [row.title, row.label, row.meta, row.body].filter(Boolean),
             { yPercent: 0, opacity: 1 }
           );
         });
@@ -279,7 +272,7 @@ export default function Background() {
       });
 
       rows.forEach((row) => {
-        gsap.set([row.label, row.meta, row.aside].filter(Boolean), {
+        gsap.set([row.label, row.meta, row.body].filter(Boolean), {
           opacity: 0,
         });
         gsap.set(row.title, { yPercent: 100 });
@@ -292,7 +285,7 @@ export default function Background() {
           .to(row.title, { yPercent: 0, duration: 0.7 })
           .to(row.label, { opacity: 1, duration: 0.5 }, 0.12)
           .to(
-            [row.meta, row.aside].filter(Boolean),
+            [row.meta, row.body].filter(Boolean),
             { opacity: 1, duration: 0.6, stagger: 0.08 },
             0.24
           );
