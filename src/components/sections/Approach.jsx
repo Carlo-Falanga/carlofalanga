@@ -41,6 +41,7 @@ const principles = [
       surface: "bg-(--paper)",
       image: {
         src: "/images/approach-naturafit.webp",
+        tall: "/images/approach-naturafit-tall.webp",
         alt: "Recipe detail page from NaturaFit, served by the Laravel API",
       },
     },
