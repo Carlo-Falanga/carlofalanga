@@ -135,7 +135,7 @@ export default function FooterCTA() {
               <span className="block overflow-hidden">
                 <span
                   ref={(el) => (lineRefs.current[1] = el)}
-                  className="block font-display text-[5.7vw] leading-[100%] font-normal whitespace-nowrap uppercase tablet:text-[4.8vw] laptop:text-[min(5vw,80px)]"
+                  className="block font-display text-[5.7vw] leading-[100%] font-medium whitespace-nowrap uppercase tablet:text-[4.8vw] laptop:text-[min(5vw,80px)]"
                 >
                   {EMAIL}
                 </span>

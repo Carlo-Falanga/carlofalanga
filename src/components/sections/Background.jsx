@@ -54,13 +54,13 @@ function Entry({ entry }) {
   return (
     <article className="bg-entry flex w-full flex-col pt-[9vw] pb-[9vw] tablet:pt-[4.5vw] tablet:pb-[4.5vw] laptop:pt-[2.19vw] laptop:pb-[2.19vw]">
       <span className="block overflow-hidden pb-[0.4vw]">
-        <h4 className="bg-title t-h4 block font-display font-medium normal-case">
+        <h4 className="bg-title t-h4 block font-display normal-case">
           {entry.title}
         </h4>
       </span>
 
       <div className="bg-meta mt-[3.08vw] flex flex-wrap items-baseline gap-x-[3.08vw] gap-y-[1vw] tablet:mt-[1.56vw] tablet:gap-x-[1.56vw] laptop:mt-[0.94vw] laptop:gap-x-[1.25vw]">
-        <span className="t-title1 font-[450]">{entry.org}</span>
+        <span className="t-title1">{entry.org}</span>
         <span className="t-descrpt text-(--dim)">{entry.meta}</span>
       </div>
 
@@ -138,7 +138,7 @@ export default function Background() {
       <div className="flex w-full flex-col laptop:flex-row laptop:items-start laptop:gap-[2.5vw]">
         <div className="laptop:sticky laptop:top-[16vh] laptop:w-[38vw] laptop:shrink-0">
           <span className="block overflow-hidden">
-            <h2 ref={headingRef} className="t-h3 block font-display font-semibold">
+            <h2 ref={headingRef} className="t-h3 block font-display">
               {TITLE}
             </h2>
           </span>
