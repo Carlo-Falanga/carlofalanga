@@ -109,11 +109,16 @@ export default function SiteHeader() {
             </button>
           </div>
 
-          <img
-            src="/logo/logo-dark.svg"
-            alt="Carlo Falanga"
-            className="order-1 h-[clamp(16px,4.4vw,20px)] w-auto shrink-0 tablet:order-none tablet:h-[clamp(15px,2.2vw,18px)] tablet:justify-self-center laptop:h-[calc(1.15*var(--nav-vw))]"
-          />
+          <a
+            href="#top"
+            className="order-1 shrink-0 tablet:order-none tablet:justify-self-center"
+          >
+            <img
+              src="/logo/logo-dark.svg"
+              alt="Carlo Falanga"
+              className="h-[clamp(16px,4.4vw,20px)] w-auto tablet:h-[clamp(15px,2.2vw,18px)] laptop:h-[calc(1.15*var(--nav-vw))]"
+            />
+          </a>
 
           <div className="order-3 hidden items-center justify-end gap-4 tablet:flex tablet:justify-self-end">
             <a
