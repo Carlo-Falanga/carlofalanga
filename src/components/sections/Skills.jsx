@@ -12,16 +12,15 @@ export default function Skills() {
     const section = sectionRef.current;
     const lines = Array.from(section.querySelectorAll(".skills-line"));
     const solids = Array.from(section.querySelectorAll(".skills-line-solid"));
-    const labels = Array.from(section.querySelectorAll(".skills-label"));
-    const rules = Array.from(section.querySelectorAll(".skills-rule"));
-    const names = Array.from(section.querySelectorAll(".skills-name"));
-    const logos = Array.from(section.querySelectorAll(".skills-logos"));
+    const blocks = Array.from(section.querySelectorAll(".skills-group"));
 
     if (prefersReducedMotion()) {
       gsap.set(solids, { opacity: 1 });
-      gsap.set([...labels, ...logos], { opacity: 1 });
-      gsap.set(rules, { scaleX: 1 });
-      gsap.set(names, { yPercent: 0 });
+      gsap.set(section.querySelectorAll(".skills-label, .skills-logos"), {
+        opacity: 1,
+      });
+      gsap.set(section.querySelectorAll(".skills-rule"), { scaleX: 1 });
+      gsap.set(section.querySelectorAll(".skills-name"), { yPercent: 0 });
       return;
     }
 
@@ -42,21 +41,29 @@ export default function Skills() {
           .to(solids[idx], { opacity: 1, duration: 0.6, ease: "siteEase" }, 0.05);
       });
 
-      gsap.set(labels, { opacity: 0 });
-      gsap.set(rules, { scaleX: 0 });
-      gsap.set(names, { yPercent: 110 });
-      gsap.set(logos, { opacity: 0 });
+      // one trigger per group, or the lower groups would play far below the fold
+      blocks.forEach((block) => {
+        const label = block.querySelector(".skills-label");
+        const rule = block.querySelector(".skills-rule");
+        const names = Array.from(block.querySelectorAll(".skills-name"));
+        const logos = Array.from(block.querySelectorAll(".skills-logos"));
 
-      // the names ride up from behind their mask, the same move the page uses elsewhere
-      gsap
-        .timeline({
-          defaults: { ease: "siteEase" },
-          scrollTrigger: { trigger: section, start: "top 70%", once: true },
-        })
-        .to(labels, { opacity: 1, duration: 0.5, stagger: 0.08 })
-        .to(rules, { scaleX: 1, duration: 0.8, stagger: 0.08 }, 0.06)
-        .to(names, { yPercent: 0, duration: 0.7, stagger: 0.06 }, 0.18)
-        .to(logos, { opacity: 1, duration: 0.6, stagger: 0.06 }, 0.34);
+        gsap.set(label, { opacity: 0 });
+        gsap.set(rule, { scaleX: 0 });
+        gsap.set(names, { yPercent: 110 });
+        gsap.set(logos, { opacity: 0 });
+
+        // the names ride up from behind their mask, as the page does elsewhere
+        gsap
+          .timeline({
+            defaults: { ease: "siteEase" },
+            scrollTrigger: { trigger: block, start: "top 88%", once: true },
+          })
+          .to(label, { opacity: 1, duration: 0.5 })
+          .to(rule, { scaleX: 1, duration: 0.8 }, 0.06)
+          .to(names, { yPercent: 0, duration: 0.7, stagger: 0.08 }, 0.18)
+          .to(logos, { opacity: 1, duration: 0.6, stagger: 0.08 }, 0.34);
+      });
     }, section);
 
     return () => ctx.revert();
@@ -92,7 +99,7 @@ export default function Skills() {
         {groups.map((group) => (
           <div
             key={group.label}
-            className="mt-[10vw] first:mt-0 tablet:mt-[6vw] laptop:mt-[2.5vw]"
+            className="skills-group mt-[10vw] first:mt-0 tablet:mt-[6vw] laptop:mt-[2.5vw]"
           >
             <span className="skills-label t-descrpt block text-(--dim-invert)">
               {group.label}
