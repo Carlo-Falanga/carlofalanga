@@ -151,7 +151,6 @@ export default function Background() {
               key={group.label}
               className="bg-group mt-[16vw] first:mt-0 tablet:mt-[9vw] laptop:mt-[5vw] laptop:first:mt-0"
             >
-              {/* same pill as the header CTA: mustard on ink, sentence case */}
               <h3 className="bg-label t-footer inline-block self-start rounded-full bg-(--mustard) px-[clamp(14px,4.6vw,20px)] py-[clamp(9px,3vw,13px)] font-body leading-none font-medium whitespace-nowrap text-(--ink) normal-case">
                 {group.label}
               </h3>
