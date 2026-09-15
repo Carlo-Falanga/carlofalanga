@@ -6,6 +6,13 @@ import ProjectCursor from "./ProjectCursor";
 
 const projects = [
   {
+    title: "Scalo",
+    category: ["Conversion", "landing"],
+    tags: ["Laravel", "Tailwind"],
+    href: "https://github.com/Carlo-Falanga/scalo-shopify-landing",
+    image: "/images/screenshot-scalo.webp",
+  },
+  {
     title: "BoolDog",
     category: ["E-commerce", "app"],
     tags: ["React", "Node.js"],
