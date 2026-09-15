@@ -6,6 +6,28 @@ const TITLE = "Background";
 
 const groups = [
   {
+    label: "Experience",
+    entries: [
+      {
+        title: "Full Stack Developer",
+        org: "WebGas.net",
+        meta: "Sep 2026 to now · Naples, Italy",
+        body:
+          "Full stack development on client web projects for an e-commerce growth agency, " +
+          "working with PHP and Laravel.",
+      },
+      {
+        title: "Graphic Designer",
+        org: "Capri Green srl",
+        meta: "Jul 2023 to Dec 2025 · Capri, Italy",
+        body:
+          "Graphics for luxury magazines with an international distribution, keeping the visual " +
+          "identity and the layout consistent across issues, on editorial deadlines and in direct " +
+          "contact with the editorial team and the clients.",
+      },
+    ],
+  },
+  {
     label: "Education",
     entries: [
       {
@@ -31,20 +53,6 @@ const groups = [
         body:
           "Typography, grids and composition, learned for print. It is the foundation everything " +
           "after it was built on, from the magazine work to the way I lay out an interface.",
-      },
-    ],
-  },
-  {
-    label: "Experience",
-    entries: [
-      {
-        title: "Graphic Designer",
-        org: "Capri Green srl",
-        meta: "Jul 2023 to Dec 2025 · Capri, Italy",
-        body:
-          "Graphics for luxury magazines with an international distribution, keeping the visual " +
-          "identity and the layout consistent across issues, on editorial deadlines and in direct " +
-          "contact with the editorial team and the clients.",
       },
     ],
   },
