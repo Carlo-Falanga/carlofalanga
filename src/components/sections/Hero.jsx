@@ -4,6 +4,7 @@ import { gsap } from "../../lib/gsap";
 import { prefersReducedMotion } from "../../lib/media";
 import GlowText, {
   GLOW_KEEP,
+  GLOW_KEEP_BASE,
   GLOW_LETTER,
   GLOW_PASS,
 } from "../ui/GlowText";
@@ -33,11 +34,13 @@ export default function Hero() {
       const corners = find(".hero-corner");
       const glowPass = find(GLOW_PASS);
       const glowKeep = find(GLOW_KEEP);
+      const glowKeepBase = find(GLOW_KEEP_BASE);
 
       if (prefersReducedMotion()) {
         gsap.set(letters, { yPercent: 0, opacity: 1 });
         gsap.set(corners, { opacity: 1, y: 0 });
         gsap.set(glowKeep, { opacity: 1 });
+        gsap.set(glowKeepBase, { opacity: 0 });
         return;
       }
 
@@ -69,6 +72,13 @@ export default function Hero() {
         glowKeep,
         { opacity: 1, duration: 0.22, stagger: 0.055, ease: "none" },
         "in+=" + 0.055 * LINE_ONE.length
+      );
+
+      // the dark letter under the yellow copy shows as a thin outline on the edges
+      tl.to(
+        glowKeepBase,
+        { opacity: 0, duration: 0, stagger: 0.055 },
+        "in+=" + (0.055 * LINE_ONE.length + 0.22)
       );
 
       tl.to(

@@ -3,7 +3,7 @@ import { LuArrowUp, LuGithub, LuLinkedin } from "react-icons/lu";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "../../lib/gsap";
 import { prefersReducedMotion } from "../../lib/media";
-import GlowText, { GLOW_KEEP, GLOW_PASS } from "../ui/GlowText";
+import GlowText, { GLOW_KEEP, GLOW_KEEP_BASE, GLOW_PASS } from "../ui/GlowText";
 
 const EMAIL = "carlofalanga7@gmail.com";
 
@@ -45,11 +45,13 @@ export default function FooterCTA() {
       const fades = [asideRef.current, noteRef.current];
       const glowPass = Array.from(footer.querySelectorAll(GLOW_PASS));
       const glowKeep = Array.from(footer.querySelectorAll(GLOW_KEEP));
+      const glowKeepBase = Array.from(footer.querySelectorAll(GLOW_KEEP_BASE));
 
       if (prefersReducedMotion()) {
         gsap.set([socialRef.current, ...fades], { opacity: 1, yPercent: 0 });
         gsap.set(lines, { yPercent: 0 });
         gsap.set(glowKeep, { opacity: 1 });
+        gsap.set(glowKeepBase, { opacity: 0 });
         return;
       }
 
@@ -83,6 +85,11 @@ export default function FooterCTA() {
           glowKeep,
           { opacity: 1, duration: 0.22, stagger: 0.055, ease: "none" },
           "glow+=" + 0.055 * PASS_LETTERS
+        )
+        .to(
+          glowKeepBase,
+          { opacity: 0, duration: 0, stagger: 0.055 },
+          "glow+=" + (0.055 * PASS_LETTERS + 0.22)
         )
         .to(fades, { opacity: 1, duration: 0.5, stagger: 0.08 }, 0.45);
     },
