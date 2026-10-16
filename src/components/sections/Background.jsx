@@ -13,8 +13,9 @@ const groups = [
         org: "WebGas.net",
         meta: "Sep 2026 to now · Naples, Italy",
         body:
-          "Full stack development on client web projects for an e-commerce growth agency, " +
-          "working with PHP and Laravel.",
+          "Full stack development on the agency's in-house multi-tenant SaaS platform, built in " +
+          "Laravel with Livewire, Filament and PostgreSQL, from new features to production fixes, " +
+          "plus Shopify Plus and WooCommerce stores for the agency's clients.",
       },
       {
         title: "Graphic Designer",
