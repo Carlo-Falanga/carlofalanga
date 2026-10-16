@@ -48,7 +48,7 @@ const principles = [
 
 function Stage({ entry }) {
   return (
-    <div className="approach-stage relative -ml-px flex h-[62svh] w-[82vw] shrink-0 snap-start flex-col items-center justify-center border-x border-(--line-strong) px-[6vw] text-center tablet:w-[52vw] tablet:px-[3vw] laptop:w-[45vw] laptop:px-[2.5vw] laptop:motion-safe:h-[60vh] laptop:motion-reduce:ml-0 laptop:motion-reduce:w-1/2">
+    <div className="approach-stage relative -ml-px flex h-[48svh] w-[82vw] shrink-0 snap-start flex-col items-center justify-center border-x border-(--line-strong) px-[6vw] text-center tablet:h-[62svh] tablet:w-[52vw] tablet:px-[3vw] laptop:w-[45vw] laptop:px-[2.5vw] laptop:motion-safe:h-[60vh] laptop:motion-reduce:ml-0 laptop:motion-reduce:w-1/2">
       <div className="flex w-full flex-col items-center gap-[5.13vw] tablet:gap-[2.6vw] laptop:gap-[1.25vw]">
         <h3 className="t-h4 font-display">{entry.title}</h3>
         <p className="t-body w-full text-center opacity-75 laptop:w-[71.76%]">
@@ -99,15 +99,18 @@ export default function Approach() {
         const vh = window.innerHeight;
         const headHeight = heading.offsetHeight;
         const trackHeight = vh * (STAGE + 2 * GAP);
+        // room above the stages, so the heading is fully off screen once the block pins
+        const above = vh * ((1 - STAGE) / 2 - GAP);
 
         track.style.height = trackHeight + "px";
+        track.style.marginTop = above + "px";
         // pull the block up by the heading, so the stages land centred on screen
-        pinned.style.top = -(headHeight - vh * ((1 - STAGE) / 2 - GAP)) + "px";
-        pinned.style.height = headHeight + trackHeight + "px";
+        pinned.style.top = -headHeight + "px";
+        pinned.style.height = headHeight + above + trackHeight + "px";
 
         distance = track.scrollWidth - vw;
         travel = distance * TRAVEL;
-        lead = vh * LEAD;
+        lead = vh * LEAD + above;
         tail = vh * TAIL;
         run = lead + travel;
 
@@ -136,6 +139,7 @@ export default function Approach() {
         pinned.style.top = "";
         pinned.style.height = "";
         track.style.height = "";
+        track.style.marginTop = "";
         tween.kill();
       };
     });
@@ -202,7 +206,7 @@ export default function Approach() {
               {entry.panel && (
                 <figure
                   className={
-                    "@container h-[62svh] w-[82vw] shrink-0 snap-start overflow-hidden tablet:w-[52vw] laptop:w-[45vw] laptop:motion-safe:h-[60vh] laptop:motion-reduce:w-1/2 " +
+                    "@container h-[48svh] w-[82vw] shrink-0 snap-start overflow-hidden tablet:h-[62svh] tablet:w-[52vw] laptop:w-[45vw] laptop:motion-safe:h-[60vh] laptop:motion-reduce:w-1/2 " +
                     entry.panel.surface
                   }
                 >
