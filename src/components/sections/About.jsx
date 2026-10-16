@@ -48,7 +48,7 @@ export default function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="section-mt section-px section-anchor"
+      className="section-mt section-px section-anchor pb-[calc(var(--sp-section-top)_-_6.25vw)]"
     >
       <div className="flex w-full flex-col items-start">
         <h2 className="flex w-full flex-col items-start tablet:w-[80%] laptop:w-[60%]">
