@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
 import { prefersReducedMotion } from "../../lib/media";
+import { setLenis } from "../../lib/scroll";
 
 export default function SmoothScroll({ children }) {
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function SmoothScroll({ children }) {
       lerp: 0.1,
       smoothWheel: true,
     });
+    setLenis(lenis);
 
     lenis.on("scroll", ScrollTrigger.update);
 
@@ -31,6 +33,7 @@ export default function SmoothScroll({ children }) {
     return () => {
       window.removeEventListener("load", refresh);
       gsap.ticker.remove(onTick);
+      setLenis(null);
       lenis.destroy();
     };
   }, []);
