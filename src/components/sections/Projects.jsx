@@ -214,13 +214,8 @@ export default function Projects() {
       </div>
 
       <div className="relative mt-[8vw] flex flex-col items-center gap-[16vw] tablet:gap-[9vw] laptop:mt-0 laptop:gap-[4.375vw]">
-        {projects.map((project, index) => (
-          <ProjectCard
-            key={project.title}
-            project={project}
-            index={index}
-            total={projects.length}
-          />
+        {projects.map((project) => (
+          <ProjectCard key={project.title} project={project} />
         ))}
       </div>
     </section>

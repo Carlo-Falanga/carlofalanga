@@ -19,10 +19,7 @@ function Reveal({ children, className = "", delay = 0 }) {
   );
 }
 
-export default function ProjectCard({ project, index, total }) {
-  const counter = String(index + 1).padStart(2, "0");
-  const of = String(total).padStart(2, "0");
-
+export default function ProjectCard({ project }) {
   return (
     <a
       href={project.href}
@@ -31,18 +28,12 @@ export default function ProjectCard({ project, index, total }) {
       className="project-card group relative flex w-full flex-col items-center gap-[5vw] tablet:gap-[3vw] laptop:w-[86.32%] laptop:gap-[0.625vw]"
     >
       <div className="project-frame group/frame relative flex h-[50.26vw] w-full items-center justify-center overflow-hidden rounded-[1.3vw] bg-(--ink) mouse:laptop:cursor-none laptop:rounded-[0.63vw]">
-        {project.image ? (
-          <img
-            src={project.image}
-            alt={project.title}
-            loading="lazy"
-            className="h-full w-full object-cover object-top transition-transform duration-400 ease-fade group-[.is-active]:scale-[1.03] motion-reduce:transition-none"
-          />
-        ) : (
-          <span className="font-display text-[10vw] leading-none opacity-30 laptop:text-[4vw]">
-            {counter}
-          </span>
-        )}
+        <img
+          src={project.image}
+          alt={project.title}
+          loading="lazy"
+          className="h-full w-full object-cover object-top transition-transform duration-400 ease-fade group-[.is-active]:scale-[1.03] motion-reduce:transition-none"
+        />
       </div>
 
       <div className="flex w-full items-center justify-between gap-[4vw] laptop:pointer-events-none laptop:absolute laptop:inset-0 laptop:gap-[2vw]">
@@ -68,14 +59,6 @@ export default function ProjectCard({ project, index, total }) {
         </Reveal>
 
         <div className="flex shrink-0 flex-col items-end gap-[2vw] laptop:w-[9.5vw] laptop:items-start laptop:gap-[1.25vw] laptop:pl-[1.2vw]">
-          <Reveal
-            delay={140}
-            className="t-title2 hidden font-body laptop:block"
-          >
-            <span>{counter}</span>
-            <span className="opacity-40"> / {of}</span>
-          </Reveal>
-
           <div className="flex flex-wrap justify-end gap-[1.6vw] laptop:justify-start laptop:gap-[0.5vw]">
             {project.tags.map((tag, i) => (
               <Reveal key={tag} delay={210 + i * 70}>

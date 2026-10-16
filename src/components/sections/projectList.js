@@ -7,11 +7,11 @@ export const projects = [
     image: "/images/screenshot-scalo.webp",
   },
   {
-    title: "BoolDog",
-    category: ["E-commerce", "app"],
+    title: "Warehouse orders",
+    category: ["Order", "management"],
     tags: ["React", "Node.js"],
-    href: "https://github.com/Carlo-Falanga/booldog",
-    image: "/images/screenshot-booldog.webp",
+    href: "https://github.com/Carlo-Falanga/warehouse-orders",
+    image: "/images/screenshot-warehouse.webp",
   },
   {
     title: "NaturaFit",
@@ -21,10 +21,10 @@ export const projects = [
     image: "/images/screenshot-naturafit.webp",
   },
   {
-    title: "Warehouse orders",
-    category: ["Order", "management"],
+    title: "BoolDog",
+    category: ["E-commerce", "app"],
     tags: ["React", "Node.js"],
-    href: "https://github.com/Carlo-Falanga/warehouse-orders",
-    image: "/images/screenshot-warehouse.webp",
+    href: "https://github.com/Carlo-Falanga/booldog",
+    image: "/images/screenshot-booldog.webp",
   },
 ];
