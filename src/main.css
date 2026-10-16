@@ -17,6 +17,8 @@
   --code-param: #EBA0AC;
   --code-operator: #94E2D5;
   --code-punct: #9399B2;
+  --code-string: #A6E3A1;
+  --code-number: #FAB387;
 
   --dim: color-mix(in oklab, var(--ink) 68%, var(--cream));
   --dim-invert: color-mix(in oklab, var(--cream) 60%, var(--ink));
@@ -48,14 +50,11 @@
 @custom-variant mouse (@media (hover: hover) and (pointer: fine));
 
 :root {
-  --t-num-b: min(var(--t-num-b-w), 24svh);
-
   --t-1h: 13.33vw;
   --t-h2: 8.21vw;
   --t-h2-lg: 10.77vw;
   --t-h3: 9.23vw;
   --t-h4: 9.23vw;
-  --t-num-b-w: 38.46vw;
   --t-num-idx: clamp(52px, 15vw, 96px);
   --t-num-m: 4.62vw;
   --t-title1: 5.13vw;
@@ -78,14 +77,11 @@
 
 @media (min-width: 440px) {
   :root {
-    --t-num-b: min(var(--t-num-b-w), 26svh);
-
     --t-1h: clamp(59px, calc(8.33vw + 22.35px), 105px);
     --t-h2: clamp(36px, calc(5.98vw + 9.69px), 69px);
     --t-h2-lg: clamp(47px, calc(3.99vw + 29.44px), 69px);
     --t-h3: clamp(41px, calc(1.63vw + 33.83px), 50px);
     --t-h4: clamp(30px, calc(-1.99vw + 49.76px), 41px);
-    --t-num-b-w: clamp(136px, calc(-5.98vw + 195.31px), 169px);
     --t-num-m: clamp(17px, calc(-0.54vw + 22.38px), 20px);
     --t-title1: clamp(17px, calc(-1vw + 26.9px), 22.5px);
     --t-title2: clamp(17px, calc(-0.54vw + 22.38px), 20px);
@@ -108,7 +104,6 @@
     --t-h2-lg: min(7vw, 112px);
     --t-h3: min(5vw, 80px);
     --t-h4: min(3vw, 48px);
-    --t-num-b-w: min(13.75vw, 220px);
     --t-num-m: clamp(17px, 1.5vw, 24px);
     --t-title1: clamp(17px, 1.5vw, 24px);
     --t-title2: clamp(17px, 1.5vw, 24px);
@@ -174,13 +169,6 @@ body {
     letter-spacing: 0;
     text-transform: uppercase;
     font-weight: 500;
-  }
-
-  .t-num-b {
-    font-size: var(--t-num-b);
-    line-height: 90%;
-    letter-spacing: -0.05em;
-    font-weight: 400;
   }
 
   .t-num-idx {

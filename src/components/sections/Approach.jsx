@@ -1,39 +1,32 @@
 import { Fragment, useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
-import { LAPTOP_MIN_WIDTH, prefersReducedMotion } from "../../lib/media";
-import GlowText, { GLOW_COPY } from "../ui/GlowText";
+import { LAPTOP_MIN_WIDTH } from "../../lib/media";
 import CodePanel from "./CodePanel";
+import { leadController, recipeResponse } from "./codeSnippets";
 
 const PINNED_TRACK = `(min-width: ${LAPTOP_MIN_WIDTH}px) and (prefers-reduced-motion: no-preference)`;
 const CAROUSEL = `(max-width: ${LAPTOP_MIN_WIDTH - 1}px), (prefers-reduced-motion: reduce)`;
 
 const principles = [
   {
-    id: "01",
     title: "Clean code",
     description:
       "I write readable, maintainable code and keep the same discipline across every layer of a project.",
     panel: {
       surface: "bg-(--code-bg)",
-      content: <CodePanel />,
+      content: <CodePanel snippet={leadController} />,
     },
   },
   {
-    id: "02",
     title: "Modern stack",
     description:
-      "React, Node.js, Express and MySQL day to day, with PHP and Laravel from the Boolean master.",
+      "Laravel, Livewire and PostgreSQL every day at work, React and Node.js on my own projects.",
     panel: {
       surface: "bg-(--code-bg)",
-      image: {
-        src: "/images/approach-schema.webp",
-        tall: "/images/approach-schema-tall.webp",
-        alt: "Entity relationship diagram of the NaturaFit database, with the recipes, categories, tags and recipe_tag tables",
-      },
+      content: <CodePanel snippet={recipeResponse} />,
     },
   },
   {
-    id: "03",
     title: "Full cycle",
     description:
       "Comfortable working end-to-end, from interface to database, not locked into a single layer.",
@@ -47,39 +40,20 @@ const principles = [
     },
   },
   {
-    id: "04",
     title: "Detail driven",
     description:
       "Two years designing for international magazines taught me to notice what's slightly off.",
   },
 ];
 
-function Stage({ entry, flipped }) {
+function Stage({ entry }) {
   return (
-    <div
-      className={
-        "approach-stage relative -ml-px flex h-[62svh] w-[82vw] shrink-0 snap-start items-center justify-center gap-[12vw] border-x border-(--line-strong) px-[6vw] text-center tablet:w-[52vw] tablet:gap-[6vw] tablet:px-[3vw] laptop:w-[45vw] laptop:justify-between laptop:gap-0 laptop:px-[2.5vw] laptop:motion-safe:h-[60vh] laptop:motion-reduce:ml-0 laptop:motion-reduce:w-1/2 " +
-        (flipped ? "flex-col-reverse" : "flex-col")
-      }
-    >
+    <div className="approach-stage relative -ml-px flex h-[62svh] w-[82vw] shrink-0 snap-start flex-col items-center justify-center border-x border-(--line-strong) px-[6vw] text-center tablet:w-[52vw] tablet:px-[3vw] laptop:w-[45vw] laptop:px-[2.5vw] laptop:motion-safe:h-[60vh] laptop:motion-reduce:ml-0 laptop:motion-reduce:w-1/2">
       <div className="flex w-full flex-col items-center gap-[5.13vw] tablet:gap-[2.6vw] laptop:gap-[1.25vw]">
         <h3 className="t-h4 font-display">{entry.title}</h3>
         <p className="t-body w-full text-center opacity-75 laptop:w-[71.76%]">
           {entry.description}
         </p>
-      </div>
-
-      <div
-        className={
-          "flex w-full items-center gap-[5.13vw] tablet:gap-[2.6vw] laptop:gap-[3.13vw] " +
-          (flipped ? "flex-col-reverse" : "flex-col")
-        }
-      >
-        <div className="h-px w-[88.42%] shrink-0 bg-(--line-strong)" />
-
-        <span className="t-num-b font-display">
-          <GlowText text={entry.id} />
-        </span>
       </div>
     </div>
   );
@@ -91,7 +65,6 @@ export default function Approach() {
   const headingRef = useRef(null);
   const trackRef = useRef(null);
   const progressRef = useRef(null);
-  const activeRef = useRef(-1);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -99,10 +72,6 @@ export default function Approach() {
     const heading = headingRef.current;
     const track = trackRef.current;
     if (!wrapper || !pinned || !heading || !track) return;
-
-    const stages = Array.from(track.querySelectorAll(".approach-stage"));
-    const glowOf = (stage) => Array.from(stage.querySelectorAll(GLOW_COPY));
-    const everyGlow = () => stages.flatMap(glowOf);
 
     const mm = gsap.matchMedia();
 
@@ -113,16 +82,11 @@ export default function Approach() {
       const LEAD = 0.15;
       const TAIL = 0.1;
 
-      const glows = stages.map(glowOf);
-      const allGlows = glows.flat();
-
       let distance = 0;
       let travel = 0;
       let lead = 0;
       let tail = 0;
       let run = 0;
-      let middle = 0;
-      let centers = [];
 
       // eases in and out, or the track would leave and arrive at full speed
       const eased = (progress) => {
@@ -146,53 +110,14 @@ export default function Approach() {
         lead = vh * LEAD;
         tail = vh * TAIL;
         run = lead + travel;
-        middle = vw / 2;
 
         wrapper.style.height = vh + run + tail + "px";
-        centers = stages.map((item) => item.offsetLeft + item.offsetWidth / 2);
       };
 
       sizeWrapper();
       // remeasure first, or a refresh would work off the old heights
       ScrollTrigger.addEventListener("refreshInit", sizeWrapper);
 
-      const paintActive = (progress) => {
-        const x = -distance * eased(progress);
-
-        let nearest = 0;
-        let best = Infinity;
-        centers.forEach((center, index) => {
-          const gap = Math.abs(center + x - middle);
-          if (gap < best) {
-            best = gap;
-            nearest = index;
-          }
-        });
-
-        if (nearest === activeRef.current) return;
-        activeRef.current = nearest;
-
-        glows.forEach((glow, index) => {
-          if (index === nearest) return;
-          gsap.to(glow, {
-            opacity: 0,
-            duration: 0.2,
-            ease: "none",
-            overwrite: true,
-          });
-        });
-
-        gsap.to(glows[nearest], {
-          opacity: 1,
-          duration: 0.22,
-          stagger: 0.055,
-          delay: 0.2,
-          ease: "none",
-          overwrite: true,
-        });
-      };
-
-      // same curve here and in paintActive, so the glow never lights the wrong stage
       const tween = gsap.to(track, {
         x: () => -distance,
         ease: eased,
@@ -202,11 +127,6 @@ export default function Approach() {
           end: () => "+=" + run,
           scrub: 1,
           invalidateOnRefresh: true,
-          onUpdate: (self) => paintActive(self.progress),
-          onLeaveBack: () => {
-            activeRef.current = -1;
-            gsap.to(allGlows, { opacity: 0, duration: 0.22, ease: "none" });
-          },
         },
       });
 
@@ -216,8 +136,6 @@ export default function Approach() {
         pinned.style.top = "";
         pinned.style.height = "";
         track.style.height = "";
-        activeRef.current = -1;
-        gsap.set(everyGlow(), { opacity: 0 });
         tween.kill();
       };
     });
@@ -243,68 +161,14 @@ export default function Approach() {
         });
       };
 
-      const statico = () => track.scrollWidth - track.clientWidth < 2;
-
-      const paintAll = () => {
-        if (!statico()) return;
-        activeRef.current = -1;
-        gsap.set(everyGlow(), { opacity: 1 });
-      };
-
-      const onResize = () => {
-        drawProgress();
-        paintAll();
-      };
-
       drawProgress();
-      paintAll();
       track.addEventListener("scroll", onTrackScroll, { passive: true });
-      window.addEventListener("resize", onResize);
-
-      const fade = prefersReducedMotion() ? 0 : 0.22;
-      const step = prefersReducedMotion() ? 0 : 0.055;
-
-      const paintStage = (index) => {
-        if (statico() || index === activeRef.current) return;
-        activeRef.current = index;
-
-        stages.forEach((stage, position) => {
-          if (position === index) return;
-          gsap.to(glowOf(stage), {
-            opacity: 0,
-            duration: fade,
-            ease: "none",
-            overwrite: true,
-          });
-        });
-
-        gsap.to(glowOf(stages[index]), {
-          opacity: 1,
-          duration: fade,
-          stagger: step,
-          ease: "none",
-          overwrite: true,
-        });
-      };
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries
-            .filter((entry) => entry.isIntersecting)
-            .forEach((entry) => paintStage(stages.indexOf(entry.target)));
-        },
-        { root: track, threshold: 0.6 },
-      );
-
-      stages.forEach((stage) => observer.observe(stage));
+      window.addEventListener("resize", drawProgress);
 
       return () => {
-        observer.disconnect();
         track.removeEventListener("scroll", onTrackScroll);
-        window.removeEventListener("resize", onResize);
+        window.removeEventListener("resize", drawProgress);
         if (progressRaf) cancelAnimationFrame(progressRaf);
-        activeRef.current = -1;
-        gsap.set(everyGlow(), { opacity: 0 });
       };
     });
 
@@ -331,9 +195,9 @@ export default function Approach() {
           ref={trackRef}
           className="no-scrollbar mt-[8vw] flex snap-x snap-mandatory scroll-pl-(--sp-section-x) items-center overflow-x-auto px-(--sp-section-x) tablet:mt-[4vw] laptop:motion-safe:mt-0 laptop:motion-safe:h-dvh laptop:motion-safe:w-max laptop:motion-safe:snap-none laptop:motion-safe:overflow-visible laptop:motion-safe:pr-0 laptop:motion-reduce:mt-[2.5vw] laptop:motion-reduce:flex-wrap laptop:motion-reduce:gap-y-[6vw]"
         >
-          {principles.map((entry, index) => (
-            <Fragment key={entry.id}>
-              <Stage entry={entry} flipped={index % 2 === 1} />
+          {principles.map((entry) => (
+            <Fragment key={entry.title}>
+              <Stage entry={entry} />
 
               {entry.panel && (
                 <figure
