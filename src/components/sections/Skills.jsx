@@ -126,7 +126,11 @@ export default function Skills() {
                       <Icon
                         key={idx}
                         aria-hidden="true"
-                        className="h-[7vw] w-[7vw] opacity-70 transition-opacity duration-500 ease-site tablet:h-[4vw] tablet:w-[4vw] laptop:h-[2.6vw] laptop:w-[2.6vw] mouse:laptop:group-hover/row:opacity-100 motion-reduce:transition-none"
+                        className={
+                          "h-[7vw] w-[7vw] opacity-70 transition-opacity duration-500 ease-site tablet:h-[4vw] tablet:w-[4vw] laptop:h-[2.6vw] laptop:w-[2.6vw] mouse:laptop:group-hover/row:opacity-100 motion-reduce:transition-none" +
+                          // a wordmark logo is a thin strip inside the square box
+                          (row.wordmark ? " origin-right scale-[2.4]" : "")
+                        }
                       />
                     ))}
                   </span>

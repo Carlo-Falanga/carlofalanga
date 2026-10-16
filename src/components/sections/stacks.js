@@ -11,16 +11,16 @@ import {
   SiLaravel,
   SiFilament,
   SiPostgresql,
-  SiMysql,
   SiSqlite,
   SiShopify,
-  SiWoocommerce,
+  SiWoo,
   SiGit,
   SiGithub,
   SiGithubactions,
   SiDocker,
   SiVite,
 } from "react-icons/si";
+import { GrMysql } from "react-icons/gr";
 
 export const groups = [
   {
@@ -36,7 +36,7 @@ export const groups = [
     label: "Backend",
     rows: [
       { name: "PHP, Laravel", icons: [SiPhp, SiLaravel] },
-      { name: "Filament", icons: [SiFilament] },
+      { name: "Filament", icons: [SiFilament], wordmark: true },
       { name: "Node.js, Express", icons: [SiNodedotjs, SiExpress] },
     ],
   },
@@ -44,7 +44,7 @@ export const groups = [
     label: "Database",
     rows: [
       { name: "PostgreSQL", icons: [SiPostgresql] },
-      { name: "MySQL", icons: [SiMysql] },
+      { name: "MySQL", icons: [GrMysql] },
       { name: "SQLite", icons: [SiSqlite] },
     ],
   },
@@ -52,7 +52,7 @@ export const groups = [
     label: "E-commerce",
     rows: [
       { name: "Shopify Plus", icons: [SiShopify] },
-      { name: "WooCommerce", icons: [SiWoocommerce] },
+      { name: "WooCommerce", icons: [SiWoo] },
     ],
   },
   {
