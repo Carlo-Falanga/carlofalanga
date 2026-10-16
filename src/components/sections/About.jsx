@@ -6,7 +6,7 @@ import { prefersReducedMotion } from "../../lib/media";
 const TITLE_LINES = ["From graphic", "design to web", "development"];
 
 const BODY =
-  "I trained as a graphic designer in Naples, then moved to code. I finished Boolean's full-stack master, and I build with React and Node on one side, PHP and Laravel on the other.";
+  "I trained as a graphic designer in Naples, then moved to code with Boolean's full-stack master. Since September 2026 I've been a full stack developer at WebGas.net, working on the agency's multi-tenant SaaS platform in Laravel.";
 
 export default function About() {
   const sectionRef = useRef(null);
