@@ -3,37 +3,7 @@ import { gsap } from "../../lib/gsap";
 import { laptopQuery, prefersReducedMotion } from "../../lib/media";
 import ProjectCard from "./ProjectCard";
 import ProjectCursor from "./ProjectCursor";
-
-const projects = [
-  {
-    title: "Scalo",
-    category: ["Conversion", "landing"],
-    tags: ["Laravel", "Tailwind"],
-    href: "https://github.com/Carlo-Falanga/scalo-shopify-landing",
-    image: "/images/screenshot-scalo.webp",
-  },
-  {
-    title: "BoolDog",
-    category: ["E-commerce", "app"],
-    tags: ["React", "Node.js"],
-    href: "https://github.com/Carlo-Falanga/booldog",
-    image: "/images/screenshot-booldog.webp",
-  },
-  {
-    title: "NaturaFit",
-    category: ["Wellness", "platform"],
-    tags: ["Laravel", "React"],
-    href: "https://github.com/Carlo-Falanga/naturafit-client",
-    image: "/images/screenshot-naturafit.webp",
-  },
-  {
-    title: "Warehouse orders",
-    category: ["Order", "management"],
-    tags: ["React", "Node.js"],
-    href: "https://github.com/Carlo-Falanga/warehouse-orders",
-    image: "/images/screenshot-warehouse.webp",
-  },
-];
+import { projects } from "./projectList";
 
 const DESKTOP_SIZE = { baseW: 28.13, baseH: 16.19, peakW: 53.13, peakH: 28.13 };
 const COMPACT_SIZE = { baseW: 58, baseH: 32.6, peakW: 91.8, peakH: 51.5 };
