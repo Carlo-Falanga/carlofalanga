@@ -1,66 +1,60 @@
 import {
-  SiHtml5,
-  SiCss,
-  SiTailwindcss,
-  SiJavascript,
   SiReact,
   SiLivewire,
-  SiNodedotjs,
-  SiExpress,
-  SiPhp,
+  SiTailwindcss,
   SiLaravel,
-  SiFilament,
+  SiNodedotjs,
   SiPostgresql,
   SiSqlite,
   SiShopify,
-  SiWoo,
-  SiGit,
-  SiGithub,
   SiGithubactions,
   SiDocker,
-  SiVite,
 } from "react-icons/si";
 import { GrMysql } from "react-icons/gr";
 
-export const groups = [
+export const layers = [
   {
-    label: "Frontend",
-    rows: [
-      { name: "React", icons: [SiReact] },
-      { name: "JavaScript", icons: [SiJavascript] },
-      { name: "Livewire", icons: [SiLivewire] },
-      { name: "HTML, CSS, Tailwind", icons: [SiHtml5, SiCss, SiTailwindcss] },
+    name: "Interface",
+    techs: [
+      { name: "React", Icon: SiReact, where: "Clients for NaturaFit, Warehouse orders and BoolDog." },
+      { name: "Livewire", Icon: SiLivewire, where: "The SaaS platform at WebGas.net." },
+      { name: "Tailwind", Icon: SiTailwindcss, where: "The Scalo landing page." },
     ],
   },
   {
-    label: "Backend",
-    rows: [
-      { name: "PHP, Laravel", icons: [SiPhp, SiLaravel] },
-      { name: "Filament", icons: [SiFilament], wordmark: true },
-      { name: "Node.js, Express", icons: [SiNodedotjs, SiExpress] },
+    name: "Application",
+    techs: [
+      {
+        name: "Laravel, Filament",
+        Icon: SiLaravel,
+        where: "A modular monolith with Filament at WebGas.net, and the APIs for NaturaFit and Scalo.",
+      },
+      { name: "Node, Express", Icon: SiNodedotjs, where: "The Warehouse orders API and the BoolDog backend." },
     ],
   },
   {
-    label: "Database",
-    rows: [
-      { name: "PostgreSQL", icons: [SiPostgresql] },
-      { name: "MySQL", icons: [GrMysql] },
-      { name: "SQLite", icons: [SiSqlite] },
+    name: "Data",
+    techs: [
+      { name: "PostgreSQL", Icon: SiPostgresql, where: "WebGas.net, with workspace-level tenant isolation." },
+      { name: "MySQL", Icon: GrMysql, where: "NaturaFit and BoolDog." },
+      { name: "SQLite", Icon: SiSqlite, where: "Warehouse orders and Scalo." },
     ],
   },
   {
-    label: "E-commerce",
-    rows: [
-      { name: "Shopify Plus", icons: [SiShopify] },
-      { name: "WooCommerce", icons: [SiWoo] },
+    name: "Stores",
+    techs: [
+      { name: "Shopify Plus", Icon: SiShopify, where: "Liquid themes, custom apps and the GraphQL Admin API." },
     ],
   },
   {
-    label: "Tooling",
-    rows: [
-      { name: "Git, GitHub", icons: [SiGit, SiGithub] },
-      { name: "GitHub Actions, Docker", icons: [SiGithubactions, SiDocker] },
-      { name: "Vite", icons: [SiVite] },
+    name: "Delivery",
+    techs: [
+      {
+        name: "GitHub Actions",
+        Icon: SiGithubactions,
+        where: "CI and code review on the team's pull requests at WebGas.net.",
+      },
+      { name: "Docker", Icon: SiDocker, where: "Containerized deploys at WebGas.net." },
     ],
   },
 ];
