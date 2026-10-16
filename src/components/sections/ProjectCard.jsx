@@ -77,6 +77,12 @@ export default function ProjectCard({ project }) {
           {project.title}
         </span>
       </Reveal>
+
+      <div className="w-full laptop:w-[60%]">
+        <Reveal delay={420} className="t-body opacity-70 laptop:text-center">
+          {project.summary}
+        </Reveal>
+      </div>
     </a>
   );
 }
