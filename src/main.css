@@ -236,10 +236,11 @@ a {
   display: none;
 }
 
+/* only the band touches the top edge: Safari 26 tints the status bar from it */
 .name {
   position: fixed;
   left: 3vw;
-  top: 0;
+  top: var(--band);
   z-index: 40;
   font-weight: 700;
   font-size: 15vw;
@@ -887,7 +888,48 @@ main {
   }
 
   .rail {
+    bottom: auto;
+    height: calc(100lvh - var(--band));
     transform-origin: 0 0;
+  }
+
+  body::after {
+    top: var(--band);
+  }
+
+  /* scroll-driven: the compositor runs these with the native scroll, the variables come from Rail.jsx */
+  .name.follow-scroll,
+  .rail.follow-scroll {
+    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+    animation-fill-mode: both;
+    animation-timeline: scroll(root);
+    animation-range: 0px var(--hero-end);
+  }
+
+  .name.follow-scroll {
+    animation-name: name-land;
+  }
+
+  .rail.follow-scroll {
+    animation-name: rail-fold;
+  }
+
+  @keyframes name-land {
+    from {
+      transform: translateY(var(--name-y0)) scale(1);
+    }
+    to {
+      transform: translateY(var(--name-y1)) scale(var(--name-scale));
+    }
+  }
+
+  @keyframes rail-fold {
+    from {
+      transform: scaleY(1);
+    }
+    to {
+      transform: scaleY(var(--rail-scale));
+    }
   }
 
   .topbar {

@@ -10,9 +10,21 @@ import Chars from "../ui/Chars";
 
 const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 const clamp = (v) => Math.min(Math.max(v, 0), 1);
+// the browser moves the name in step with the finger, JS only when it can't
+const cssScroll = () => CSS.supports("animation-timeline: scroll()") && !prefersReducedMotion();
 
 function bandHeight() {
   return document.querySelector(".band").offsetHeight;
+}
+
+// 100lvh does not change when the phone toolbar collapses, innerHeight does
+function largeViewportHeight() {
+  const probe = document.createElement("div");
+  probe.style.cssText = "position:absolute;visibility:hidden;height:100lvh";
+  document.body.appendChild(probe);
+  const height = probe.offsetHeight;
+  probe.remove();
+  return height;
 }
 
 export default function Rail({ section, project }) {
@@ -65,15 +77,44 @@ export default function Rail({ section, project }) {
     let viewH = window.innerHeight;
     let viewW = window.innerWidth;
     let sizes = {};
+    const progress = { value: 0 };
+    // touch scroll arrives in uneven steps on iOS, a short ease hides them
+    const followScroll = gsap.quickTo(progress, "value", {
+      duration: 0.3,
+      ease: "power2.out",
+      onUpdate: () => apply(progress.value),
+    });
 
     // read every size once, then the scroll only writes styles
     function measure() {
+      const compact = isCompact();
       sizes = {
-        compact: isCompact(),
+        compact,
+        css: compact && cssScroll(),
+        view: compact ? largeViewportHeight() : window.innerHeight,
         name: name.offsetHeight,
         band: bandHeight(),
         rail: railRef.current.offsetHeight,
         topbar: topbarRef.current.offsetHeight,
+      };
+      name.classList.toggle("follow-scroll", sizes.css);
+      railRef.current.classList.toggle("follow-scroll", sizes.css);
+      if (!sizes.css) return;
+      const { top0, top1, endScale } = namePath();
+      name.style.setProperty("--name-y0", top0 - sizes.band + "px");
+      name.style.setProperty("--name-y1", top1 - sizes.band + "px");
+      name.style.setProperty("--name-scale", endScale);
+      railRef.current.style.setProperty("--rail-scale", sizes.topbar / sizes.rail);
+      document.documentElement.style.setProperty("--hero-end", viewH * 0.8 + "px");
+    }
+
+    // where the name starts (bottom of the hero) and where it lands, from the top of the screen
+    function namePath() {
+      const { compact, view, name: nameHeight } = sizes;
+      return {
+        top0: view - nameHeight - view * 0.06,
+        top1: sizes.band + (compact ? 14 : 24),
+        endScale: compact ? 38 / nameHeight : 0.2,
       };
     }
 
@@ -96,18 +137,17 @@ export default function Rail({ section, project }) {
     // the dark hero shrinks into the rail (the top bar on phones) while the name lands in it
     function apply(progress) {
       const t = easeOut(progress);
-      const { compact, name: nameHeight } = sizes;
-      const top0 = viewH - nameHeight - viewH * 0.06;
-      const top1 = sizes.band + (compact ? 14 : 24);
-      const endScale = compact ? 38 / nameHeight : 0.2;
+      const { compact, view, name: nameHeight } = sizes;
+      const { top0, top1, endScale } = namePath();
 
-      gsap.set(name, { y: top0 + (top1 - top0) * t, scale: 1 - t * (1 - endScale) });
+      // the name sits under the band, so its path is measured from there
+      if (!sizes.css) gsap.set(name, { y: top0 + (top1 - top0) * t - sizes.band, scale: 1 - t * (1 - endScale) });
       name.classList.toggle("landed", t > 0.6);
-      gsap.set(leadRef.current, { opacity: 1 - clamp(t * 3), y: -t * viewH * 0.18 });
+      gsap.set(leadRef.current, { opacity: 1 - clamp(t * 3), y: -t * view * 0.18 });
 
       const rail = railRef.current;
       if (compact) {
-        gsap.set(rail, { scaleX: 1, scaleY: 1 - (1 - sizes.topbar / sizes.rail) * t });
+        if (!sizes.css) gsap.set(rail, { scaleX: 1, scaleY: 1 - (1 - sizes.topbar / sizes.rail) * t });
         topbarRef.current.classList.toggle("show", t > 0.9);
         return;
       }
@@ -122,9 +162,14 @@ export default function Rail({ section, project }) {
     const trigger = ScrollTrigger.create({
       start: 0,
       end: () => viewH * 0.8,
-      onUpdate: (self) => apply(self.progress),
+      onUpdate: (self) => {
+        if (sizes.compact && !sizes.css) followScroll(self.progress);
+        else apply(self.progress);
+      },
       onRefresh: (self) => {
         measure();
+        progress.value = self.progress;
+        followScroll.tween.pause();
         apply(self.progress);
       },
     });
@@ -135,7 +180,7 @@ export default function Rail({ section, project }) {
       if (window.innerWidth === viewW && isCompact()) {
         viewH = window.innerHeight;
         measure();
-        apply(trigger.progress);
+        apply(progress.value);
         return;
       }
       viewW = window.innerWidth;
