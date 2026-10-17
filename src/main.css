@@ -580,6 +580,32 @@ main {
   opacity: 1;
 }
 
+.works li .links {
+  display: flex;
+  gap: 4px 28px;
+  margin-top: 1vh;
+  font-size: clamp(15px, 1.2vw, 18px);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.works li.active .links,
+.works li:focus-within .links {
+  opacity: 1;
+}
+
+.works li .links a {
+  padding: 6px 0;
+  color: var(--light);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  transition: color 0.3s;
+}
+
+.works li .links a:hover {
+  color: var(--accent);
+}
+
 .works .mshot {
   display: none;
 }
@@ -1014,7 +1040,8 @@ main {
     padding: 3vh 0;
   }
 
-  .works li .s {
+  .works li .s,
+  .works li .links {
     opacity: 1;
   }
 
@@ -1107,7 +1134,8 @@ main {
     padding: 3vh 0;
   }
 
-  .works li .s {
+  .works li .s,
+  .works li .links {
     opacity: 1;
   }
 
