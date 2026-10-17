@@ -308,6 +308,13 @@ a {
   }
 }
 
+/* timed hero (Rail.jsx): transitions on transform and opacity run off the main thread */
+.hero-timed .name,
+.hero-timed .rail,
+.hero-timed .lead-wrap {
+  transition: transform 0.8s var(--ease), opacity 0.4s;
+}
+
 @keyframes rail-narrow {
   from {
     transform: scaleX(1);

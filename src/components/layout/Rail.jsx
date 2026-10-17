@@ -14,6 +14,9 @@ const clamp = (v) => Math.min(Math.max(v, 0), 1);
 const RAIL_END = 0.24;
 // the browser moves the name in step with the finger, JS only when it can't
 const cssScroll = () => CSS.supports("animation-timeline: scroll()") && !prefersReducedMotion();
+// touch Safari before 26 can't keep a finger-driven hero smooth, so there it plays on its own (CSS transitions)
+const timedHero = () =>
+  window.matchMedia("(hover: none)").matches && !CSS.supports("animation-timeline: scroll()") && !prefersReducedMotion();
 
 function bandHeight() {
   return document.querySelector(".band").offsetHeight;
@@ -79,6 +82,8 @@ export default function Rail({ section, project }) {
     let viewH = window.innerHeight;
     let viewW = window.innerWidth;
     let sizes = {};
+    // switched on after the first frame, otherwise the name would slide in from the top on load
+    let transitionsOn = false;
     const progress = { value: 0 };
     // touch scroll arrives in uneven steps on iOS, a short ease hides them
     const followScroll = gsap.quickTo(progress, "value", {
@@ -94,6 +99,7 @@ export default function Rail({ section, project }) {
         compact,
         // a tablet in landscape gets the desktop layout but scrolls with the finger like a phone
         css: !mouseQuery().matches && cssScroll(),
+        timed: timedHero(),
         view: compact ? largeViewportHeight() : window.innerHeight,
         name: name.offsetHeight,
         band: bandHeight(),
@@ -102,6 +108,7 @@ export default function Rail({ section, project }) {
       };
       name.classList.toggle("follow-scroll", sizes.css);
       railRef.current.classList.toggle("follow-scroll", sizes.css);
+      if (transitionsOn) document.documentElement.classList.toggle("hero-timed", sizes.timed);
       if (!sizes.css) return;
       const { top0, top1, endScale } = namePath();
       name.style.setProperty("--name-y0", top0 - sizes.band + "px");
@@ -160,12 +167,25 @@ export default function Rail({ section, project }) {
       indexRef.current.classList.toggle("show", t > 0.95);
     }
 
+    // the timed hero is either open or closed: any scroll past the top closes it
+    function heroProgress(scrollProgress) {
+      if (!sizes.timed) return scrollProgress;
+      return scrollProgress > 0.02 ? 1 : 0;
+    }
+
     fitName();
     measure();
     const trigger = ScrollTrigger.create({
       start: 0,
       end: () => viewH * 0.8,
       onUpdate: (self) => {
+        if (sizes.timed) {
+          const next = heroProgress(self.progress);
+          if (next === progress.value) return;
+          progress.value = next;
+          apply(next);
+          return;
+        }
         if (sizes.compact && !sizes.css) {
           followScroll(self.progress);
           return;
@@ -176,12 +196,19 @@ export default function Rail({ section, project }) {
       },
       onRefresh: (self) => {
         measure();
-        progress.value = self.progress;
+        progress.value = heroProgress(self.progress);
         followScroll.tween.pause();
-        apply(self.progress);
+        apply(progress.value);
       },
     });
-    apply(trigger.progress);
+    progress.value = heroProgress(trigger.progress);
+    apply(progress.value);
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        transitionsOn = true;
+        document.documentElement.classList.toggle("hero-timed", sizes.timed);
+      }),
+    );
 
     const onResize = () => {
       // on phones a height-only change is the address bar: the dark part follows it, a full refresh would jump
@@ -201,7 +228,7 @@ export default function Rail({ section, project }) {
     document.fonts.load('700 100px "Archivo Variable"', "FALANGA").then(() => {
       fitName();
       measure();
-      apply(trigger.progress);
+      apply(heroProgress(trigger.progress));
     });
 
     return () => window.removeEventListener("resize", onResize);
