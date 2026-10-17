@@ -821,7 +821,27 @@ main {
   .band .k {
     color: var(--dark);
     font-weight: 500;
-    font-size: 15px;
+    font-size: clamp(13px, 4vw, 15px);
+  }
+
+  /* taller tap areas, the negative margins keep the layout where it was */
+  .drawer .big {
+    margin-block: -14px;
+  }
+
+  .drawer .big a {
+    display: inline-block;
+    padding: 14px 0;
+  }
+
+  .contact .mail {
+    padding: 14px 0;
+    margin-top: calc(7vh - 14px);
+    margin-bottom: -14px;
+  }
+
+  .contact .links a {
+    padding: 10px 0;
   }
 
   .drawer .in {
