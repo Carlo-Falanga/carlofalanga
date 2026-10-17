@@ -104,16 +104,13 @@ export default function Works({ onActiveChange }) {
             onMouseEnter={() => onEnter(i)}
             onMouseLeave={onLeaveItem}
           >
-            <a className="t" href={p.href} target="_blank" rel="noreferrer">
+            <a className="t" href={p.demo} target="_blank" rel="noreferrer">
               {p.title}
             </a>
             <span className="s">{p.summary}</span>
             <span className="links">
-              <a href={p.demo} target="_blank" rel="noreferrer">
-                Live demo
-              </a>
               <a href={p.href} target="_blank" rel="noreferrer">
-                Code
+                View on GitHub
               </a>
             </span>
             <span className="mshot">
