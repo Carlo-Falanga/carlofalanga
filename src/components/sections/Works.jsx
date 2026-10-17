@@ -108,11 +108,6 @@ export default function Works({ onActiveChange }) {
               {p.title}
             </a>
             <span className="s">{p.summary}</span>
-            <span className="links">
-              <a href={p.href} target="_blank" rel="noreferrer">
-                View on GitHub
-              </a>
-            </span>
             <span className="mshot">
               <img
                 src={p.image}
