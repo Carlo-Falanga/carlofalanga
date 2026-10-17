@@ -47,15 +47,28 @@ export default function Stack() {
         });
       });
 
-      // phones: plain rows, the one in the middle of the screen gets the yellow block
+      // phones: plain rows, the one closest to the middle of the screen gets the yellow block
       mm.add(`(max-width: ${LAPTOP_MIN_WIDTH - 1}px)`, () => {
-        sectionRef.current.querySelectorAll(".mrow").forEach((row) => {
-          ScrollTrigger.create({
-            trigger: row.querySelector("h3"),
-            start: "top 55%",
-            end: "bottom 30%",
-            toggleClass: { targets: row, className: "on" },
+        const rows = [...sectionRef.current.querySelectorAll(".mrow")];
+        const lightClosest = (self) => {
+          const middle = window.innerHeight * 0.45;
+          let closest = -1;
+          let best = Infinity;
+          rows.forEach((row, i) => {
+            const distance = Math.abs(row.querySelector("h3").getBoundingClientRect().top - middle);
+            if (distance < best) {
+              best = distance;
+              closest = i;
+            }
           });
+          rows.forEach((row, i) => row.classList.toggle("on", self.isActive && i === closest));
+        };
+        ScrollTrigger.create({
+          trigger: sectionRef.current.querySelector(".stack-m"),
+          start: "top 60%",
+          end: "bottom 30%",
+          onUpdate: lightClosest,
+          onToggle: lightClosest,
         });
       });
     },
