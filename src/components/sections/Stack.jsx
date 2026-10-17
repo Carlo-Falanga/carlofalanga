@@ -11,12 +11,9 @@ function TechRow({ tech }) {
       <span className="logo">
         <Icon aria-hidden="true" />
       </span>
-      <div>
-        <b>
-          <span>{tech.name}</span>
-        </b>
-        <p>{tech.where}</p>
-      </div>
+      <b>
+        <span>{tech.name}</span>
+      </b>
     </div>
   );
 }

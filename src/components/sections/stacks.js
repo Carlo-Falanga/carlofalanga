@@ -1,12 +1,19 @@
 import {
+  SiJavascript,
   SiReact,
   SiLivewire,
   SiTailwindcss,
+  SiBootstrap,
+  SiPhp,
   SiLaravel,
+  SiFilament,
   SiNodedotjs,
+  SiExpress,
   SiPostgresql,
   SiSqlite,
   SiShopify,
+  SiGraphql,
+  SiGit,
   SiGithubactions,
   SiDocker,
 } from "react-icons/si";
@@ -16,45 +23,46 @@ export const layers = [
   {
     name: "Frontend",
     techs: [
-      { name: "React", Icon: SiReact, where: "Clients for NaturaFit, Warehouse orders and BoolDog." },
-      { name: "Livewire", Icon: SiLivewire, where: "The SaaS platform at WebGas.net." },
-      { name: "Tailwind", Icon: SiTailwindcss, where: "The Scalo landing page." },
+      { name: "JavaScript", Icon: SiJavascript },
+      { name: "React", Icon: SiReact },
+      { name: "Livewire", Icon: SiLivewire },
+      { name: "Tailwind", Icon: SiTailwindcss },
+      { name: "Bootstrap", Icon: SiBootstrap },
     ],
   },
   {
     name: "Backend",
     techs: [
-      {
-        name: "Laravel, Filament",
-        Icon: SiLaravel,
-        where: "A modular monolith with Filament at WebGas.net, and the APIs for NaturaFit and Scalo.",
-      },
-      { name: "Node, Express", Icon: SiNodedotjs, where: "The Warehouse orders API and the BoolDog backend." },
+      { name: "PHP", Icon: SiPhp },
+      { name: "Laravel", Icon: SiLaravel },
+      { name: "Filament", Icon: SiFilament },
+      { name: "Node.js", Icon: SiNodedotjs },
+      { name: "Express", Icon: SiExpress },
     ],
   },
   {
     name: "Database",
     techs: [
-      { name: "PostgreSQL", Icon: SiPostgresql, where: "WebGas.net, with workspace-level tenant isolation." },
-      { name: "MySQL", Icon: GrMysql, where: "NaturaFit and BoolDog." },
-      { name: "SQLite", Icon: SiSqlite, where: "Warehouse orders and Scalo." },
+      { name: "PostgreSQL", Icon: SiPostgresql },
+      { name: "MySQL", Icon: GrMysql },
+      { name: "SQLite", Icon: SiSqlite },
     ],
   },
   {
     name: "E-commerce",
     techs: [
-      { name: "Shopify Plus", Icon: SiShopify, where: "Liquid themes, custom apps and the GraphQL Admin API." },
+      { name: "Shopify Plus", Icon: SiShopify },
+      // Liquid has no logo of its own, it's Shopify's template language
+      { name: "Liquid", Icon: SiShopify },
+      { name: "GraphQL", Icon: SiGraphql },
     ],
   },
   {
     name: "DevOps",
     techs: [
-      {
-        name: "GitHub Actions",
-        Icon: SiGithubactions,
-        where: "CI and code review on the team's pull requests at WebGas.net.",
-      },
-      { name: "Docker", Icon: SiDocker, where: "Containerized deploys at WebGas.net." },
+      { name: "Git", Icon: SiGit },
+      { name: "GitHub Actions", Icon: SiGithubactions },
+      { name: "Docker", Icon: SiDocker },
     ],
   },
 ];

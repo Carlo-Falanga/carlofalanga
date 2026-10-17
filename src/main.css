@@ -701,8 +701,8 @@ main {
 
 .tech {
   display: grid;
-  grid-template-columns: clamp(84px, 7vw, 112px) 1fr;
-  align-items: start;
+  grid-template-columns: clamp(56px, 4.6vw, 84px) 1fr;
+  align-items: center;
 }
 
 .where .tech {
@@ -728,6 +728,18 @@ main {
   animation-delay: 0.16s;
 }
 
+.where > div.on .tech:nth-child(4),
+.where > div.on .tech:nth-child(4) b span {
+  transition-delay: 0.24s;
+  animation-delay: 0.24s;
+}
+
+.where > div.on .tech:nth-child(5),
+.where > div.on .tech:nth-child(5) b span {
+  transition-delay: 0.32s;
+  animation-delay: 0.32s;
+}
+
 .where .tech b {
   overflow: hidden;
 }
@@ -739,24 +751,16 @@ main {
 
 .tech .logo {
   display: flex;
-  font-size: clamp(34px, 2.8vw, 46px);
+  font-size: clamp(26px, 2.2vw, 38px);
   line-height: 1;
 }
 
 .tech b {
   display: block;
-  font-size: clamp(28px, 2.8vw, 46px);
+  font-size: clamp(24px, 2.2vw, 38px);
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1;
-}
-
-.tech p {
-  margin-top: 10px;
-  max-width: 36ch;
-  font-size: 17px;
-  line-height: 1.45;
-  color: var(--dark-dim);
 }
 
 .stack-m {
@@ -1068,11 +1072,6 @@ main {
     font-size: 24px;
     letter-spacing: -0.02em;
     line-height: 1.05;
-  }
-
-  .stack-m p {
-    margin-top: 6px;
-    font-size: 16px;
   }
 
   .contact {
