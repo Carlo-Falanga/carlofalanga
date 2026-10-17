@@ -85,6 +85,8 @@ export default function Works({ onActiveChange }) {
             <img
               key={p.title}
               src={p.image}
+              srcSet={`${p.imageSmall} 800w, ${p.image} 1600w`}
+              sizes="min(32vw, 500px)"
               alt=""
               width="1600"
               height={p.imageHeight}
@@ -107,7 +109,11 @@ export default function Works({ onActiveChange }) {
             </a>
             <span className="s">{p.summary}</span>
             <span className="mshot">
-              <img src={p.image} alt={`${p.title} screenshot`} width="1600" height={p.imageHeight} loading="lazy" decoding="async" />
+              <img
+                src={p.image}
+                srcSet={`${p.imageSmall} 800w, ${p.image} 1600w`}
+                sizes="92vw"
+                alt={`${p.title} screenshot`} width="1600" height={p.imageHeight} loading="lazy" decoding="async" />
             </span>
           </li>
         ))}

@@ -7,6 +7,7 @@ export const projects = [
     builtWith: "Laravel, Tailwind",
     href: "https://github.com/Carlo-Falanga/scalo-shopify-landing",
     image: "/images/screenshot-scalo.webp",
+    imageSmall: "/images/screenshot-scalo-800.webp",
     imageHeight: 846,
   },
   {
@@ -17,6 +18,7 @@ export const projects = [
     builtWith: "React, Express, SQLite, Zod",
     href: "https://github.com/Carlo-Falanga/warehouse-orders",
     image: "/images/screenshot-warehouse.webp",
+    imageSmall: "/images/screenshot-warehouse-800.webp",
     imageHeight: 846,
   },
   {
@@ -27,6 +29,7 @@ export const projects = [
     builtWith: "Laravel, React",
     href: "https://github.com/Carlo-Falanga/naturafit-client",
     image: "/images/screenshot-naturafit.webp",
+    imageSmall: "/images/screenshot-naturafit-800.webp",
     imageHeight: 844,
   },
   {
@@ -37,6 +40,7 @@ export const projects = [
     builtWith: "React, Node, Express",
     href: "https://github.com/Carlo-Falanga/booldog",
     image: "/images/screenshot-booldog.webp",
+    imageSmall: "/images/screenshot-booldog-800.webp",
     imageHeight: 945,
   },
 ];
