@@ -1002,21 +1002,6 @@ main {
     opacity: 1;
   }
 
-  .works .mshot {
-    display: block;
-    margin-top: 2vh;
-  }
-
-  .works .mshot img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    object-position: top;
-    border-radius: 3px;
-  }
-
   .peek {
     display: none;
   }
@@ -1079,6 +1064,39 @@ main {
 
   .contact .links {
     font-size: 18px;
+  }
+}
+
+/* no mouse to carry the preview: the screenshot sits under the title */
+@media (max-width: 991px), (hover: none), (pointer: coarse) {
+  .works .mshot {
+    display: block;
+    margin-top: 2vh;
+  }
+
+  .works .mshot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 3px;
+  }
+}
+
+/* tablets in landscape: desktop layout, touch screen */
+@media (min-width: 992px) and (hover: none), (min-width: 992px) and (pointer: coarse) {
+  .works li {
+    padding: 3vh 0;
+  }
+
+  .works li .s {
+    opacity: 1;
+  }
+
+  .works .mshot {
+    width: min(48vw, 640px);
   }
 }
 
