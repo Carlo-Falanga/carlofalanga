@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
-import { isCompact, mouseQuery, prefersReducedMotion } from "../../lib/media";
+import { isCompact, mouseQuery, nativeScroll, prefersReducedMotion } from "../../lib/media";
 import { scrollToTarget } from "../../lib/scroll";
 import { useSwell } from "../../lib/swell";
 import { naplesTime } from "../../lib/time";
@@ -98,7 +98,7 @@ export default function Rail({ section, project }) {
       sizes = {
         compact,
         // a tablet in landscape gets the desktop layout but scrolls with the finger like a phone
-        css: !mouseQuery().matches && cssScroll(),
+        css: (!mouseQuery().matches || nativeScroll()) && cssScroll(),
         timed: timedHero(),
         view: compact ? largeViewportHeight() : window.innerHeight,
         name: name.offsetHeight,

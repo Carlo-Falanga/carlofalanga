@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
-import { prefersReducedMotion } from "../../lib/media";
+import { nativeScroll, prefersReducedMotion } from "../../lib/media";
 import { setLenis } from "../../lib/scroll";
 
 export default function SmoothScroll({ children }) {
@@ -11,7 +11,7 @@ export default function SmoothScroll({ children }) {
     window.addEventListener("load", refresh);
     document.fonts.ready.then(refresh);
 
-    if (prefersReducedMotion()) {
+    if (prefersReducedMotion() || nativeScroll()) {
       return () => window.removeEventListener("load", refresh);
     }
 
