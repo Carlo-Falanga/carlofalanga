@@ -96,7 +96,8 @@ export default function Rail({ section, project }) {
       probe.style.cssText =
         'position:absolute;visibility:hidden;white-space:nowrap;font:700 100px "Archivo Variable";letter-spacing:-0.045em';
       document.body.appendChild(probe);
-      name.style.fontSize = ((window.innerWidth * 0.9) / probe.offsetWidth) * 100 + "px";
+      // clientWidth, not innerWidth: on Android innerWidth grows with whatever sticks out, the name included
+      name.style.fontSize = ((document.documentElement.clientWidth * 0.9) / probe.offsetWidth) * 100 + "px";
       probe.remove();
     }
 
@@ -138,15 +139,21 @@ export default function Rail({ section, project }) {
     apply(trigger.progress);
 
     const onResize = () => {
-      // on phones a height-only change is the address bar, not a real resize
-      if (window.innerWidth === viewW && isCompact()) return;
+      // on phones a height-only change is the address bar: the dark part follows it, a full refresh would jump
+      if (window.innerWidth === viewW && isCompact()) {
+        viewH = window.innerHeight;
+        measure();
+        apply(trigger.progress);
+        return;
+      }
       viewW = window.innerWidth;
       viewH = window.innerHeight;
       fitName();
       ScrollTrigger.refresh();
     };
     window.addEventListener("resize", onResize);
-    document.fonts.ready.then(() => {
+    // fonts.ready can resolve before Archivo is even requested, then the probe measures the fallback font
+    document.fonts.load('700 100px "Archivo Variable"', "FALANGA").then(() => {
       fitName();
       measure();
       apply(trigger.progress);
