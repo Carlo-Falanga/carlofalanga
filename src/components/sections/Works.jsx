@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
 import { mouseQuery } from "../../lib/media";
+import { pageTop } from "../../lib/scroll";
 import { projects } from "./projectList";
 
 export default function Works({ onActiveChange }) {
@@ -26,19 +27,22 @@ export default function Works({ onActiveChange }) {
 
   useGSAP(() => {
     const items = [...listRef.current.children];
+    let centers = [];
     // the project closest to the middle of the screen is the lit one, unless the cursor picked one
     ScrollTrigger.create({
       trigger: listRef.current,
       start: "top bottom",
       end: "bottom top",
-      onUpdate: () => {
+      onRefresh: () => {
+        centers = items.map((li) => pageTop(li) + li.offsetHeight / 2);
+      },
+      onUpdate: (self) => {
         if (hovering.current) return;
-        const middle = window.innerHeight / 2;
+        const middle = self.scroll() + window.innerHeight / 2;
         let best = -1;
         let gap = Infinity;
-        items.forEach((li, i) => {
-          const r = li.getBoundingClientRect();
-          const d = Math.abs(r.top + r.height / 2 - middle);
+        centers.forEach((center, i) => {
+          const d = Math.abs(center - middle);
           if (d < gap) {
             gap = d;
             best = i;

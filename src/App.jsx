@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "./lib/gsap";
+import { pageTop } from "./lib/scroll";
 import SmoothScroll from "./components/layout/SmoothScroll";
 import Band from "./components/layout/Band";
 import Rail from "./components/layout/Rail";
@@ -18,13 +19,18 @@ function App() {
 
   // the rail shows the panel of the last section whose top has passed the middle of the screen
   useGSAP(() => {
+    let tops = [];
     ScrollTrigger.create({
       start: 0,
       end: "max",
-      onUpdate: () => {
+      onRefresh: () => {
+        tops = sections.map((s) => pageTop(document.getElementById(s.id)));
+      },
+      onUpdate: (self) => {
+        const middle = self.scroll() + window.innerHeight * 0.5;
         let current = sections[0].key;
-        sections.forEach((s) => {
-          if (document.getElementById(s.id).getBoundingClientRect().top < window.innerHeight * 0.5) current = s.key;
+        sections.forEach((s, i) => {
+          if (tops[i] < middle) current = s.key;
         });
         setSection(current);
       },

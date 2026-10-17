@@ -7,6 +7,13 @@ export function setLenis(instance) {
   lenis = instance;
 }
 
+// distance from the top of the page, read on refresh so the scroll handlers do no layout reads
+export function pageTop(element) {
+  let top = 0;
+  for (let node = element; node; node = node.offsetParent) top += node.offsetTop;
+  return top;
+}
+
 export function scrollToTarget(target, offset = 0) {
   if (lenis) {
     lenis.scrollTo(target, { offset });
