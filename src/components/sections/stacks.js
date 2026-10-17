@@ -14,7 +14,7 @@ import { GrMysql } from "react-icons/gr";
 
 export const layers = [
   {
-    name: "Interface",
+    name: "Frontend",
     techs: [
       { name: "React", Icon: SiReact, where: "Clients for NaturaFit, Warehouse orders and BoolDog." },
       { name: "Livewire", Icon: SiLivewire, where: "The SaaS platform at WebGas.net." },
@@ -22,7 +22,7 @@ export const layers = [
     ],
   },
   {
-    name: "Application",
+    name: "Backend",
     techs: [
       {
         name: "Laravel, Filament",
@@ -33,7 +33,7 @@ export const layers = [
     ],
   },
   {
-    name: "Data",
+    name: "Database",
     techs: [
       { name: "PostgreSQL", Icon: SiPostgresql, where: "WebGas.net, with workspace-level tenant isolation." },
       { name: "MySQL", Icon: GrMysql, where: "NaturaFit and BoolDog." },
@@ -41,13 +41,13 @@ export const layers = [
     ],
   },
   {
-    name: "Stores",
+    name: "E-commerce",
     techs: [
       { name: "Shopify Plus", Icon: SiShopify, where: "Liquid themes, custom apps and the GraphQL Admin API." },
     ],
   },
   {
-    name: "Delivery",
+    name: "DevOps",
     techs: [
       {
         name: "GitHub Actions",

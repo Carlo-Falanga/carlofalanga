@@ -298,7 +298,7 @@ export default function Rail({ section, project }) {
             <span className="v">Laravel, Livewire, Filament and PostgreSQL at WebGas.net</span>
           </p>
           <p className="row">
-            <span className="k">Stores</span>
+            <span className="k">E-commerce</span>
             <span className="v">Shopify Plus: Liquid themes and custom apps</span>
           </p>
           <p className="row">
