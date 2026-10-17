@@ -273,6 +273,41 @@ a {
   color: var(--light);
 }
 
+/* scroll-driven: the compositor runs these with the native scroll, the variables come from Rail.jsx */
+.name.follow-scroll,
+.rail.follow-scroll {
+  animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  animation-fill-mode: both;
+  animation-timeline: scroll(root);
+  animation-range: 0px var(--hero-end);
+}
+
+.name.follow-scroll {
+  animation-name: name-land;
+}
+
+.rail.follow-scroll {
+  animation-name: rail-narrow;
+}
+
+@keyframes name-land {
+  from {
+    transform: translateY(var(--name-y0)) scale(1);
+  }
+  to {
+    transform: translateY(var(--name-y1)) scale(var(--name-scale));
+  }
+}
+
+@keyframes rail-narrow {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(var(--rail-scale));
+  }
+}
+
 .lead-wrap {
   position: fixed;
   top: calc(var(--band) + 7vh);
@@ -897,30 +932,8 @@ main {
     top: var(--band);
   }
 
-  /* scroll-driven: the compositor runs these with the native scroll, the variables come from Rail.jsx */
-  .name.follow-scroll,
-  .rail.follow-scroll {
-    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
-    animation-fill-mode: both;
-    animation-timeline: scroll(root);
-    animation-range: 0px var(--hero-end);
-  }
-
-  .name.follow-scroll {
-    animation-name: name-land;
-  }
-
   .rail.follow-scroll {
     animation-name: rail-fold;
-  }
-
-  @keyframes name-land {
-    from {
-      transform: translateY(var(--name-y0)) scale(1);
-    }
-    to {
-      transform: translateY(var(--name-y1)) scale(var(--name-scale));
-    }
   }
 
   @keyframes rail-fold {

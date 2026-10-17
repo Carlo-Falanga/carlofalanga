@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
-import { isCompact, prefersReducedMotion } from "../../lib/media";
+import { isCompact, mouseQuery, prefersReducedMotion } from "../../lib/media";
 import { scrollToTarget } from "../../lib/scroll";
 import { useSwell } from "../../lib/swell";
 import { naplesTime } from "../../lib/time";
@@ -10,6 +10,8 @@ import Chars from "../ui/Chars";
 
 const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 const clamp = (v) => Math.min(Math.max(v, 0), 1);
+// on desktop the column keeps this share of the screen width
+const RAIL_END = 0.24;
 // the browser moves the name in step with the finger, JS only when it can't
 const cssScroll = () => CSS.supports("animation-timeline: scroll()") && !prefersReducedMotion();
 
@@ -90,7 +92,8 @@ export default function Rail({ section, project }) {
       const compact = isCompact();
       sizes = {
         compact,
-        css: compact && cssScroll(),
+        // a tablet in landscape gets the desktop layout but scrolls with the finger like a phone
+        css: !mouseQuery().matches && cssScroll(),
         view: compact ? largeViewportHeight() : window.innerHeight,
         name: name.offsetHeight,
         band: bandHeight(),
@@ -104,7 +107,7 @@ export default function Rail({ section, project }) {
       name.style.setProperty("--name-y0", top0 - sizes.band + "px");
       name.style.setProperty("--name-y1", top1 - sizes.band + "px");
       name.style.setProperty("--name-scale", endScale);
-      railRef.current.style.setProperty("--rail-scale", sizes.topbar / sizes.rail);
+      railRef.current.style.setProperty("--rail-scale", compact ? sizes.topbar / sizes.rail : RAIL_END);
       document.documentElement.style.setProperty("--hero-end", viewH * 0.8 + "px");
     }
 
@@ -151,7 +154,7 @@ export default function Rail({ section, project }) {
         topbarRef.current.classList.toggle("show", t > 0.9);
         return;
       }
-      gsap.set(rail, { scaleX: 1 - 0.76 * t, scaleY: 1 });
+      if (!sizes.css) gsap.set(rail, { scaleX: 1 - (1 - RAIL_END) * t, scaleY: 1 });
       identityRef.current.style.top = top1 + nameHeight * endScale + 24 + "px";
       identityRef.current.classList.toggle("show", t > 0.95);
       indexRef.current.classList.toggle("show", t > 0.95);
