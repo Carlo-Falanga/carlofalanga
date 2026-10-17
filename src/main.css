@@ -112,6 +112,10 @@ a {
   transform: translateY(-100%);
 }
 
+.band .v span:first-child {
+  animation: rise 0.7s var(--ease) backwards;
+}
+
 .band .bar {
   position: absolute;
   left: 0;
@@ -172,13 +176,24 @@ a {
 
 .drawer .big .rise {
   display: inline-block;
-  animation: drawer-rise 0.6s var(--ease);
+  animation: rise 0.6s var(--ease);
 }
 
-@keyframes drawer-rise {
+@keyframes rise {
   from {
     transform: translateY(105%);
   }
+}
+
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.mask > span {
+  display: inline-block;
+  animation: rise 0.6s var(--ease) backwards;
 }
 
 .drawer .detail {
@@ -643,12 +658,25 @@ main {
   transform: none;
 }
 
-.where > div.on .tech:nth-child(2) {
+.where > div.on .tech:nth-child(2),
+.where > div.on .tech:nth-child(2) b span {
   transition-delay: 0.08s;
+  animation-delay: 0.08s;
 }
 
-.where > div.on .tech:nth-child(3) {
+.where > div.on .tech:nth-child(3),
+.where > div.on .tech:nth-child(3) b span {
   transition-delay: 0.16s;
+  animation-delay: 0.16s;
+}
+
+.where .tech b {
+  overflow: hidden;
+}
+
+.where > div.on .tech b span {
+  display: inline-block;
+  animation: rise 0.6s var(--ease) backwards;
 }
 
 .tech .logo {

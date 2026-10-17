@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { bandCells, GITHUB, LINKEDIN } from "../content";
-import { scramble } from "../../lib/scramble";
 
 const isTouch = () => window.matchMedia("(hover: none)").matches;
 
@@ -13,13 +12,11 @@ export default function Band() {
   const bandRef = useRef(null);
   const drawerRef = useRef(null);
   const cellRefs = useRef([]);
-  const valueRefs = useRef([]);
   const closeTimer = useRef(null);
   const detailTimer = useRef(null);
   const openedAt = useRef(0);
 
   useEffect(() => {
-    valueRefs.current.forEach((el, i) => scramble(el, i * 6));
     return () => {
       clearTimeout(closeTimer.current);
       clearTimeout(detailTimer.current);
@@ -119,12 +116,12 @@ export default function Band() {
             <span className="v">
               {c.href ? (
                 <a href={c.href} tabIndex={-1}>
-                  <span ref={(el) => (valueRefs.current[i] = el)}>{c.value}</span>
+                  <span style={{ animationDelay: `${300 + i * 80}ms` }}>{c.value}</span>
                   <span aria-hidden="true">{c.hover}</span>
                 </a>
               ) : (
                 <>
-                  <span ref={(el) => (valueRefs.current[i] = el)}>{c.value}</span>
+                  <span style={{ animationDelay: `${300 + i * 80}ms` }}>{c.value}</span>
                   <span aria-hidden="true">{c.hover}</span>
                 </>
               )}

@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
 import { LAPTOP_MIN_WIDTH } from "../../lib/media";
-import { scramble } from "../../lib/scramble";
 import { layers } from "./stacks";
 
 function TechRow({ tech }) {
@@ -13,7 +12,9 @@ function TechRow({ tech }) {
         <Icon aria-hidden="true" />
       </span>
       <div>
-        <b>{tech.name}</b>
+        <b>
+          <span>{tech.name}</span>
+        </b>
         <p>{tech.where}</p>
       </div>
     </div>
@@ -23,8 +24,6 @@ function TechRow({ tech }) {
 export default function Stack() {
   const [current, setCurrent] = useState(0);
   const sectionRef = useRef(null);
-  const whereRef = useRef(null);
-  const shown = useRef(-1);
 
   useGSAP(
     () => {
@@ -39,10 +38,6 @@ export default function Stack() {
           onUpdate: (self) => {
             const index = Math.min(layers.length - 1, Math.floor(self.progress * layers.length));
             setCurrent(index);
-            if (index !== shown.current && self.progress > 0) {
-              shown.current = index;
-              whereRef.current.children[index].querySelectorAll("b").forEach((el, n) => scramble(el, 4 + n * 5));
-            }
           },
         });
       });
@@ -86,7 +81,7 @@ export default function Stack() {
             </li>
           ))}
         </ul>
-        <div className="where" ref={whereRef}>
+        <div className="where">
           {layers.map((layer, i) => (
             <div key={layer.name} className={current === i ? "on" : ""}>
               {layer.techs.map((tech) => (

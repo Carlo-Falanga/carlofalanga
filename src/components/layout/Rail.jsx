@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
 import { isCompact, prefersReducedMotion } from "../../lib/media";
-import { scramble } from "../../lib/scramble";
 import { scrollToTarget } from "../../lib/scroll";
 import { useSwell } from "../../lib/swell";
 import { naplesTime } from "../../lib/time";
@@ -23,7 +22,6 @@ export default function Rail({ section, project }) {
   const leadRef = useRef(null);
   const identityRef = useRef(null);
   const indexRef = useRef(null);
-  const projectNameRef = useRef(null);
   const live = useRef(false);
   const [leadIn, setLeadIn] = useState(false);
   const [time, setTime] = useState(naplesTime);
@@ -36,12 +34,6 @@ export default function Rail({ section, project }) {
       clearInterval(clock);
     };
   }, []);
-
-  useEffect(() => {
-    const el = projectNameRef.current;
-    el.dataset.text = project.title;
-    scramble(el);
-  }, [project]);
 
   useGSAP(() => {
     const name = nameRef.current;
@@ -200,8 +192,9 @@ export default function Rail({ section, project }) {
         <div className={`panel${section === "work" ? " on" : ""}`}>
           <p className="row">
             <span className="k">Project</span>
-            {/* filled by the effect above, which decodes the title letter by letter */}
-            <span className="v" ref={projectNameRef} />
+            <span className="v mask">
+              <span key={project.title}>{project.title}</span>
+            </span>
           </p>
           <p className="row">
             <span className="k">What</span>
