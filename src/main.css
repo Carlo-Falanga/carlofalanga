@@ -315,6 +315,11 @@ a {
   transition: transform 0.8s var(--ease), opacity 0.4s;
 }
 
+/* the colour change repaints the name, so it waits until the name has stopped moving */
+.hero-timed .name .surname .ch {
+  transition: color 0.5s 0.8s;
+}
+
 @keyframes rail-narrow {
   from {
     transform: scaleX(1);
