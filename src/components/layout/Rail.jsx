@@ -163,8 +163,13 @@ export default function Rail({ section, project }) {
       start: 0,
       end: () => viewH * 0.8,
       onUpdate: (self) => {
-        if (sizes.compact && !sizes.css) followScroll(self.progress);
-        else apply(self.progress);
+        if (sizes.compact && !sizes.css) {
+          followScroll(self.progress);
+          return;
+        }
+        // kept in step for the resize handler, which re-applies the last position
+        progress.value = self.progress;
+        apply(self.progress);
       },
       onRefresh: (self) => {
         measure();
