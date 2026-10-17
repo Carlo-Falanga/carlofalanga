@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "../../lib/gsap";
 import { scrollToTarget } from "../../lib/scroll";
@@ -8,7 +8,7 @@ import Chars from "../ui/Chars";
 
 const TITLE = ["Let's", "talk"];
 
-export default function Contact() {
+function Contact() {
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef(null);
   const mailRef = useRef(null);
@@ -88,3 +88,5 @@ export default function Contact() {
     </section>
   );
 }
+
+export default memo(Contact);

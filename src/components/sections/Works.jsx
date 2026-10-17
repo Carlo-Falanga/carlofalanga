@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "../../lib/gsap";
 import { mouseQuery } from "../../lib/media";
 import { pageTop } from "../../lib/scroll";
 import { projects } from "./projectList";
 
-export default function Works({ onActiveChange }) {
+function Works({ onActiveChange }) {
   const [active, setActive] = useState(-1);
   const [preview, setPreview] = useState(0);
   const [peekOn, setPeekOn] = useState(false);
@@ -125,3 +125,5 @@ export default function Works({ onActiveChange }) {
     </section>
   );
 }
+
+export default memo(Works);

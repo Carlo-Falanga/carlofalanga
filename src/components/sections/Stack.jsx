@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "../../lib/gsap";
 import { isCompact } from "../../lib/media";
@@ -21,7 +21,7 @@ function TechRow({ tech }) {
   );
 }
 
-export default function Stack() {
+function Stack() {
   const [current, setCurrent] = useState(0);
   const sectionRef = useRef(null);
 
@@ -105,3 +105,5 @@ export default function Stack() {
     </section>
   );
 }
+
+export default memo(Stack);

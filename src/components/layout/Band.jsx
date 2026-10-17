@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { bandCells, GITHUB, LINKEDIN } from "../content";
 
 const isTouch = () => window.matchMedia("(hover: none)").matches;
 
-export default function Band() {
+function Band() {
   const [openIndex, setOpenIndex] = useState(-1);
   const [content, setContent] = useState({ index: 0, big: "" });
   const [detailIndex, setDetailIndex] = useState(0);
@@ -160,3 +160,5 @@ export default function Band() {
     </>
   );
 }
+
+export default memo(Band);

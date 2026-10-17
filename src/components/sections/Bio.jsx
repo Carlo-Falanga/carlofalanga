@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "../../lib/gsap";
 import { bioParts } from "../content";
@@ -8,7 +8,7 @@ const tokens = bioParts.flatMap((part) =>
   typeof part === "string" ? part.split(" ").map((word) => ({ word })) : [{ word: part.highlight, highlight: true }],
 );
 
-export default function Bio() {
+function Bio() {
   const textRef = useRef(null);
 
   useGSAP(() => {
@@ -48,3 +48,5 @@ export default function Bio() {
     </section>
   );
 }
+
+export default memo(Bio);
