@@ -5,6 +5,7 @@ export const projects = [
       "Invite-only odds comparison for a niche of player-prop bettors: scheduled Laravel jobs read three data providers four times a day and flag where two bookmakers disagree.",
     what: "Odds comparison for a niche of bettors",
     builtWith: "React, Laravel, SQLite",
+    demo: "https://oddscompare.eu",
     image: "/images/screenshot-oddscompare.webp",
     imageSmall: "/images/screenshot-oddscompare-800.webp",
     imageHeight: 846,
