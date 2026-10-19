@@ -1,5 +1,15 @@
 export const projects = [
   {
+    title: "Odds Compare",
+    summary:
+      "Invite-only odds comparison for a niche of player-prop bettors: scheduled Laravel jobs read three data providers four times a day and flag where two bookmakers disagree.",
+    what: "Odds comparison for a niche of bettors",
+    builtWith: "React, Laravel, SQLite",
+    image: "/images/screenshot-oddscompare.webp",
+    imageSmall: "/images/screenshot-oddscompare-800.webp",
+    imageHeight: 846,
+  },
+  {
     title: "Scalo",
     summary:
       "Technical test for an e-commerce agency: a landing page with a Laravel backend for leads, anti spam and GA4 tracking through GTM.",

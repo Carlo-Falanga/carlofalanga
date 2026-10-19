@@ -108,9 +108,13 @@ function Works({ onActiveChange }) {
             onMouseEnter={() => onEnter(i)}
             onMouseLeave={onLeaveItem}
           >
-            <a className="t" href={p.demo} target="_blank" rel="noreferrer">
-              {p.title}
-            </a>
+            {p.demo ? (
+              <a className="t" href={p.demo} target="_blank" rel="noreferrer">
+                {p.title}
+              </a>
+            ) : (
+              <span className="t">{p.title}</span>
+            )}
             <span className="s">{p.summary}</span>
             <span className="mshot">
               <img

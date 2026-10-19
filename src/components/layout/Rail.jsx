@@ -286,9 +286,13 @@ export default function Rail({ section, project }) {
           </p>
           <p className="row">
             <span className="k">Code</span>
-            <a className="v" href={project.href} target="_blank" rel="noreferrer">
-              View on GitHub
-            </a>
+            {project.href ? (
+              <a className="v" href={project.href} target="_blank" rel="noreferrer">
+                View on GitHub
+              </a>
+            ) : (
+              <span className="v">Private, invite only</span>
+            )}
           </p>
         </div>
 
