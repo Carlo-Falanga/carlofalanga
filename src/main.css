@@ -594,8 +594,8 @@ main {
   left: 0;
   top: 0;
   z-index: 2;
-  width: min(32vw, 500px);
-  aspect-ratio: 16 / 10;
+  width: min(44vw, 720px);
+  aspect-ratio: 1600 / 846;
   overflow: hidden;
   border-radius: 3px;
   pointer-events: none;

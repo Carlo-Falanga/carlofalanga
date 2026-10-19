@@ -90,7 +90,7 @@ function Works({ onActiveChange }) {
               key={p.title}
               src={p.image}
               srcSet={`${p.imageSmall} 800w, ${p.image} 1600w`}
-              sizes="min(32vw, 500px)"
+              sizes="min(44vw, 720px)"
               alt=""
               width="1600"
               height={p.imageHeight}
